@@ -4,7 +4,6 @@ public abstract class Entity {
 	int y;
 	int speed;
 	int level;
-	enum Direction;
 	
 	boolean setPos(){
 		
