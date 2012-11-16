@@ -27,12 +27,14 @@ public class Chart {
 		return this.map.get(x).get(y);
 	}
 	
-	public void add(Entity entity, int posX, int posY){
-		this.map.get(posY).get(posY).add(entity);
+	public boolean add(Entity entity, int posX, int posY){
+		List<Entity> list=this.map.get(posY).get(posY);
+		
+		return !list.contains(entity) ? list.add(entity) : false;
 	}
 	
-	public void delete(Entity entity, int posX, int posY){
-		this.map.get(posX).get(posY).remove(entity);
+	public boolean delete(Entity entity, int posX, int posY){
+		return this.map.get(posX).get(posY).remove(entity);
 	}
 	
 	public int getSizeX(){
