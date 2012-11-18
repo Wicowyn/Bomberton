@@ -1,5 +1,8 @@
 package mapping;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Abstract class which represent every entity on the map
  * @author yapiti
@@ -10,7 +13,8 @@ public abstract class Entity {
 	private int posY;
 	private double futureMove;
 	private boolean inRun;
-	private boolean dirChanged=true;
+	private Direction lastDir;
+	private Map<Direction, boolean[][]> shapes=new HashMap<Direction, boolean[][]>();
 	
 	protected Direction direction;
 	protected Level level;
@@ -23,19 +27,60 @@ public abstract class Entity {
 	 */
 	public Entity(Chart chart){
 		this.chart=chart;
-		this.dirChanged=true;
 		this.direction=Direction.DOWN;
+		this.lastDir=this.direction;
+		for(Direction dir : Direction.values()) this.shapes.put(dir, new boolean[this.chart.getResolution()][this.chart.getResolution()]);
 		stop();		
 	}
 	
 	/**
-	 * Removes the entity from the map, same operation as {@link #draw()} but in removal.
+	 * Set the shape of the entity. The shape is one case of chart.
+	 * @param shape The DOWN shape, one case.
+	 * @return true / false
 	 */
-	abstract protected void clean();
-	/**
-	 * Draw the entity on the map
-	 */
-	abstract protected void draw();
+	protected final boolean setShape(boolean[][] shape){
+		if(shape.length!=this.chart.getResolution()) return false;
+		if(shape[0].length!=this.chart.getResolution()) return false;
+		
+		this.shapes.clear();
+		boolean[][] up, left, right;
+		this.shapes.put(Direction.DOWN, shape);
+		
+		up=new boolean[this.chart.getResolution()][this.chart.getResolution()];
+		for(int i=0; i<shape.length; i++){
+			
+			for(int j=0; j<shape.length; j++){
+				up[j][i]=shape[shape.length-1-j][shape.length-1-i];		
+			}
+		}
+		this.shapes.put(Direction.UP, up);
+		
+		right=new boolean[this.chart.getResolution()][this.chart.getResolution()];
+		for(int i=0; i<shape.length/2; i++){
+			
+			for(int j=i; j<shape.length-i; j++){
+/*P*/			right[j][i]=shape[shape.length-1-i][j];
+/*O*/			right[shape.length-1-i][j]=shape[shape.length-1-j][shape.length-1-i];
+/*W*/			right[j][shape.length-1-i]=shape[i][j];
+/*A*/			right[i][j]=shape[shape.length-1-j][i];
+/*!*/		}
+		}
+		this.shapes.put(Direction.RIGHT, right);
+		
+		left=new boolean[this.chart.getResolution()][this.chart.getResolution()];
+		for(int i=0; i<shape.length/2; i++){
+			
+			for(int j=i; j<shape.length-i; j++){
+				left[shape.length-1-i][j]=shape[j][i];
+				left[shape.length-1-j][shape.length-1-i]=shape[shape.length-1-i][j];
+				left[i][j]=shape[j][shape.length-1-i];
+				left[j][i]=shape[i][shape.length-1-j];				
+			}
+		}
+		this.shapes.put(Direction.LEFT, left);
+		
+		return true;
+	}
 	
 	/**
 	 * Updates the position of the entity on the map.
@@ -44,22 +89,21 @@ public abstract class Entity {
 	public void update(){ 
 		double currentTime=System.currentTimeMillis();
 		if(isRun() && currentTime>=this.futureMove){
-			clean();
-			int moveOf=(int) ((currentTime-this.futureMove)%speed);
-			boolean verif=true;
+			this.chart.deleteShape(this, posX, posY, this.shapes.get(lastDir));
+			int moveOf=(int) ((currentTime-this.futureMove)/speed);
 			
 			switch(this.direction){
 			case UP:
-				verif=setPos(this.posX, this.posY-moveOf);
+				setPos(this.posX, this.posY-moveOf);
 				break;
 			case DOWN:
-				verif=setPos(this.posX, this.posY+moveOf);
+				setPos(this.posX, this.posY+moveOf);
 				break;
 			case LEFT:
-				verif=setPos(this.posX-moveOf, this.posY);
+				setPos(this.posX-moveOf, this.posY);
 				break;
 			case RIGHT:
-				verif=setPos(this.posX+moveOf, this.posY);
+				setPos(this.posX+moveOf, this.posY);
 				break;
 			default:
 				System.err.println("Error: Entity: update: direction non gérée");
@@ -67,12 +111,13 @@ public abstract class Entity {
 				break;
 			}
 			
-			if(verif) draw();
-			this.dirChanged=false;
+			this.chart.addShape(this, posX, posY, this.shapes.get(this.direction));
+			this.lastDir=this.direction;
 			this.futureMove+=this.speed;
-		} else if(this.dirChanged){
-			draw();
-			this.dirChanged=false;
+		} else if(this.direction!=this.lastDir){
+			this.chart.deleteShape(this, posX, posY, this.shapes.get(lastDir));
+			this.chart.addShape(this, posX, posY, this.shapes.get(this.direction));
+			this.lastDir=this.direction;
 		}
 		
 	}
@@ -114,8 +159,8 @@ public abstract class Entity {
 	 * @param dir The new direction
 	 */
 	public void setDirection(Direction dir){
+		this.lastDir=this.direction;
 		this.direction=dir;
-		this.dirChanged=true;
 	}
 	
 	/**
