@@ -14,8 +14,8 @@ public abstract class Entity {
 	private double futureMove;
 	private boolean inRun;
 	private Direction lastDir;
-	private Map<Direction, boolean[][]> shapes=new HashMap<Direction, boolean[][]>();
 	
+	protected Map<Direction, boolean[][]> shapes=new HashMap<Direction, boolean[][]>();
 	protected Direction direction;
 	protected Level level;
 	protected Chart chart;
@@ -86,7 +86,7 @@ public abstract class Entity {
 	 * Updates the position of the entity on the map.
 	 * Typically should be synchronized with the frame rate
 	 */
-	public void update(){ 
+	public final void update(){ 
 		double currentTime=System.currentTimeMillis();
 		if(isRun() && currentTime>=this.futureMove){
 			this.chart.deleteShape(this, posX, posY, this.shapes.get(lastDir));
@@ -119,8 +119,14 @@ public abstract class Entity {
 			this.chart.addShape(this, posX, posY, this.shapes.get(this.direction));
 			this.lastDir=this.direction;
 		}
-		
+		checkState();
 	}
+	
+	/**
+	 * Check the state of the entity on the map
+	 * It's a function of callback, she is call before the end of {@link #update()};
+	 */
+	protected abstract void checkState();
 	
 	/**
 	 * Set the new position, return if the position was set to(call of {@link #canMoveTo(int, int)})
