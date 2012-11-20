@@ -91,30 +91,30 @@ public abstract class Entity {
 		if(isRun() && currentTime>=this.futureMove){
 			this.chart.deleteShape(this, posX, posY, this.shapes.get(lastDir));
 			int moveOf=(int) ((currentTime-this.futureMove)/speed);
-			boolean sucess=false;
+			boolean success=false;
 			
 			switch(this.direction){
 			case UP:
-				while(!sucess || moveOf>0){
-					setPos(this.posX, this.posY-moveOf);
+				while(!success && moveOf>0){
+					success=setPos(this.posX, this.posY-moveOf);
 					moveOf--;
 				}
 				break;
 			case DOWN:
-				while(!sucess || moveOf>0){
-					setPos(this.posX, this.posY+moveOf);
+				while(!success && moveOf>0){
+					success=setPos(this.posX, this.posY+moveOf);
 					moveOf--;
 				}
 				break;
 			case LEFT:
-				while(!sucess || moveOf>0){
-					setPos(this.posX-moveOf, this.posY);
+				while(!success && moveOf>0){
+					success=setPos(this.posX-moveOf, this.posY);
 					moveOf--;
 				}
 				break;
 			case RIGHT:
-				while(!sucess || moveOf>0){
-					setPos(this.posX+moveOf, this.posY);
+				while(!success && moveOf>0){
+					success=setPos(this.posX+moveOf, this.posY);
 					moveOf--;
 				}
 				break;
