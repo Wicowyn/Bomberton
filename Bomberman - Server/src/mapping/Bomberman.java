@@ -30,7 +30,7 @@ public class Bomberman extends Entity {
 				set.addAll(this.chart.getListEntityAt(x+i, y+this.chart.getResolution()-1));
 				break;
 			case LEFT:
-				set.addAll(this.chart.getListEntityAt(x, i));
+				set.addAll(this.chart.getListEntityAt(x, y+i));
 				break;
 			case RIGHT:
 				set.addAll(this.chart.getListEntityAt(x+this.chart.getResolution()-1, y+i));
