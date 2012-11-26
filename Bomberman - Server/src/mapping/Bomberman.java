@@ -24,16 +24,16 @@ public class Bomberman extends Entity {
 		for(int i=0; i<this.chart.getResolution(); i++){
 			switch (getDirection()) {
 			case UP:
-				set.addAll(this.chart.getListEntityAt(i, 0));
+				set.addAll(this.chart.getListEntityAt(x+i, y));
 				break;
 			case DOWN:
-				set.addAll(this.chart.getListEntityAt(i, this.chart.getResolution()-1));
+				set.addAll(this.chart.getListEntityAt(x+i, y+this.chart.getResolution()-1));
 				break;
 			case LEFT:
-				set.addAll(this.chart.getListEntityAt(0, i));
+				set.addAll(this.chart.getListEntityAt(x, i));
 				break;
 			case RIGHT:
-				set.addAll(this.chart.getListEntityAt(this.chart.getResolution()-1, i));
+				set.addAll(this.chart.getListEntityAt(x+this.chart.getResolution()-1, y+i));
 				break;
 			default:
 				System.err.println("Error: Bomberman: canMoveTo(int, int): direction non gérée");
