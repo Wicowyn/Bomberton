@@ -3,6 +3,8 @@ package mapping;
 import java.util.HashMap;
 import java.util.Map;
 
+import network.Direction;
+
 /**
  * Abstract class which represent every entity on the map
  * @author yapiti
