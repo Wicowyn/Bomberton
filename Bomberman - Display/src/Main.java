@@ -1,8 +1,7 @@
 import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.Game;
 import org.newdawn.slick.SlickException;
 
-import state.MenuState;
+import display.TheGame;
 
 
 public class Main {
@@ -12,8 +11,17 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		System.out.println("Hello world!");
-		MenuState menu = new MenuState();
-		menu.gamecontainer(menu);
+		AppGameContainer app;
+		try {
+			app = new AppGameContainer(new TheGame("Bomberman"));
+			app.setDisplayMode(800, 600, false);
+			app.setTargetFrameRate(30);
+			app.setShowFPS(true);
+			app.start();
+			
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		
 	}
-	
 }
