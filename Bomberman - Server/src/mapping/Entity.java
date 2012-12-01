@@ -1,6 +1,8 @@
 package mapping;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import network.Direction;
@@ -16,12 +18,14 @@ public abstract class Entity {
 	private double futureMove;
 	private boolean inRun;
 	private Direction lastDir;
+	private List<BasicEvent> listeners=new ArrayList<BasicEvent>();
 	
 	protected Map<Direction, boolean[][]> shapes=new HashMap<Direction, boolean[][]>();
 	protected Direction direction;
 	protected Level level;
 	protected Chart chart;
 	protected int speed=0; // ms pour une case
+	//TODO sauvgarder le temps à l'entré de update pour une meilleure synchro/perf
 	
 	/**
 	 * Basic constructor with the given map
@@ -142,6 +146,35 @@ public abstract class Entity {
 	 * It's a function of callback, she is call before the end of {@link #update()};
 	 */
 	protected abstract void checkState();
+	
+	/**
+	 * Kill the entity
+	 */
+	public void kill(){
+		notifyKill();
+		this.chart.deleteShape(this, posX, posY, this.shapes.get(lastDir));		
+	}
+	
+	/**
+	 * Add an listener
+	 * @param listener The listener
+	 */
+	public void addListener(BasicEvent listener){
+		this.listeners.add(listener);
+	}
+	
+	/**
+	 * Remove an listener
+	 * @param listener The listener
+	 * @return success or not
+	 */
+	public boolean removeListener(BasicEvent listener){
+		return this.listeners.remove(listener);
+	}
+	
+	protected void notifyKill(){
+		for(BasicEvent event : this.listeners) event.notify();
+	}
 	
 	/**
 	 * Set the new position, return if the position was set to(call of {@link #canMoveTo(int, int)})

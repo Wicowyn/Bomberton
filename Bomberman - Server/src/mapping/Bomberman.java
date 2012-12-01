@@ -1,10 +1,19 @@
 package mapping;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 public class Bomberman extends Entity {
-//TODO rajouter stuff
+	private Map<Long, Item> tempEffect=new HashMap<Long, Item>();
+	private Set<Bonus> currentBonus=new HashSet<Bonus>();
+	private int bombe;
+	private int power;
+	private int life;
+	private int currentBombe;
 	
 	public Bomberman(Chart chart) {
 		super(chart);
@@ -39,10 +48,7 @@ public class Bomberman extends Entity {
 				System.err.println("Error: Bomberman: canMoveTo(int, int): direction non gérée");
 				System.exit(1);
 				break;
-
 			}
-			
-			
 		}
 		
 		for(Entity entity : set){
@@ -54,8 +60,65 @@ public class Bomberman extends Entity {
 
 	@Override
 	protected void checkState() {
-		// TODO A implémenter lorsque Item seras implémenter
-
+		Set<Entity> set=new HashSet<Entity>();
+		
+		for(int i=0; i<this.chart.getResolution(); i++){
+			set.addAll(this.chart.getListEntityAt(getX()+i, getY()));
+			set.addAll(this.chart.getListEntityAt(getX()+i, getY()+this.chart.getResolution()-1));
+			set.addAll(this.chart.getListEntityAt(getX(), getY()+i));
+			set.addAll(this.chart.getListEntityAt(getX()+this.chart.getResolution()-1, getY()+i));
+		}
+		
+		for(Entity entity : set){
+			if(entity instanceof Item){
+				Item item=(Item) entity;
+				addBombe(item.bombe);
+				addLife(item.life);
+				addPower(item.power);
+				addSpeed(item.speed);
+				
+				if(item.duration!=0){
+					this.tempEffect.put(System.currentTimeMillis()+item.duration, item);
+				}
+				
+				if(item instanceof Bonus){
+					Bonus bonus=(Bonus) item;
+					this.currentBonus.add(bonus);
+					bonus.kill();
+				}
+			}
+		}
+		
+		for(Iterator<Entry<Long, Item>> it=this.tempEffect.entrySet().iterator(); it.hasNext();){
+			//TODO parcours de la map façon ordonnée pour gain de perf? à verif/fair
+			Entry<Long, Item> entry=it.next();
+			if(System.currentTimeMillis()>entry.getKey()){
+				it.remove();
+				Item item=entry.getValue();
+				addBombe(item.bombe*-1);
+				addLife(item.life*-1);
+				addPower(item.power*-1);
+				addSpeed(item.speed*-1);
+			}
+		}
 	}
-
+	
+	public void addBombe(int bombe){
+		this.bombe+=bombe;
+		if(this.bombe<1) this.bombe=1;
+	}
+	
+	public void addLife(int life){
+		this.life+=life;
+		if(this.life<1) notifyKill();
+	}
+	
+	public void addPower(int power){
+		this.power+=power;
+		if(this.power<1) this.power=1;
+	}
+	
+	public void addSpeed(int speed){
+		this.speed+=speed;
+	}
 }
