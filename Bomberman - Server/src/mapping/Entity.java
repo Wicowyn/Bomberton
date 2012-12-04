@@ -151,7 +151,7 @@ public abstract class Entity {
 	 * Kill the entity
 	 */
 	public void kill(){
-		notifyKill();
+		notifyKill(this);
 		this.chart.deleteShape(this, posX, posY, this.shapes.get(lastDir));		
 	}
 	
@@ -172,8 +172,12 @@ public abstract class Entity {
 		return this.listeners.remove(listener);
 	}
 	
-	protected void notifyKill(){
-		for(BasicEvent event : this.listeners) event.notify();
+	protected void notifyKill(Entity entity){
+		for(BasicEvent event : this.listeners) event.kill(entity);
+	}
+	
+	protected void notifyBorn(Entity entity){
+		for(BasicEvent event : this.listeners) event.born(entity);
 	}
 	
 	/**
@@ -271,5 +275,35 @@ public abstract class Entity {
 	 */
 	public int getY(){
 		return this.posY;
+	}
+	
+	/**
+	 * Get the case position on the x axis
+	 * @return X
+	 */
+	public int getCaseX(){
+		int mod=this.posX%this.chart.getResolution();
+		
+		if(mod<=this.chart.getResolution()/2){
+			return this.posX-mod;
+		}
+		else{
+			return this.posX+this.chart.getResolution()-mod;
+		}
+	}
+	
+	/**
+	 * Get the case position on the y axis
+	 * @return Y
+	 */
+	public int getCaseY(){
+		int mod=this.posY%this.chart.getResolution();
+		
+		if(mod<=this.chart.getResolution()/2){
+			return this.posY-mod;
+		}
+		else{
+			return this.posY+this.chart.getResolution()-mod;
+		}
 	}
 }

@@ -8,12 +8,12 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 public class Bomberman extends Entity {
-	private Map<Long, Item> tempEffect=new HashMap<Long, Item>();
+	private Map<Long, Item> tempEffect=new HashMap<Long, Item>(); //TODO à gérer en unique ou fair des mises à jour pour éviter une surcharge inutile
 	private Set<Bonus> currentBonus=new HashSet<Bonus>();
-	private int bombe;
+	private int bomb;
 	private int power;
 	private int life;
-	private int currentBombe;
+	private int currentBomb;
 	
 	public Bomberman(Chart chart) {
 		super(chart);
@@ -103,14 +103,24 @@ public class Bomberman extends Entity {
 		}
 	}
 	
-	public void addBombe(int bombe){
-		this.bombe+=bombe;
-		if(this.bombe<1) this.bombe=1;
+	public void popBomb(){
+		if(this.currentBomb==this.bomb) return;
+		
+		Bomb bomb=new Bomb(this.chart);
+		bomb.setPos(getCaseX(), getCaseY());
+		bomb.addListener(new ListenBomb());
+		bomb.start();
+		notifyBorn(bomb);
+	}
+	
+	public void addBombe(int bomb){
+		this.bomb+=bomb;
+		if(this.bomb<1) this.bomb=1;
 	}
 	
 	public void addLife(int life){
 		this.life+=life;
-		if(this.life<1) notifyKill();
+		if(this.life<1) notifyKill(this);
 	}
 	
 	public void addPower(int power){
@@ -120,5 +130,21 @@ public class Bomberman extends Entity {
 	
 	public void addSpeed(int speed){
 		this.speed+=speed;
+	}
+	
+	protected class ListenBomb implements BasicEvent{
+
+		@Override
+		public void kill(Entity entity) {
+			Bomberman.this.currentBomb--;
+			
+		}
+
+		@Override
+		public void born(Entity entity) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 }
