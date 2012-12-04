@@ -18,6 +18,8 @@ public class Main {
 			app.setTargetFrameRate(30);
 			app.setShowFPS(true);
 			app.start();
+			System.out.println(app.getInput());	
+				
 			
 		} catch (SlickException e) {
 			e.printStackTrace();

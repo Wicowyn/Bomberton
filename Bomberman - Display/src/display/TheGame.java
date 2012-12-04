@@ -18,5 +18,23 @@ public class TheGame extends StateBasedGame{
 		MenuState state=new MenuState();
 		addState(state);
 	}
+	public void keyPressed(int key, char c){
+		super.keyPressed(key, c);
+		 System.out.println(c);
+		 switch(c){
+		 	case 'z':
+		 		
+		 	break;
+		 	case 'd':
+		 	
+		 	break;
+		 	case 's':
+		 	break;
+		 	case 'q':
+		 	break;
+		 
+		 
+		 }
+	}
 
 }
