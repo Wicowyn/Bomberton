@@ -7,12 +7,15 @@ import java.util.Map;
 
 import network.Direction;
 
+import org.apache.log4j.Logger;
+
 /**
  * Abstract class which represent every entity on the map
  * @author yapiti
  *
  */
 public abstract class Entity {
+	protected Logger logger=Logger.getRootLogger();
 	private int posX;
 	private int posY;
 	private double futureMove;

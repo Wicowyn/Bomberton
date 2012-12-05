@@ -52,41 +52,5 @@ public class ServerTCP implements Runnable{
 		}
 	}
 	
-	protected class ClientTCP implements Runnable{
-		private Socket sock;
-		
-		public ClientTCP(Socket sock){
-			this.sock=sock;
-		}
-
-		@Override
-		public void run() {
-			try {
-				ObjectInputStream in=new ObjectInputStream(this.sock.getInputStream());
-				while(true){
-					try {
-						Trame trame=(Trame) in.readObject();
-						buf.add(trame);
-					} catch (ClassNotFoundException e) {
-						e.printStackTrace();
-					} catch (InterruptedIOException e) {
-						Thread.currentThread().interrupt();
-						break;
-					}
-				}
-				
-				in.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		void close(){
-			try {
-				this.sock.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}	
-	}
+	
 }
