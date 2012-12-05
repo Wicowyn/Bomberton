@@ -3,24 +3,31 @@ package state;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import display.KeyAction;
 
 public class MenuState extends BasicGameState implements KeyAction{
-
+	private static final int ID = 0;
+	//bouton du menu
+	private MouseOverArea quit;
+	private MouseOverArea play;
+	private MouseOverArea option;
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1)
 			throws SlickException {
-		
+			
+			
 	}
 	
 
 	
 	@Override
-	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2)
+	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g)
 			throws SlickException {
+		g.drawString("Menu principale",300,50);
 		
 	}
 
@@ -31,8 +38,9 @@ public class MenuState extends BasicGameState implements KeyAction{
 	}
 
 	@Override
+	// ID de la page
 	public int getID() {
-		return 0;
+		return ID;
 	}
 
 
