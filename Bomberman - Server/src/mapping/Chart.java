@@ -76,4 +76,12 @@ public class Chart {
 	public int getResolution(){
 		return this.resolution;
 	}
+	
+	public void clear(){
+		for(List<Set<Entity>> list : this.map){
+			for(Set<Entity> set : list){
+				set.clear();
+			}
+		}
+	}
 }

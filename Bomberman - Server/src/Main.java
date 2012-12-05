@@ -13,5 +13,6 @@ public class Main {
 		Logger logger=Logger.getLogger(Main.class);
     	logger.debug("Hello world.");
     	logger.info("What a beatiful day.");
+    	
     }
 }
