@@ -1,7 +1,9 @@
 package state;
 
+import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.BasicGameState;
@@ -10,7 +12,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import display.KeyAction;
 
 public class MenuState extends BasicGameState implements KeyAction{
-	private static final int ID = 1;
+	
 	//bouton du menu
 	private MouseOverArea quit;
 	private MouseOverArea play;
@@ -18,7 +20,7 @@ public class MenuState extends BasicGameState implements KeyAction{
 	
 	
 	@Override
-	public void init(GameContainer arg0, StateBasedGame arg1)
+	public void init(GameContainer container, StateBasedGame arg1)
 			throws SlickException {
 			
 			
@@ -27,22 +29,25 @@ public class MenuState extends BasicGameState implements KeyAction{
 
 	
 	@Override
-	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g)
+	public void render(GameContainer container, StateBasedGame arg1, Graphics g)
 			throws SlickException {
 		g.drawString("Menu principale",300,50);
 		
 	}
 
 	@Override
-	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
+	public void update(GameContainer container, StateBasedGame arg1, int arg2)
 			throws SlickException {
-		
+			Input input = container.getInput();
+			if(input.isKeyDown(Keyboard.KEY_ESCAPE)){
+				container.exit();
+			}
 	}
 
 	@Override
 	// ID de la page
 	public int getID() {
-		return ID;
+		return PageName.Menu;
 	}
 
 
