@@ -10,11 +10,13 @@ import org.newdawn.slick.state.StateBasedGame;
 import display.KeyAction;
 
 public class MenuState extends BasicGameState implements KeyAction{
-	private static final int ID = 0;
+	private static final int ID = 1;
 	//bouton du menu
 	private MouseOverArea quit;
 	private MouseOverArea play;
 	private MouseOverArea option;
+	
+	
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1)
 			throws SlickException {

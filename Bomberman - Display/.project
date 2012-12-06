@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/ressources/Bomb.gif</name>
+			<type>1</type>
+			<location>/home/mergin/Desktop/BomberMan/BomberMan/resources/Bomb.gif</location>
+		</link>
+	</linkedResources>
 </projectDescription>
