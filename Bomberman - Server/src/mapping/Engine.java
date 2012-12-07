@@ -1,5 +1,6 @@
 package mapping;
 
+import java.awt.Point;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -8,26 +9,46 @@ import java.util.List;
 
 import network.Direction;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 public class Engine implements Runnable{
+	private Logger log=LogManager.getLogger(Engine.class.getName());
+	List<Point> listPlace=new ArrayList<Point>();
+	Point point=new Point();
 	private List<Entity> entities=new ArrayList<Entity>();
 	private Chart chart;
 	private int rate;
-	private Logger log=Logger.getLogger(Engine.class);
 	
-	public void loadGame(String mod) throws JDOMException, IOException{
+	public Engine(){
+		
+	}
+	
+	public boolean loadGame(String mod) throws JDOMException, IOException{
 		unLoad();
 		SAXBuilder sax=new SAXBuilder();
 		Document doc;
 		
-		doc=sax.build(new File("xml.xml"));
+		doc=sax.build(new File("ressources/map/"+mod+".xml"));
 		Element root=doc.getRootElement();
-		List<Element> listElem=getAllElement(root);
+		List<Element> listElem=root.getChildren();
+		
+		for(Element elem : listElem){
+			if(elem.getName().equals("Chart")){
+				this.chart=new Chart(elem.getAttribute("sizeX").getIntValue(), elem.getAttribute("sizeY").getIntValue(), elem.getAttribute("resolution").getIntValue());
+				listElem.remove(elem);
+				break;
+			}
+		}
+		
+		if(this.chart==null){
+			log.error("loadGame: the game "+mod+"don't define Chart, loading aborted");
+			return false;
+		}
 		
 		for(Element elem : listElem){
 			Entity entity=null;
@@ -47,13 +68,17 @@ public class Engine implements Runnable{
 				Fire fire=new Fire(this.chart);
 				entity=fire;
 				break;
+			case "Bomberman":
+				this.listPlace.add(new Point(elem.getAttribute("x").getIntValue(), elem.getAttribute("y").getIntValue()));
+				continue;
 			default:
-				this.log.warn("Load Game: "+mod+" but unknown entry: "+elem.getName());
+				this.log.warn("loadGame: unknown type object -> "+elem.getName());
 				continue;
 			}
-			
-			if(entity.setPos(elem.getAttribute("x").getIntValue(), elem.getAttribute("y").getIntValue())){
-				this.log.warn("Load Game: "+mod+" but entity have invalid postion: "+elem);
+
+			if(!entity.setPos(new Point(elem.getAttribute("x").getIntValue(), elem.getAttribute("y").getIntValue()))){
+				this.log.warn("loadGame: the position of "+elem.getName()+" is invalid -> "+elem.getAttribute("x").getIntValue()+"/"+elem.getAttribute("y").getIntValue());
+				System.err.println("plop"+this.log.isWarnEnabled());
 				continue;
 			}
 			
@@ -75,32 +100,30 @@ public class Engine implements Runnable{
 			}
 			
 			this.entities.add(entity);
+			this.log.debug("new Entity: "+entity.getClass().getSimpleName()+" -> [x="+entity.getPos().x+", y="+entity.getPos().y+"]");
 		}
-	}
-	
-	private List<Element> getAllElement(Element elem){
-		List<Element> list=new ArrayList<Element>();
 		
-		for(Element elemTemp : elem.getChildren()) list.addAll(getAllElement(elemTemp));
-		
-		return list;
+		return true;
 	}
 	
 	public List<String> getListGame(){
-		File directory=new File("engine/");
+		File directory=new File("ressources/map");
 		GameFileFilter filter=new GameFileFilter();
 		File[] arrayFile=directory.listFiles(filter);
-		
 		List<String> list=new ArrayList<String>();
 		for(File file : arrayFile){
-			list.add(file.getName());
+			list.add(file.getName().substring(0, file.getName().indexOf(".")));
 		}
 		
 		return list;
 	}
 	
 	public void unLoad(){
-		if(this.chart!=null) this.chart.clear();
+		if(this.chart!=null){
+			this.chart.clear();
+			this.chart=null;
+		}
+		this.listPlace.clear();
 		this.entities.clear();
 	}
 
@@ -115,7 +138,7 @@ public class Engine implements Runnable{
 			
 			temp=this.rate+System.currentTimeMillis()-time;
 			if(temp<0){
-				log.error("Overload of Engine");
+				this.log.error("Overload of Engine");
 			}
 			else{
 				try {
@@ -135,7 +158,7 @@ public class Engine implements Runnable{
 
 		@Override
 		public boolean accept(File dir, String name) {
-			return name.matches("*.xml");
+			return name.endsWith(".xml");
 		}
 		
 	}

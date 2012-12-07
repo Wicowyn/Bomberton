@@ -1,5 +1,6 @@
 package mapping;
 
+import java.awt.Point;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -25,24 +26,25 @@ public class Bomberman extends Entity {
 		this.level=Level.OVERGROUND;
 	}
 	
-	public boolean canMoveTo(int x, int y){
-		if(!super.canMoveTo(x, y)) return false;
+	@Override
+	public boolean canMoveTo(Point pos){
+		if(!super.canMoveTo(pos)) return false;
 		
 		Set<Entity> set=new HashSet<Entity>();
 		
 		for(int i=0; i<this.chart.getResolution(); i++){
 			switch (getDirection()) {
 			case UP:
-				set.addAll(this.chart.getListEntityAt(x+i, y));
+				set.addAll(this.chart.getListEntityAt(pos.x+i, pos.y));
 				break;
 			case DOWN:
-				set.addAll(this.chart.getListEntityAt(x+i, y+this.chart.getResolution()-1));
+				set.addAll(this.chart.getListEntityAt(pos.x+i, pos.y+this.chart.getResolution()-1));
 				break;
 			case LEFT:
-				set.addAll(this.chart.getListEntityAt(x, y+i));
+				set.addAll(this.chart.getListEntityAt(pos.x, pos.y+i));
 				break;
 			case RIGHT:
-				set.addAll(this.chart.getListEntityAt(x+this.chart.getResolution()-1, y+i));
+				set.addAll(this.chart.getListEntityAt(pos.x+this.chart.getResolution()-1, pos.y+i));
 				break;
 			default:
 				System.err.println("Error: Bomberman: canMoveTo(int, int): direction non gérée");
@@ -86,7 +88,8 @@ public class Bomberman extends Entity {
 					this.currentBonus.add(bonus);
 					bonus.kill();
 				}
-			}
+			}else if(entity instanceof Block) kill();
+			
 		}
 		
 		for(Iterator<Entry<Long, Item>> it=this.tempEffect.entrySet().iterator(); it.hasNext();){
@@ -107,7 +110,7 @@ public class Bomberman extends Entity {
 		if(this.currentBomb==this.bomb) return;
 		
 		Bomb bomb=new Bomb(this.chart);
-		bomb.setPos(getCaseX(), getCaseY());
+		bomb.setPos(getPosCase());
 		bomb.addListener(new ListenBomb());
 		bomb.start();
 		notifyBorn(bomb);

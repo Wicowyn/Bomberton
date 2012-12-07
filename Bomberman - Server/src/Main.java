@@ -1,5 +1,8 @@
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Logger;
+import java.io.IOException;
+
+import mapping.Engine;
+
+import org.jdom2.JDOMException;
 
 
 public class Main {
@@ -8,11 +11,14 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println("Hello world!");
-		BasicConfigurator.configure();
-		Logger logger=Logger.getLogger(Main.class);
-    	logger.debug("Hello world.");
-    	logger.info("What a beatiful day.");
+		Engine engine=new Engine();
+		try {
+			engine.loadGame("Classic");
+		} catch (JDOMException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     	
     }
 }

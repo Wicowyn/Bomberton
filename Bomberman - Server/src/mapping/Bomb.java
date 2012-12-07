@@ -1,5 +1,6 @@
 package mapping;
 
+import java.awt.Point;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,11 +27,11 @@ public class Bomb extends Entity {
 	
 	private void popFire(Direction dir){
 		Set<Entity> set;
-		int posX=getCaseX(), posY=getCaseY();
+		Point pos=getPosCase();
 		boolean canAdd=true;
 		
 		for(int i=0; i<this.power && canAdd; i++){			
-			set=this.chart.getListEntityAt(posX, posY);
+			set=this.chart.getListEntityAt(pos);
 			
 			for(Entity entity : set){
 				if(entity instanceof Block){
@@ -43,7 +44,7 @@ public class Bomb extends Entity {
 			
 			if(canAdd){
 				Fire fire=new Fire(this.chart);
-				fire.setPos(posX, posY);
+				fire.setPos(pos);
 				fire.setDirection(Direction.UP);
 				notifyBorn(fire);
 			}
@@ -51,16 +52,16 @@ public class Bomb extends Entity {
 			
 			switch(dir){
 			case DOWN:
-				posX+=this.chart.getResolution();
+				pos.x+=this.chart.getResolution();
 				break;
 			case LEFT:
-				posY-=this.chart.getResolution();
+				pos.y-=this.chart.getResolution();
 				break;
 			case RIGHT:
-				posY+=this.chart.getResolution();
+				pos.y+=this.chart.getResolution();
 				break;
 			case UP:
-				posX-=this.chart.getResolution();
+				pos.x-=this.chart.getResolution();
 				break;
 			default:
 				System.err.println("Error: Bomb: popFire(Direction dir): direction non gérée");
@@ -87,7 +88,6 @@ public class Bomb extends Entity {
 		}
 		
 		Set<Entity> set=new HashSet<Entity>();
-		
 		for(int i=0; i<this.chart.getResolution(); i++){
 			set.addAll(this.chart.getListEntityAt(getX()+i, getY()));
 			set.addAll(this.chart.getListEntityAt(getX()+i, getY()+this.chart.getResolution()-1));
@@ -103,24 +103,25 @@ public class Bomb extends Entity {
 		}
 	}
 	
-	public boolean canMoveTo(int x, int y){
-		if(!super.canMoveTo(x, y)) return false;
+	@Override
+	public boolean canMoveTo(Point pos){
+		if(!super.canMoveTo(pos)) return false;
 		
 		Set<Entity> set=new HashSet<Entity>();
 		
 		for(int i=0; i<this.chart.getResolution(); i++){
 			switch (getDirection()) {
 			case UP:
-				set.addAll(this.chart.getListEntityAt(x+i, y));
+				set.addAll(this.chart.getListEntityAt(pos.x+i, pos.y));
 				break;
 			case DOWN:
-				set.addAll(this.chart.getListEntityAt(x+i, y+this.chart.getResolution()-1));
+				set.addAll(this.chart.getListEntityAt(pos.x+i, pos.y+this.chart.getResolution()-1));
 				break;
 			case LEFT:
-				set.addAll(this.chart.getListEntityAt(x, y+i));
+				set.addAll(this.chart.getListEntityAt(pos.x, pos.y+i));
 				break;
 			case RIGHT:
-				set.addAll(this.chart.getListEntityAt(x+this.chart.getResolution()-1, y+i));
+				set.addAll(this.chart.getListEntityAt(pos.x+this.chart.getResolution()-1, pos.y+i));
 				break;
 			default:
 				System.err.println("Error: Bomberman: canMoveTo(int, int): direction non gérée");

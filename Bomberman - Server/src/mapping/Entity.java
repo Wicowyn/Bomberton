@@ -1,5 +1,6 @@
 package mapping;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +8,8 @@ import java.util.Map;
 
 import network.Direction;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Abstract class which represent every entity on the map
@@ -15,9 +17,8 @@ import org.apache.log4j.Logger;
  *
  */
 public abstract class Entity {
-	protected Logger logger=Logger.getRootLogger();
-	private int posX;
-	private int posY;
+	protected Logger log=LogManager.getLogger(this.getClass().getName());
+	private Point pos=new Point();;
 	private double futureMove;
 	private boolean inRun;
 	private Direction lastDir;
@@ -98,47 +99,40 @@ public abstract class Entity {
 	public final void update(){ 
 		double currentTime=System.currentTimeMillis();
 		if(isRun() && currentTime>=this.futureMove){
-			this.chart.deleteShape(this, posX, posY, this.shapes.get(lastDir));
+			this.chart.deleteShape(this, this.pos, this.shapes.get(lastDir));
 			int moveOf=(int) ((currentTime-this.futureMove)/speed);
 			boolean success=false;
+			Point newPos=new Point();
 			
-			switch(this.direction){
-			case UP:
-				while(!success && moveOf>0){
-					success=setPos(this.posX, this.posY-moveOf);
-					moveOf--;
+			while(!success && moveOf>0){
+				switch(this.direction){
+				case UP:
+					newPos.setLocation(this.pos.x, this.pos.y-moveOf);
+					break;
+				case DOWN:
+					newPos.setLocation(this.pos.x, this.pos.y+moveOf);
+					break;
+				case LEFT:
+					newPos.setLocation(this.pos.x-moveOf, this.pos.y);
+					break;
+				case RIGHT:
+					newPos.setLocation(this.pos.x+moveOf, this.pos.y);
+					break;
+				default:
+					System.err.println("Error: Entity: update: direction non gérée");
+					System.exit(1);
+					break;
 				}
-				break;
-			case DOWN:
-				while(!success && moveOf>0){
-					success=setPos(this.posX, this.posY+moveOf);
-					moveOf--;
-				}
-				break;
-			case LEFT:
-				while(!success && moveOf>0){
-					success=setPos(this.posX-moveOf, this.posY);
-					moveOf--;
-				}
-				break;
-			case RIGHT:
-				while(!success && moveOf>0){
-					success=setPos(this.posX+moveOf, this.posY);
-					moveOf--;
-				}
-				break;
-			default:
-				System.err.println("Error: Entity: update: direction non gérée");
-				System.exit(1);
-				break;
+				setPos(newPos);
+				moveOf--;
 			}
 			
-			this.chart.addShape(this, posX, posY, this.shapes.get(this.direction));
+			this.chart.addShape(this, this.pos, this.shapes.get(this.direction));
 			this.lastDir=this.direction;
 			this.futureMove+=this.speed;
 		} else if(this.direction!=this.lastDir){
-			this.chart.deleteShape(this, posX, posY, this.shapes.get(lastDir));
-			this.chart.addShape(this, posX, posY, this.shapes.get(this.direction));
+			this.chart.deleteShape(this, this.pos, this.shapes.get(lastDir));
+			this.chart.addShape(this, this.pos, this.shapes.get(this.direction));
 			this.lastDir=this.direction;
 		}
 		checkState();
@@ -155,7 +149,7 @@ public abstract class Entity {
 	 */
 	public void kill(){
 		notifyKill(this);
-		this.chart.deleteShape(this, posX, posY, this.shapes.get(lastDir));		
+		this.chart.deleteShape(this, this.pos, this.shapes.get(lastDir));		
 	}
 	
 	/**
@@ -189,10 +183,9 @@ public abstract class Entity {
 	 * @param y Position in Y
 	 * @return yes or no
 	 */
-	public final boolean setPos(int x, int y){
-		if(canMoveTo(x, y)){
-			this.posX=x;
-			this.posY=y;
+	public final boolean setPos(Point pos){
+		if(canMoveTo(pos)){
+			this.pos=pos;
 			
 			return true;
 		}
@@ -205,12 +198,12 @@ public abstract class Entity {
 	 * @param y Position in Y
 	 * @return yes or no
 	 */
-	public boolean canMoveTo(int x, int y){
+	public boolean canMoveTo(Point pos){
 		int nbMaxX=this.chart.getSizeX()-this.chart.getResolution();
 		int nbMaxY=this.chart.getSizeY()-this.chart.getResolution();
 		
-		if(x<0 || x>nbMaxX) return false;
-		if(y<0 || y>nbMaxY) return false;
+		if(pos.x<0 || pos.x>nbMaxX) return false;
+		if(pos.y<0 || pos.y>nbMaxY) return false;
 		
 		return true;
 	}
@@ -269,7 +262,7 @@ public abstract class Entity {
 	 * @return X
 	 */
 	public int getX(){
-		return this.posX;
+		return this.pos.x;
 	}
 	
 	/**
@@ -277,7 +270,11 @@ public abstract class Entity {
 	 * @return Y
 	 */
 	public int getY(){
-		return this.posY;
+		return this.pos.y;
+	}
+	
+	public Point getPos(){
+		return this.pos.getLocation();
 	}
 	
 	/**
@@ -285,13 +282,13 @@ public abstract class Entity {
 	 * @return X
 	 */
 	public int getCaseX(){
-		int mod=this.posX%this.chart.getResolution();
+		int mod=this.pos.x%this.chart.getResolution();
 		
 		if(mod<=this.chart.getResolution()/2){
-			return this.posX-mod;
+			return this.pos.x-mod;
 		}
 		else{
-			return this.posX+this.chart.getResolution()-mod;
+			return this.pos.x+this.chart.getResolution()-mod;
 		}
 	}
 	
@@ -300,13 +297,17 @@ public abstract class Entity {
 	 * @return Y
 	 */
 	public int getCaseY(){
-		int mod=this.posY%this.chart.getResolution();
+		int mod=this.pos.y%this.chart.getResolution();
 		
 		if(mod<=this.chart.getResolution()/2){
-			return this.posY-mod;
+			return this.pos.y-mod;
 		}
 		else{
-			return this.posY+this.chart.getResolution()-mod;
+			return this.pos.y+this.chart.getResolution()-mod;
 		}
+	}
+	
+	public Point getPosCase(){
+		return new Point(getCaseX(), getCaseY());
 	}
 }

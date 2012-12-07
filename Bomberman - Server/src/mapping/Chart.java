@@ -1,5 +1,6 @@
 package mapping;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -29,36 +30,40 @@ public class Chart {
 		return this.map.get(x).get(y);
 	}
 	
-	public boolean add(Entity entity, int posX, int posY){
-		Set<Entity> list=this.map.get(posY).get(posY);
+	public Set<Entity> getListEntityAt(Point pos){
+		return getListEntityAt(pos.x, pos.y);
+	}
+	
+	public boolean add(Entity entity, Point pos){
+		Set<Entity> list=this.map.get(pos.x).get(pos.y);
 		
 		return list.add(entity);
 	}
 	
-	public boolean delete(Entity entity, int posX, int posY){
-		return this.map.get(posX).get(posY).remove(entity);
+	public boolean delete(Entity entity, Point pos){
+		return this.map.get(pos.x).get(pos.y).remove(entity);
 	}
 	
-	public void addShape(Entity entity, int posX, int posY, boolean[][] shape){
+	public void addShape(Entity entity, Point pos, boolean[][] shape){
 		List<Set<Entity>> mainList;
 		Set<Entity> list;
 		
-		for(int x=posX; x<getResolution(); x++){
+		for(int x=pos.x; x<getResolution(); x++){
 			mainList=this.map.get(x);
-			for(int y=posY; y<getResolution(); y++){
+			for(int y=pos.y; y<getResolution(); y++){
 				list=mainList.get(y);
 				if(shape[x][y]) list.add(entity);
 			}
 		}
 	}
 	
-	public void deleteShape(Entity entity, int posX, int posY, boolean[][] shape){
+	public void deleteShape(Entity entity, Point pos, boolean[][] shape){
 		List<Set<Entity>> mainList;
 		Set<Entity> list;
 		
-		for(int x=posX; x<getResolution(); x++){
+		for(int x=pos.x; x<getResolution(); x++){
 			mainList=this.map.get(x);
-			for(int y=posY; y<getResolution(); y++){
+			for(int y=pos.y; y<getResolution(); y++){
 				list=mainList.get(y);
 				if(shape[x][y]) list.remove(entity);
 			}
