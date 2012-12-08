@@ -50,6 +50,7 @@ public class Engine implements Runnable{
 			return false;
 		}
 		
+		ListenEntity listen=new ListenEntity();
 		for(Element elem : listElem){
 			Entity entity=null;
 			switch(elem.getName()){
@@ -99,6 +100,7 @@ public class Engine implements Runnable{
 				entity.setDirection(Direction.DOWN);
 			}
 			
+			entity.addListener(listen);
 			this.entities.add(entity);
 			this.log.debug("new Entity: "+entity.getClass().getSimpleName()+" -> [x="+entity.getPos().x+", y="+entity.getPos().y+"]");
 		}
@@ -152,6 +154,20 @@ public class Engine implements Runnable{
 	
 	void setTimeRate(int time){
 		this.rate=time;
+	}
+	
+	private class ListenEntity implements BasicEvent{
+		@Override
+		public void kill(Entity entity) {
+			Engine.this.entities.remove(entity);			
+		}
+
+		@Override
+		public void born(Entity entity) {
+			Engine.this.entities.remove(entity);
+			entity.addListener(this);			
+		}
+		
 	}
 	
 	private class GameFileFilter implements FilenameFilter{

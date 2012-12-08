@@ -23,6 +23,8 @@ public abstract class Entity {
 	private boolean inRun;
 	private Direction lastDir;
 	private List<BasicEvent> listeners=new ArrayList<BasicEvent>();
+	private int ID;
+	private static int lastID;
 	
 	protected Map<Direction, boolean[][]> shapes=new HashMap<Direction, boolean[][]>();
 	protected Direction direction;
@@ -30,6 +32,10 @@ public abstract class Entity {
 	protected Chart chart;
 	protected int speed=0; // ms pour une case
 	//TODO sauvgarder le temps à l'entré de update pour une meilleure synchro/perf
+	
+	{
+		this.ID=Entity.lastID++;
+	}
 	
 	/**
 	 * Basic constructor with the given map
@@ -96,8 +102,9 @@ public abstract class Entity {
 	 * Updates the position of the entity on the map.
 	 * Typically should be synchronized with the frame rate
 	 */
-	public final void update(){ 
+	public final boolean update(){ 
 		double currentTime=System.currentTimeMillis();
+		boolean updated=false;
 		if(isRun() && currentTime>=this.futureMove){
 			this.chart.deleteShape(this, this.pos, this.shapes.get(lastDir));
 			int moveOf=(int) ((currentTime-this.futureMove)/speed);
@@ -130,12 +137,15 @@ public abstract class Entity {
 			this.chart.addShape(this, this.pos, this.shapes.get(this.direction));
 			this.lastDir=this.direction;
 			this.futureMove+=this.speed;
+			updated=true;
 		} else if(this.direction!=this.lastDir){
 			this.chart.deleteShape(this, this.pos, this.shapes.get(lastDir));
 			this.chart.addShape(this, this.pos, this.shapes.get(this.direction));
 			this.lastDir=this.direction;
+			updated=true;
 		}
 		checkState();
+		return updated;
 	}
 	
 	/**
@@ -309,5 +319,9 @@ public abstract class Entity {
 	
 	public Point getPosCase(){
 		return new Point(getCaseX(), getCaseY());
+	}
+	
+	public int getID(){
+		return this.ID;
 	}
 }
