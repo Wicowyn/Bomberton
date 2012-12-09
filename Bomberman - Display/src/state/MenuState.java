@@ -2,12 +2,15 @@ package state;
 
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.MouseOverArea;
+import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -19,30 +22,36 @@ public class MenuState extends BasicGameState implements KeyAction{
 	private MouseOverArea quit;
 	private MouseOverArea play;
 	private MouseOverArea option;
-	private String touche = "";
 	private Input input;
-	private Image cursor;
-	private int Y = 60;
-	private int X = 430;
 	private Image menu;
+	private LayoutMenu menu2;
 
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame arg1)
 			throws SlickException {
+			menu2 = new LayoutMenu(container);
 			input = container.getInput();
-			cursor = new Image("ressources/fleche.png");
+			// a implement dans layoutMenu
 			menu = new Image("image/background-menu.png");
+			
 			play = new MouseOverArea(container,new Image("image/element1.png"), 430, 300);
 			play.setNormalColor(new Color(0.7f,0.7f,0.7f,1f));
 			play.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
+			menu2.addElement(play);
+			
 			option = new MouseOverArea(container,new Image("image/element2.png"), 430, 330);
 			option.setNormalColor(new Color(0.7f,0.7f,0.7f,1f));
 			option.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
+			menu2.addElement(option);
+			
 			quit = new MouseOverArea(container,new Image("image/element3.png"), 430, 360);
 			quit.setNormalColor(new Color(0.7f,0.7f,0.7f,1f));
 			quit.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
+			menu2.addElement(quit);
 			
+			/*touche = new TextField(container, null, 200, 450, 200, 50);
+			touche.setText("test"); test du TEXTFIELD*/
 	}
 	
 
@@ -53,40 +62,41 @@ public class MenuState extends BasicGameState implements KeyAction{
 	
 		menu.draw();
 		g.drawString("Menu principale",300,50);
-		play.render(container, g);
-		option.render(container, g);
-		quit.render(container, g);
-		cursor.draw(this.X, this.Y);
-
+		menu2.render(container, g);
+		
+		
 		
 	}
 	/*public void componentActivated(AbstractComponent source) { //methode de l'interface ComponentListener
 
-			if (source == quit) {
+		if (source == quit) {
 
-				this.container.exit();
+			container.exit();
 
-			}
-			if (source == play) {
+		}
+		if (source == play) {
 
-				game.enterState(ChoixState.ID); // Id de la page
+			game.enterState(); // Id de la page
 
-			}
-		}*/
+		}
+	}*/
+	
+	
 
 	@Override
 	public void update(GameContainer container, StateBasedGame arg1, int arg2)
 			throws SlickException {
+			
 			if(this.input.isKeyDown(Keyboard.KEY_ESCAPE)){
 				container.exit();
 			}
 			if(this.input.isKeyDown(Keyboard.KEY_Z)){
-				this.Y-=30;				
+				menu2.setCursor();				
 			}
 			if(this.input.isKeyDown(Keyboard.KEY_S)){
-				this.Y+=30;
+				menu2.setCursor();
 			}
-			this.cursor.draw(this.X, this.Y);
+		
 	}
 
 	@Override
