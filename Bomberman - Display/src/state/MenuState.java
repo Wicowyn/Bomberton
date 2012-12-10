@@ -33,19 +33,19 @@ public class MenuState extends BasicGameState implements KeyAction{
 			menu2 = new LayoutMenu(container);
 			input = container.getInput();
 			// a implement dans layoutMenu
-			menu = new Image("image/background-menu.png");
+			menu = new Image("image/background-menu1.png");
 			
-			play = new MouseOverArea(container,new Image("image/element1.png"), 430, 300);
+			play = new MouseOverArea(container,new Image("image/element1.png"), 480, 330);
 			play.setNormalColor(new Color(0.7f,0.7f,0.7f,1f));
 			play.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
 			menu2.addElement(play);
 			
-			option = new MouseOverArea(container,new Image("image/element2.png"), 430, 330);
+			option = new MouseOverArea(container,new Image("image/element2.png"), 480, 370);
 			option.setNormalColor(new Color(0.7f,0.7f,0.7f,1f));
 			option.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
 			menu2.addElement(option);
 			
-			quit = new MouseOverArea(container,new Image("image/element3.png"), 430, 360);
+			quit = new MouseOverArea(container,new Image("image/element3.png"), 480, 400);
 			quit.setNormalColor(new Color(0.7f,0.7f,0.7f,1f));
 			quit.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
 			menu2.addElement(quit);

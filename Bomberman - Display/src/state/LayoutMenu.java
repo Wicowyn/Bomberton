@@ -18,8 +18,9 @@ import org.newdawn.slick.state.StateBasedGame;
 public class LayoutMenu extends AbstractComponent {
 	private ArrayList lesElementsMenu = new ArrayList();
 	private Image cursor;
-	private int Y = 300;
-	private int X = 410;
+	private int Y = 330;
+	private int X = 430;
+	private int positionCursor = 0;
 	
 	public LayoutMenu(GUIContext container) {
 		super(container);
@@ -27,16 +28,27 @@ public class LayoutMenu extends AbstractComponent {
 	}
 	
 	public void addElement(MouseOverArea bouton){
+		
 		lesElementsMenu.add(bouton);
+	/*	if(lesElementsMenu.get(1) == null){
+			
+		}*/
 	}
 	
+	// gestion du curseur (graphique)
 	public void setCursor(){
 
-		if(this.input.isKeyDown(Keyboard.KEY_Z)){
-			this.Y-=20;	
+		if(this.input.isKeyPressed(Keyboard.KEY_Z)){
+			if(positionCursor < 0){
+			this.Y-=35;	
+			positionCursor++;
+			}
 		}
-		if(this.input.isKeyDown(Keyboard.KEY_S)){
-			this.Y+=20;
+		if(this.input.isKeyPressed(Keyboard.KEY_S)){
+			if(positionCursor > -lesElementsMenu.size()+1){
+			this.Y+=35;
+			positionCursor--;
+			}
 		}
 		this.cursor.draw(this.X, this.Y);
 		
