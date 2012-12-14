@@ -30,6 +30,7 @@ public class LayoutMenu extends AbstractComponent {
 	public void addElement(MouseOverArea bouton){
 		
 		lesElementsMenu.add(bouton);
+		
 	/*	if(lesElementsMenu.get(1) == null){
 			
 		}*/

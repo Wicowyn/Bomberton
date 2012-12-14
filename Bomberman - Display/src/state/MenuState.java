@@ -1,6 +1,7 @@
 package state;
 
 import org.lwjgl.input.Keyboard;
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
@@ -8,6 +9,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.gui.TextField;
@@ -25,12 +27,20 @@ public class MenuState extends BasicGameState implements KeyAction{
 	private Input input;
 	private Image menu;
 	private LayoutMenu menu2;
+	
+	private Animation courir;
+	private Animation courir2;
+	private SpriteSheet perso;
+	private Image perso2;
+	private Image persoDroite;
 
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame arg1)
 			throws SlickException {
 			menu2 = new LayoutMenu(container);
+			menu2.getX();
+			menu2.getY();
 			input = container.getInput();
 			// a implement dans layoutMenu
 			menu = new Image("image/background-menu1.png");
@@ -50,6 +60,13 @@ public class MenuState extends BasicGameState implements KeyAction{
 			quit.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
 			menu2.addElement(quit);
 			
+			perso = new SpriteSheet("image/KarabounChicken.gif", 80,80); //80 = taille de l'image
+			//Constructeur : Animation(SpriteSheet frames, int x1, int y1, int x2, int y2, boolean horizontalScan, int duration, boolean autoUpdate)
+		     courir = new Animation(perso, 0,0,0,1,true, 300, true);
+		    // courir = new Animation(perso, 0,0,2,0,true, 300, true);
+		     
+		     
+		     
 			/*touche = new TextField(container, null, 200, 450, 200, 50);
 			touche.setText("test"); test du TEXTFIELD*/
 	}
@@ -61,8 +78,11 @@ public class MenuState extends BasicGameState implements KeyAction{
 			throws SlickException {
 	
 		menu.draw();
-		g.drawString("Menu principale",300,50);
+		g.drawString("Menu principale",500,280);
 		menu2.render(container, g);
+		courir.draw(200+200,200);
+		
+		
 		
 		
 		
