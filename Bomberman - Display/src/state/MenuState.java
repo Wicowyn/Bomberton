@@ -61,9 +61,10 @@ public class MenuState extends BasicGameState implements KeyAction{
 			menu2.addElement(quit);
 			
 			perso = new SpriteSheet("image/KarabounChicken.gif", 80,80); //80 = taille de l'image
+			
 			//Constructeur : Animation(SpriteSheet frames, int x1, int y1, int x2, int y2, boolean horizontalScan, int duration, boolean autoUpdate)
-		     courir = new Animation(perso, 0,0,0,1,true, 300, true);
-		    // courir = new Animation(perso, 0,0,2,0,true, 300, true);
+			courir = new Animation(perso, 0,0,0,3,true, 100, false);
+		  
 		     
 		     
 		     
@@ -111,10 +112,18 @@ public class MenuState extends BasicGameState implements KeyAction{
 				container.exit();
 			}
 			if(this.input.isKeyDown(Keyboard.KEY_Z)){
-				menu2.setCursor();				
+				menu2.setCursor();
+				courir.setCurrentFrame(1);
 			}
 			if(this.input.isKeyDown(Keyboard.KEY_S)){
 				menu2.setCursor();
+				courir.setCurrentFrame(0);
+			}
+			if(this.input.isKeyDown(Keyboard.KEY_D)){
+				courir.setCurrentFrame(3);
+			}
+			if(this.input.isKeyDown(Keyboard.KEY_Q)){
+				courir.setCurrentFrame(2);
 			}
 		
 	}
