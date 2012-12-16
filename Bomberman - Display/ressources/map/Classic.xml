@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <Chart sizeX="5" sizeY="5" resolution="20"/>
+    
+    <SolidBlock x="0" y="0" dir="0" />
+    <SolidBlock x="1" y="0" dir="0" />
+    <SolidBlock x="2" y="0" dir="0" />
+    <SolidBlock x="3" y="0" dir="0" />
+    <SolidBlock x="4" y="0" dir="0" />
+    <SolidBlock x="0" y="4" dir="0" />
+    <SolidBlock x="1" y="4" dir="0" />
+    <SolidBlock x="2" y="4" dir="0" />
+    <SolidBlock x="3" y="4" dir="0" />
+    <SolidBlock x="4" y="4" dir="0" />
+    <SolidBlock x="0" y="0" dir="0" />
+    <SolidBlock x="0" y="1" dir="0" />
+    <SolidBlock x="0" y="2" dir="0" />
+    <SolidBlock x="0" y="3" dir="0" />
+    <SolidBlock x="0" y="4" dir="0" />
+    <SolidBlock x="4" y="0" dir="0" />
+    <SolidBlock x="4" y="1" dir="0" />
+    <!-- <SolidBlock x="4" y="2" dir="0" /> -->
+    <BreakableBlock x="4" y="3" dir="0" />
+    <SolidBlock x="4" y="4" dir="0" />
+    <Bomb x="5" y="0" dir="0" />
+      
+    <Bomberman x="1" y="1" dir="0" />
+    
+</root>

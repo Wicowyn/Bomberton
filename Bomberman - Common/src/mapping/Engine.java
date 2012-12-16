@@ -28,6 +28,10 @@ public class Engine implements Runnable{
 		
 	}
 	
+	public List<Entity> getEntities(){
+		return this.entities;
+	}
+	
 	public boolean loadGame(String mod) throws JDOMException, IOException{
 		unLoad();
 		SAXBuilder sax=new SAXBuilder();
@@ -77,7 +81,7 @@ public class Engine implements Runnable{
 				continue;
 			}
 
-			if(!entity.setPos(new Point(elem.getAttribute("x").getIntValue(), elem.getAttribute("y").getIntValue()))){
+			if(!entity.setPos(new Point(elem.getAttribute("x").getIntValue()*this.chart.getResolution(), elem.getAttribute("y").getIntValue()*this.chart.getResolution()))){
 				this.log.warn("loadGame: the position of "+elem.getName()+" is invalid -> "+elem.getAttribute("x").getIntValue()+"/"+elem.getAttribute("y").getIntValue());
 				System.err.println("plop"+this.log.isWarnEnabled());
 				continue;
