@@ -38,24 +38,24 @@ public class MenuState extends BasicGameState implements KeyAction{
 	@Override
 	public void init(GameContainer container, StateBasedGame arg1)
 			throws SlickException {
-			menu2 = new LayoutMenu(container);
-			menu2.getX();
-			menu2.getY();
 			input = container.getInput();
 			// a implement dans layoutMenu
 			menu = new Image("image/background-menu1.png");
 			
-			play = new MouseOverArea(container,new Image("image/element1.png"), 480, 330);
+			menu2=new LayoutMenu(container, new Image("ressources/fleche.png"));
+			menu2.setLocation(480, 330);
+			
+			play = new MouseOverArea(container,new Image("image/element1.png"), 0, 0);
 			play.setNormalColor(new Color(0.7f,0.7f,0.7f,1f));
 			play.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
 			menu2.addElement(play);
 			
-			option = new MouseOverArea(container,new Image("image/element2.png"), 480, 370);
+			option = new MouseOverArea(container,new Image("image/element2.png"), 0, 0);
 			option.setNormalColor(new Color(0.7f,0.7f,0.7f,1f));
 			option.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
 			menu2.addElement(option);
 			
-			quit = new MouseOverArea(container,new Image("image/element3.png"), 480, 400);
+			quit = new MouseOverArea(container,new Image("image/element3.png"), 0, 0);
 			quit.setNormalColor(new Color(0.7f,0.7f,0.7f,1f));
 			quit.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
 			menu2.addElement(quit);
@@ -110,14 +110,6 @@ public class MenuState extends BasicGameState implements KeyAction{
 			
 			if(this.input.isKeyDown(Keyboard.KEY_ESCAPE)){
 				container.exit();
-			}
-			if(this.input.isKeyDown(Keyboard.KEY_Z)){
-				menu2.setCursor();
-				courir.setCurrentFrame(1);
-			}
-			if(this.input.isKeyDown(Keyboard.KEY_S)){
-				menu2.setCursor();
-				courir.setCurrentFrame(0);
 			}
 			if(this.input.isKeyDown(Keyboard.KEY_D)){
 				courir.setCurrentFrame(3);
