@@ -188,11 +188,9 @@ public class Entity implements Collidable {
 
 	@Override
 	public Shape getCollisionShape(){
-		Shape shape=this.collisionShape.transform(Transform.createTranslateTransform(this.position.x, this.position.y));
-		return shape.transform(Transform.createRotateTransform(
-						(float) Math.toRadians(getDirection()),
-						this.position.x+500,
-						this.position.y+500));
+		Shape shape=this.collisionShape.transform(Transform.createRotateTransform(
+				(float) Math.toRadians(getDirection()), 499.5f, 499.5f));
+		return shape.transform(Transform.createTranslateTransform(this.position.x, this.position.y));
 	}
 
 	@Override
