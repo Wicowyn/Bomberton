@@ -25,7 +25,7 @@ public class BonusFireCH implements CollisionHandler {
 		Bonus bonus;
 		Fire fire;
 		
-		if(collidable1 instanceof Bomberman){
+		if(collidable1 instanceof Bonus){
 			bonus=(Bonus) collidable1;
 			fire=(Fire) collidable2;
 		}

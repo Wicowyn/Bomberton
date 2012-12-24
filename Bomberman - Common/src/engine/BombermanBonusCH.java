@@ -38,12 +38,12 @@ public class BombermanBonusCH implements CollisionHandler {
 		for(Abillity abillity : bomberman.getAbillities()){
 			if(abillity instanceof Move){
 				Move move=(Move) abillity;
-				move.setSpeed(bonus.getSpeed());
+				move.setSpeed(move.getSpeed()+bonus.getSpeed());
 			}
 			else if(abillity instanceof PopBomb){
 				PopBomb popBomb=(PopBomb) abillity;
-				popBomb.setMaxBomb(bonus.getBomb());
-				popBomb.setPower(bonus.getPower());
+				popBomb.setMaxBomb(popBomb.getMaxBomb()+bonus.getBomb());
+				popBomb.setPower(popBomb.getPower()+bonus.getPower());
 			}
 		}
 		

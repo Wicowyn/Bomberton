@@ -6,10 +6,10 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Transform;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class RenderAbillity extends Abillity {
+public class BasicRender extends Render {
 
 	
-	public RenderAbillity(Entity owner){
+	public BasicRender(Entity owner){
 		super(owner);
 		
 	}

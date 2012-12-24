@@ -21,6 +21,7 @@ public class Engine {
 	private List<Entity> entitiesRemove=new ArrayList<Entity>();
 	private List<Bomberman> bombermans=new ArrayList<Bomberman>();
 	private Logger log=LogManager.getLogger(getClass());
+	private boolean loaded=false;
 	
 	public Engine(){
 	
@@ -58,9 +59,6 @@ public class Engine {
 		if(entity instanceof Bomberman) this.bombermans.add((Bomberman) entity);
 		
 		this.collisionManager.addCollidable(entity);
-		
-		RenderAbillity render=new RenderAbillity(entity);
-		entity.addAbillity(render);
 		this.log.debug("add Entity: "+entity.getClass().getSimpleName()+", ID: "+entity.getID()+", position: "+entity.getPosition()+", direction: "+entity.getDirection());
 	}
 	
@@ -76,12 +74,11 @@ public class Engine {
 		return this.bombermans;
 	}
 	
-	public void loadLevel(String mod) throws JDOMException, IOException{
-		unLoad();
+	public void loadLevel(String filePath) throws JDOMException, IOException{
 		SAXBuilder sax=new SAXBuilder();
 		Document doc;
 		
-		doc=sax.build(new File("ressources/map/"+mod+".xml"));
+		doc=sax.build(new File(filePath));
 		Element root=doc.getRootElement();
 		List<Element> listElem=root.getChildren();
 		
@@ -104,7 +101,12 @@ public class Engine {
 				entity=new Bomberman(this);
 				break;
 			case "Bonus":
-				entity=new Bonus(this);
+				Bonus bonus=new Bonus(this);
+				bonus.setBomb(elem.getAttribute("bomb").getIntValue());
+				bonus.setPower(elem.getAttribute("power").getIntValue());
+				bonus.setSpeed(elem.getAttribute("speed").getIntValue());
+				
+				entity=bonus;
 				break;
 			default:
 				this.log.warn("loadGame: unknown type object -> "+elem.getName());
@@ -127,6 +129,8 @@ public class Engine {
 		this.collisionManager.addHandler(new BombFireCH());
 		this.collisionManager.addHandler(new BonusFireCH());
 		this.collisionManager.addHandler(new BlockFireCH());
+		
+		this.loaded=true;
 	}
 	
 	public List<String> getListGame(){ //TODO à améliorer
@@ -149,6 +153,12 @@ public class Engine {
 		this.entitiesRemove.clear();
 		this.bombermans.clear();
 		this.collisionManager.clear();
+		
+		this.loaded=false;
+	}
+	
+	public boolean isLoad(){
+		return this.loaded;
 	}
 	
 	private class GameFileFilter implements FilenameFilter{

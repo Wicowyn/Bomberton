@@ -26,7 +26,7 @@ public class Entity implements Collidable {
 	private List<Abillity> abillitiesAdd=new ArrayList<Abillity>();
 	private List<Abillity> abillitiesRemove=new ArrayList<Abillity>();
 	private Map<Integer, List<CollisionAbillity>> collisionAbillities=new HashMap<Integer, List<CollisionAbillity>>();
-	private RenderAbillity renderAbillity=null;
+	private Render renderAbillity=null;
 	private Entity owner=null;
 	protected Shape collisionShape;
 	protected int collisionType;
@@ -74,8 +74,8 @@ public class Entity implements Collidable {
 	public void addAbillity(Abillity abillity){
 		abillity.setOwner(this);
 		
-		if(abillity instanceof RenderAbillity){
-			this.renderAbillity=(RenderAbillity) abillity;
+		if(abillity instanceof Render){
+			this.renderAbillity=(Render) abillity;
 		}
 		else if(abillity instanceof CollisionAbillity){
 			CollisionAbillity collisionAbillity=(CollisionAbillity) abillity;
@@ -96,6 +96,7 @@ public class Entity implements Collidable {
 	public void removeAbillity(Abillity abillity){
 		this.abillities.remove(abillity);
 		
+		if(abillity==this.renderAbillity) this.renderAbillity=null;
 		if(abillity instanceof CollisionAbillity){
 			CollisionAbillity collisionAbillity=(CollisionAbillity) abillity;
 			List<CollisionAbillity> list=this.collisionAbillities.get(collisionAbillity.getColliderType());
