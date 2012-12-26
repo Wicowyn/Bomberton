@@ -15,6 +15,7 @@ import org.jdom2.input.SAXBuilder;
 import org.newdawn.slick.geom.Vector2f;
 
 public class Engine {
+	private List<EngineListener> listeners=new ArrayList<EngineListener>();
 	private CollisionManager collisionManager=new CollisionManager();
 	private List<Entity> entities=new ArrayList<Entity>();
 	private List<Entity> entitiesAdd=new ArrayList<Entity>();
@@ -24,7 +25,7 @@ public class Engine {
 	private boolean loaded=false;
 	
 	public Engine(){
-	
+		
 	}
 	
 	public void update(int delta){
@@ -59,6 +60,7 @@ public class Engine {
 		if(entity instanceof Bomberman) this.bombermans.add((Bomberman) entity);
 		
 		this.collisionManager.addCollidable(entity);
+		notifyEntityAdded(entity);
 		this.log.debug("add Entity: "+entity.getClass().getSimpleName()+", ID: "+entity.getID()+", position: "+entity.getPosition()+", direction: "+entity.getDirection());
 	}
 	
@@ -67,6 +69,7 @@ public class Engine {
 		if(entity instanceof Bomberman) this.bombermans.remove((Bomberman) entity);
 		
 		this.collisionManager.removeCollidable(entity);
+		notifyEntityRemoved(entity);
 		this.log.debug("remove Entity: "+entity.getClass().getSimpleName()+", ID: "+entity.getID()+", position: "+entity.getPosition()+", direction: "+entity.getDirection());
 	}
 	
@@ -132,7 +135,7 @@ public class Engine {
 		
 		this.loaded=true;
 	}
-	
+
 	public List<String> getListGame(){ //TODO à améliorer
 		File directory=new File("ressources/map");
 		GameFileFilter filter=new GameFileFilter();
@@ -159,6 +162,22 @@ public class Engine {
 	
 	public boolean isLoad(){
 		return this.loaded;
+	}
+	
+	public void addListener(EngineListener listener){
+		this.listeners.add(listener);
+	}
+	
+	public void removeListener(EngineListener listener){
+		this.listeners.remove(listener);
+	}
+	
+	protected void notifyEntityAdded(Entity entity){
+		for(EngineListener listener : this.listeners) listener.entityAdded(entity);
+	}
+	
+	protected void notifyEntityRemoved(Entity entity){
+		for(EngineListener listener : this.listeners) listener.entityRemoved(entity);
 	}
 	
 	private class GameFileFilter implements FilenameFilter{

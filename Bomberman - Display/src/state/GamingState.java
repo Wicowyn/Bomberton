@@ -35,8 +35,7 @@ public class GamingState extends BasicGameState {
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1)
 			throws SlickException {
-			//System.out.println(GamingState.getPossibleGame());
-			//setGame("Classic");
+			setGame(getPossibleGame().get(0));
 	}
 	
 	@Override
@@ -75,8 +74,9 @@ public class GamingState extends BasicGameState {
 		File[] files=(new File(GamingState.resourcePath)).listFiles();
 		
 		for(File file : files){
-			if(file.getName().endsWith(GamingState.renderSuffix)) listRender.add(file.getName().substring(0, file.getName().indexOf(GamingState.renderSuffix)));
-			if(file.getName().endsWith(GamingState.mapSuffix)) listMap.add(file.getName().substring(0, file.getName().indexOf(GamingState.mapSuffix)));
+			String name=file.getName();
+			if(name.endsWith(GamingState.renderSuffix)) listRender.add(name.substring(0, name.indexOf(GamingState.renderSuffix)));
+			if(name.endsWith(GamingState.mapSuffix)) listMap.add(name.substring(0, name.indexOf(GamingState.mapSuffix)));
 		}
 		
 		listMap.retainAll(listRender);
