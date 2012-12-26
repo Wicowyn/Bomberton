@@ -18,7 +18,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import display.KeyAction;
 
-public class MenuState extends BasicGameState implements KeyAction{
+public class MenuState extends BasicGameState{
 	
 	//bouton du menu
 	private MouseOverArea quit;
@@ -39,7 +39,7 @@ public class MenuState extends BasicGameState implements KeyAction{
 	public void init(GameContainer container, StateBasedGame arg1)
 			throws SlickException {
 			input = container.getInput();
-			// a implement dans layoutMenu
+			
 			menu = new Image("image/background-menu1.png");
 			
 			menu2=new LayoutMenu(container, new Image("ressources/fleche.png"));
@@ -126,61 +126,5 @@ public class MenuState extends BasicGameState implements KeyAction{
 		return PageName.Menu;
 	}
 
-
-
-	@Override
-	public void up() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public void down() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public void left() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public void right() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public void enter() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public void action1() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public void action2() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }
 

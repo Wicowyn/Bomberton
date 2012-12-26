@@ -17,6 +17,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import engine.BasicRender;
 import engine.Bomberman;
 import engine.Engine;
+import engine.EngineListener;
 import engine.Entity;
 import engine.KeyboardMove;
 import engine.KeyboardPopBomb;
@@ -36,6 +37,8 @@ public class GamingState extends BasicGameState {
 	public void init(GameContainer arg0, StateBasedGame arg1)
 			throws SlickException {
 			setGame(getPossibleGame().get(0));
+			
+			engine.addListener(new ListenEngine());
 	}
 	
 	@Override
@@ -55,10 +58,6 @@ public class GamingState extends BasicGameState {
 			KeyboardPopBomb popBomb=new KeyboardPopBomb(bomberman, container.getInput());
 			bomberman.addAbillity(popBomb);
 			popBomb.setPower(5);
-		}
-		
-		for(Entity entity : this.engine.getEntities()){
-			entity.addAbillity(new BasicRender(entity));
 		}
 
 	}
@@ -100,6 +99,21 @@ public class GamingState extends BasicGameState {
 	@Override
 	public int getID() {
 		return PageName.Gaming;
+	}
+	
+	private class ListenEngine implements EngineListener{
+
+		@Override
+		public void entityAdded(Entity entity) {
+			entity.addAbillity(new BasicRender(entity));
+		}
+
+		@Override
+		public void entityRemoved(Entity entity) {
+			
+			
+		}
+		
 	}
 
 }

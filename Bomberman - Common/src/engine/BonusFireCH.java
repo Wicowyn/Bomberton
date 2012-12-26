@@ -35,7 +35,6 @@ public class BonusFireCH implements CollisionHandler {
 		}
 		
 		fire.getEngine().removeEntityToBuff(bonus);
-		//TODO end kill
 
 	}
 

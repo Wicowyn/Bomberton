@@ -54,7 +54,7 @@ public class Bang extends CollisionAbillity {
 			this.owner.getEngine().addEntityToBuff(fire);
 		}
 		
-		this.owner.getEngine().removeEntityToBuff(this.owner); //TODO end kill
+		this.owner.getEngine().removeEntityToBuff(this.owner);
 	}
 	
 	public void setTime(int time){

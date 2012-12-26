@@ -16,5 +16,5 @@ public abstract class Item extends Entity {
 	public Item(Engine engine, Shape collisionShape) {
 		super(engine, collisionShape);
 	}
-//TODO EYES WIDE SHUT
+
 }
