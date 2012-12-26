@@ -112,7 +112,7 @@ public class Engine {
 				entity=bonus;
 				break;
 			default:
-				this.log.warn("loadGame: unknown type object -> "+elem.getName());
+				this.log.warn("loadLevel: unknown type object -> "+elem.getName());
 				continue;
 			}
 
