@@ -64,9 +64,6 @@ public class MenuState extends BasicGameState{
 			
 			//Constructeur : Animation(SpriteSheet frames, int x1, int y1, int x2, int y2, boolean horizontalScan, int duration, boolean autoUpdate)
 			courir = new Animation(perso, 0,0,0,3,true, 100, false);
-		  
-		     
-		     
 		     
 			/*touche = new TextField(container, null, 200, 450, 200, 50);
 			touche.setText("test"); test du TEXTFIELD*/

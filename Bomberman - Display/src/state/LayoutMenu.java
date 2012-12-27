@@ -14,7 +14,6 @@ public class LayoutMenu extends AbstractComponent{
 	private List<AbstractComponent> lesElementsMenu = new ArrayList<AbstractComponent>();
 	private Image cursor;
 	private int x, y;
-	private int width, height;
 	private int keyUp=Input.KEY_UP;
 	private int keyDown=Input.KEY_DOWN;
 	private int positionCursor = 0;
@@ -34,44 +33,44 @@ public class LayoutMenu extends AbstractComponent{
 	}
 	
 	public void setSpace(int space){
-		this.height-=this.lesElementsMenu.size()*this.space;
-		this.width-=this.space;
-		
 		this.space=space;
-		
-		this.height+=this.lesElementsMenu.size()*this.space;
-		this.width+=this.space;
+	
 	}
 	
 	public void addElement(AbstractComponent component){
 		this.lesElementsMenu.add(component);
 		
-		if(component.getWidth()+cursor.getWidth()+this.space>this.width) this.width=component.getWidth()+cursor.getWidth()+this.space;
-		this.height+=component.getHeight()+this.space;
 	}
 	
 	public void removeElement(AbstractComponent component){
-		if(!this.lesElementsMenu.remove(component)) return;
-		
-		int width=-1;
-		for(int i=0; i<this.lesElementsMenu.size(); i++){
-			AbstractComponent elem=this.lesElementsMenu.get(i);
-			if(width==-1) width=elem.getWidth();
-			else if(elem.getWidth()<width) width=elem.getWidth();
-		}
-		
-		this.width=width;
-		this.height-=component.getHeight()+this.space;
+		this.lesElementsMenu.remove(component);
 	}
 	
-	@Override
+	
 	public int getHeight() {
-		return this.height;
+		int height = (this.lesElementsMenu.size()-1)*this.space;
+		
+		for(AbstractComponent element : this.lesElementsMenu){
+			height += element.getHeight();
+		}
+		if(height <= 0) return 0;
+		else return height;
 	}
 
 	@Override
 	public int getWidth() {
-		return this.width;
+		if(this.lesElementsMenu.size() == 0) return 0;
+		int width = this.space+cursor.getWidth();
+		int i = 0;
+		
+		for(AbstractComponent element : this.lesElementsMenu){
+			if(i < element.getWidth()){
+				i = element.getWidth();
+			}
+		}
+		width += i;
+		
+		return width;
 	}
 
 	@Override
