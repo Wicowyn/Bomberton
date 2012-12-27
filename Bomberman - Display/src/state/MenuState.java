@@ -35,9 +35,12 @@ public class MenuState extends BasicGameState{
 	private Image persoDroite;
 
 	
+	
 	@Override
 	public void init(GameContainer container, StateBasedGame arg1)
 			throws SlickException {
+		
+			
 			input = container.getInput();
 			
 			menu = new Image("image/background-menu1.png");
@@ -59,6 +62,7 @@ public class MenuState extends BasicGameState{
 			quit.setNormalColor(new Color(0.7f,0.7f,0.7f,1f));
 			quit.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
 			menu2.addElement(quit);
+			menu2.addListener(new ObserveLayout());
 			
 			perso = new SpriteSheet("image/KarabounChicken.gif", 80,80); //80 = taille de l'image
 			
@@ -80,11 +84,8 @@ public class MenuState extends BasicGameState{
 		menu2.render(container, g);
 		courir.draw(200+200,200);
 		
-		
-		
-		
-		
 	}
+	
 	/*public void componentActivated(AbstractComponent source) { //methode de l'interface ComponentListener
 
 		if (source == quit) {
@@ -123,6 +124,21 @@ public class MenuState extends BasicGameState{
 	// ID de la page
 	public int getID() {
 		return PageName.Menu;
+	}
+	
+	private class ObserveLayout implements LayoutMenuActionListener{
+
+		@Override
+		public void fieldSelected(int index) {
+			
+			
+		}
+
+		@Override
+		public void fieldOverfly(int index) {
+			System.out.println(index);
+			
+		}
 	}
 
 }

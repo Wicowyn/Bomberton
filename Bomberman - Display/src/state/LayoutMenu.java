@@ -12,12 +12,15 @@ import org.newdawn.slick.gui.GUIContext;
 
 public class LayoutMenu extends AbstractComponent{
 	private List<AbstractComponent> lesElementsMenu = new ArrayList<AbstractComponent>();
+	private List<LayoutMenuActionListener> listen = new ArrayList<LayoutMenuActionListener>();
 	private Image cursor;
 	private int x, y;
 	private int keyUp=Input.KEY_UP;
 	private int keyDown=Input.KEY_DOWN;
+	private int KeyEnter = Input.KEY_ENTER;
 	private int positionCursor = 0;
 	private int space=5;
+	
 	
 	public LayoutMenu(GUIContext container, Image cursor) {
 		super(container);
@@ -31,8 +34,8 @@ public class LayoutMenu extends AbstractComponent{
 	public void setKeyDown(int key){
 		this.keyDown=key;
 	}
-	
-	public void setSpace(int space){
+
+	public void setSpace(int space){	
 		this.space=space;
 	
 	}
@@ -98,7 +101,6 @@ public class LayoutMenu extends AbstractComponent{
 			component.render(arg0, g);
 			posY+=this.lesElementsMenu.get(i).getHeight()+this.space;
 		}
-		
 	}
 
 	@Override
@@ -109,8 +111,41 @@ public class LayoutMenu extends AbstractComponent{
 
 	@Override
 	public void keyReleased(int key, char c){
-		if(key==this.keyUp && this.positionCursor>0) this.positionCursor--;
-		else if(key==this.keyDown && this.positionCursor<this.lesElementsMenu.size()-1) this.positionCursor++;
+		if(key == this.KeyEnter){
+			notifyFieldSelected(this.positionCursor);
+		}
+		if(key==this.keyUp && this.positionCursor>0){ 
+			this.positionCursor--;
+			notifyFieldOverfly(this.positionCursor);
+			
+			
+		}
+		else if(key==this.keyDown && this.positionCursor<this.lesElementsMenu.size()-1){
+			this.positionCursor++;
+			notifyFieldOverfly(this.positionCursor);
+		}
 	}
+	
+	public void addListener(LayoutMenuActionListener listener){
+		this.listen.add(listener);
+	}
+	
+	public void removeListener(LayoutMenuActionListener listener){
+		this.listen.remove(listener);
+	}
+	
+	protected void notifyFieldSelected(int index){
+		for(LayoutMenuActionListener listener : this.listen ) listener.fieldSelected(index);
+	}
+	
+	protected void notifyFieldOverfly(int index){
+		for(LayoutMenuActionListener listener : this.listen ) listener.fieldOverfly(index);
+	}
+	
+	/*public AbstractComponent getCompenent(int index){
+		
+		
+	}*/
+
 
 }
