@@ -29,6 +29,11 @@ public class ResourceManager {
 	private Map<String, Sound> mapSound=new HashMap<String, Sound>();
 	private Map<String, String> mapText=new HashMap<String, String>();
 	
+	public static final String UP_ANIMATION="_UP_ANIMATION";
+	public static final String DOWN_ANIMATION="_DOWN_ANIMATION";
+	public static final String RIGHT_ANIMATION="_RIGHT_ANIMATION";
+	public static final String LEFT_ANIMATION="_LEFT_ANIMATION";
+	
 	public ResourceManager(){
 		
 	}

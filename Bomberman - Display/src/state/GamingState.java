@@ -46,9 +46,13 @@ public class GamingState extends BasicGameState {
 		try {
 			this.engine.unLoad();
 			this.engine.loadLevel(GamingState.resourcePath+this.currentGame+GamingState.mapSuffix);
+			
+			this.res.load(GamingState.resourcePath+this.currentGame+GamingState.renderSuffix);
 		} catch (JDOMException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SlickException e) {
 			e.printStackTrace();
 		}
 		
