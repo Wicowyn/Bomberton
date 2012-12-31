@@ -10,7 +10,6 @@ public class CollisionManager {
 	private HashMap<Integer, List<Collidable>> collidables=new HashMap<Integer, List<Collidable>>();
 	private Map<Integer, List<Integer>> collisionsTypes=new HashMap<Integer, List<Integer>>();
 	private Map<String, CollisionHandler> collisionHandlers=new HashMap<String, CollisionHandler>();
-	//private Logger log=LogManager.getLogger(getClass());
 	
 	public static String getKey(int type1, int type2){
 		return (type1 < type2) ? type1+"-"+type2 : type2+"-"+type1; 
@@ -58,6 +57,20 @@ public class CollisionManager {
 		}
 		
 		list.add(type2);
+	}
+	
+	public boolean collideWith(Collidable collidable, int type){
+		List<Integer> list=this.collisionsTypes.get(type);
+		if(list==null || !list.contains(type)) return false;
+		
+		List<Collidable> colliders=this.collidables.get(type);
+		if(colliders==null) return false;
+		
+		for(Collidable collider : colliders){
+			if(collidable.isCollidingWith(collider)) return true;
+		}
+		
+		return false;
 	}
 	
 	public void performCollision(){

@@ -1,6 +1,10 @@
 package engine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BombermanFireCH implements CollisionHandler {
+	private List<ActionKill> listeners=new ArrayList<ActionKill>();
 
 	public BombermanFireCH() {
 		
@@ -36,8 +40,20 @@ public class BombermanFireCH implements CollisionHandler {
 		}
 		
 		fire.getEngine().removeEntityToBuff(bomberman);
-		//end kill
+		notifyKill(fire, bomberman);
 		
+	}
+	
+	public void addListener(ActionKill listener){
+		this.listeners.add(listener);
+	}
+	
+	public void remove(ActionKill listener){
+		this.listeners.remove(listener);
+	}
+	
+	protected void notifyKill(Entity killer, Entity killed){
+		for(ActionKill listener : this.listeners) listener.kill(killer, killed);
 	}
 
 }

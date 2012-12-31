@@ -1,9 +1,22 @@
 package engine;
 
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
 public class BombermanBlockCH implements CollisionHandler {
-
+	private int tolerance=30;
+	private CollisionManager manager;
+	
+	public BombermanBlockCH(CollisionManager manager){
+		this.manager=manager;
+	}
+	
+	public void setTolerance(int tolerance){
+		this.tolerance=tolerance;
+		if(this.tolerance>50) this.tolerance=50;
+		else if(this.tolerance<0) this.tolerance=0;
+	}
+	
 	@Override
 	public int getCollider1Type() {
 		return CTSCollision.Bomberman;
@@ -36,12 +49,75 @@ public class BombermanBlockCH implements CollisionHandler {
 		float direction=bomberman.getDirection();
 		direction+=180; //reverse it
 		
+		
+		Vector2f initialPos=bomberman.getPosition();
 		do{
 			Vector2f position=bomberman.getPosition();
 			position.x+=Math.cos(Math.toRadians(direction));
 			position.y+=Math.sin(Math.toRadians(direction));
 			bomberman.setPosition(position);
 		}while(bomberman.isCollidingWith(block));
+		
+		Rectangle rectBomberman=bomberman.getNormalCollisionShape();
+		Rectangle rectBlock=block.getNormalCollisionShape();
+		Vector2f posBomberman=bomberman.getPosition();
+		Vector2f posBlock=block.getPosition();
+		//Vector2f posTemp=posBlock.copy();
+		
+		switch((int) bomberman.getDirection()){
+		case 90:
+			if(rectBomberman.getMinX()+posBomberman.x > rectBlock.getMaxX()+posBlock.x-rectBlock.getWidth()*this.tolerance/100){
+				//posTemp.x+=rectBlock.getWidth();
+				//bomberman.setPosition(posTemp);
+				
+				//if(!this.manager.collideWith(bomberman, CTSCollision.Block)){
+					posBomberman.x+=initialPos.y-posBomberman.y;
+					if(posBomberman.x>posBlock.x+(rectBlock.getWidth())) posBomberman.x=posBlock.x+(rectBlock.getWidth());
+				//}
+			}
+			else if(rectBomberman.getMaxX()+posBomberman.x < rectBlock.getMinX()+posBlock.x+rectBlock.getWidth()*this.tolerance/100){
+				//posTemp.x-=rectBomberman.getWidth();
+				//bomberman.setPosition(posTemp);
+				
+				//if(!this.manager.collideWith(bomberman, CTSCollision.Block)){
+					posBomberman.x-=initialPos.y-posBomberman.y;
+					if(posBomberman.x+rectBomberman.getWidth()<posBlock.x) posBomberman.x=posBlock.x-rectBomberman.getWidth();
+				//}
+			}
+			break;
+		case 270:
+			if(rectBomberman.getMinX()+posBomberman.x > rectBlock.getMaxX()+posBlock.x-rectBlock.getWidth()*this.tolerance/100){
+				posBomberman.x+=posBomberman.y-initialPos.y;
+				if(posBomberman.x>posBlock.x+(rectBlock.getWidth())) posBomberman.x=posBlock.x+(rectBlock.getWidth());
+			}
+			else if(rectBomberman.getMaxX()+posBomberman.x < rectBlock.getMinX()+posBlock.x+rectBlock.getWidth()*this.tolerance/100){
+				posBomberman.x-=posBomberman.y-initialPos.y;
+				if(posBomberman.x+rectBomberman.getWidth()<posBlock.x) posBomberman.x=posBlock.x-rectBomberman.getWidth();
+			}
+			break;
+		case 0:
+			if(rectBomberman.getMaxY()+posBomberman.y < rectBlock.getMinY()+posBlock.y+rectBlock.getHeight()*this.tolerance/100){
+				posBomberman.y-=initialPos.x-posBomberman.x;
+				if(posBomberman.y+rectBomberman.getHeight()<posBlock.y) posBomberman.y=posBlock.y-rectBomberman.getHeight();
+			}
+			else if(rectBomberman.getMinY()+posBomberman.y > rectBlock.getMaxY()+posBlock.y-rectBlock.getHeight()*this.tolerance/100){
+				posBomberman.y+=initialPos.x-posBomberman.x;
+				if(posBomberman.y>posBlock.y+rectBlock.getHeight()) posBomberman.y=posBlock.y+rectBlock.getHeight();
+			}
+			break;
+		case 180:
+			if(rectBomberman.getMaxY()+posBomberman.y < rectBlock.getMinY()+posBlock.y+rectBlock.getHeight()*this.tolerance/100){
+				posBomberman.y-=posBomberman.x-initialPos.x;
+				if(posBomberman.y+rectBomberman.getHeight()<posBlock.y) posBomberman.y=posBlock.y-rectBomberman.getHeight();
+			}
+			else if(rectBomberman.getMinY()+posBomberman.y > rectBlock.getMaxY()+posBlock.y-rectBlock.getHeight()*this.tolerance/100){
+				posBomberman.y+=posBomberman.x-initialPos.x;
+				if(posBomberman.y>posBlock.y+rectBlock.getHeight()) posBomberman.y=posBlock.y+rectBlock.getHeight();
+			}
+			break;
+		}
+		
+		bomberman.setPosition(posBomberman);
 	}
-
+	
 }

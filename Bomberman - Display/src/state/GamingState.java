@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jdom2.JDOMException;
-import org.lwjgl.Sys;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -31,7 +30,7 @@ public class GamingState extends BasicGameState {
 	private static String resourcePath="ressources/";
 	private String currentGame;
 	private Engine engine=new Engine();
-	private ResourceManager res;
+	private ResourceManager res=new ResourceManager();
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1)

@@ -12,9 +12,11 @@ import org.newdawn.slick.state.StateBasedGame;
 public class RealRender extends Render {
 	private Map<IntervalAngl, Animation> mapAnimation=new HashMap<IntervalAngl, Animation>();
 	private Animation currentAnim;
+	private Vector2f lastPos;
 	
 	public RealRender(Entity owner) {
 		super(owner);
+		this.lastPos=this.owner.getPosition().scale(0.1f);
 	}
 	
 	public void setAnimation(float anglFirst, float anglSecond, Animation animation){
@@ -25,7 +27,15 @@ public class RealRender extends Render {
 	public void render(GameContainer gc, StateBasedGame sb, Graphics gr) {
 		if(this.currentAnim!=null){
 			Vector2f position=this.owner.getPosition().scale(0.1f);
-			this.currentAnim.draw(position.x+100-this.currentAnim.getWidth(), position.y+100-this.currentAnim.getHeight());
+			
+			if(position.equals(this.lastPos)){
+				this.currentAnim.draw(position.x+100-this.currentAnim.getWidth(), position.y+100-this.currentAnim.getHeight());
+			}
+			else{
+				this.currentAnim.getImage(0).draw(position.x+100-this.currentAnim.getWidth(), position.y+100-this.currentAnim.getHeight());
+			}
+			
+			this.lastPos=position;
 		}
 	}
 

@@ -3,24 +3,17 @@ package state;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
-import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.MouseOverArea;
-import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import display.KeyAction;
-
 public class MenuState extends BasicGameState{
-	
-	//bouton du menu
 	private MouseOverArea quit;
 	private MouseOverArea play;
 	private MouseOverArea option;
@@ -29,10 +22,7 @@ public class MenuState extends BasicGameState{
 	private LayoutMenu menu2;
 	
 	private Animation courir;
-	private Animation courir2;
 	private SpriteSheet perso;
-	private Image perso2;
-	private Image persoDroite;
 
 	
 	
@@ -66,11 +56,8 @@ public class MenuState extends BasicGameState{
 			
 			perso = new SpriteSheet("image/KarabounChicken.gif", 80,80); //80 = taille de l'image
 			
-			//Constructeur : Animation(SpriteSheet frames, int x1, int y1, int x2, int y2, boolean horizontalScan, int duration, boolean autoUpdate)
 			courir = new Animation(perso, 0,0,0,3,true, 100, false);
-		     
-			/*touche = new TextField(container, null, 200, 450, 200, 50);
-			touche.setText("test"); test du TEXTFIELD*/
+
 	}
 	
 
@@ -86,22 +73,6 @@ public class MenuState extends BasicGameState{
 		
 	}
 	
-	/*public void componentActivated(AbstractComponent source) { //methode de l'interface ComponentListener
-
-		if (source == quit) {
-
-			container.exit();
-
-		}
-		if (source == play) {
-
-			game.enterState(); // Id de la page
-
-		}
-	}*/
-	
-	
-
 	@Override
 	public void update(GameContainer container, StateBasedGame arg1, int arg2)
 			throws SlickException {
@@ -121,7 +92,6 @@ public class MenuState extends BasicGameState{
 	}
 
 	@Override
-	// ID de la page
 	public int getID() {
 		return PageName.Menu;
 	}
@@ -136,7 +106,7 @@ public class MenuState extends BasicGameState{
 
 		@Override
 		public void fieldOverfly(int index) {
-			System.out.println(index);
+			
 			
 		}
 	}

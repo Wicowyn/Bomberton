@@ -1,7 +1,11 @@
 package engine;
 
-public class BlockFireCH implements CollisionHandler {
+import java.util.ArrayList;
+import java.util.List;
 
+public class BlockFireCH implements CollisionHandler {
+	private List<ActionKill> listeners=new ArrayList<ActionKill>();
+	
 	public BlockFireCH() {
 	}
 
@@ -36,10 +40,22 @@ public class BlockFireCH implements CollisionHandler {
 		
 		fire.getEngine().removeEntityToBuff(fire);
 		
-		if(block instanceof BreakableBlock) block.getEngine().removeEntityToBuff(block);
-		
-		//end kill
-
+		if(block instanceof BreakableBlock){
+			block.getEngine().removeEntityToBuff(block);
+			notifyKill(fire, block);
+		}
+	}
+	
+	public void addListener(ActionKill listener){
+		this.listeners.add(listener);
+	}
+	
+	public void remove(ActionKill listener){
+		this.listeners.remove(listener);
+	}
+	
+	protected void notifyKill(Entity killer, Entity killed){
+		for(ActionKill listener : this.listeners) listener.kill(killer, killed);
 	}
 
 }

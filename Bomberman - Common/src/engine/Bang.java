@@ -1,12 +1,15 @@
 package engine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.newdawn.slick.geom.Vector2f;
 
 public class Bang extends CollisionAbillity {
+	private List<ActionBang> listeners=new ArrayList<ActionBang>();
 	private int time=1500;
 	private int currentTime=0;
 	private boolean detonnation=false;
-	private PopBomb initializer=null;
 	private int power=1;
 	
 	public Bang(Entity owner) {
@@ -32,7 +35,7 @@ public class Bang extends CollisionAbillity {
 	
 	public void bang(){
 		this.detonnation=false;
-		if(this.initializer!=null) this.initializer.setCurrentBomb(this.initializer.getCurrentBomb()-1);
+		notifyBang(this.owner);
 		//TODO say initializer.owner kill owner;
 		for(int diffDir=0; diffDir<360; diffDir+=90){
 			Fire fire=new Fire(this.owner.getEngine());
@@ -60,13 +63,21 @@ public class Bang extends CollisionAbillity {
 	public void setTime(int time){
 		this.time=time;
 	}
-
-	public void setInitializer(KeyboardPopBomb initializer){
-		this.initializer=initializer;
-	}
 	
 	public void setPower(int power){
 		this.power = power<1 ? 1 : power;
+	}
+	
+	public void addListener(ActionBang listener){
+		this.listeners.add(listener);
+	}
+	
+	public void removeListener(ActionBang listener){
+		this.listeners.remove(listener);
+	}
+	
+	protected void notifyBang(Entity entity){
+		for(ActionBang listener : this.listeners) listener.bang(this.owner);
 	}
 
 	@Override

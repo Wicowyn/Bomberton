@@ -13,4 +13,9 @@ public class Bomb extends Entity{
 		this.collisionType=CTSCollision.Bomb;
 	}
 	
+	@Override
+	public Rectangle getNormalCollisionShape(){
+		return (Rectangle) super.getNormalCollisionShape();
+	}
+	
 }

@@ -1,7 +1,11 @@
 package engine;
 
-public class BonusFireCH implements CollisionHandler {
+import java.util.ArrayList;
+import java.util.List;
 
+public class BonusFireCH implements CollisionHandler {
+	private List<ActionKill> listeners=new ArrayList<ActionKill>();
+	
 	public BonusFireCH() {
 	}
 
@@ -35,7 +39,19 @@ public class BonusFireCH implements CollisionHandler {
 		}
 		
 		fire.getEngine().removeEntityToBuff(bonus);
-
+		notifyKill(fire, bonus);
+	}
+	
+	public void addListener(ActionKill listener){
+		this.listeners.add(listener);
+	}
+	
+	public void remove(ActionKill listener){
+		this.listeners.remove(listener);
+	}
+	
+	protected void notifyKill(Entity killer, Entity killed){
+		for(ActionKill listener : this.listeners) listener.kill(killer, killed);
 	}
 
 }

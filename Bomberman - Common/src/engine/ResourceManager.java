@@ -169,15 +169,17 @@ public class ResourceManager {
 	}
 	
 	public Image getImage(String id){
-		return this.mapImage.get(id);
+		return this.mapImage.get(id).copy();
 	}
 	
 	public SpriteSheet getSpriteSheet(String id){
-		return this.mapSpriteSheet.get(id);
+		SpriteSheet old=this.mapSpriteSheet.get(id);
+		
+		return new SpriteSheet(old.copy(), old.getWidth(), old.getHeight());
 	}
 	
 	public Animation getAnimation(String id){
-		return this.mapAnimation.get(id);
+		return this.mapAnimation.get(id).copy();
 	}
 	
 	public Sound getSound(String id){

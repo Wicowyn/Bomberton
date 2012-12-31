@@ -45,5 +45,10 @@ public class Bonus extends Entity {
 	public List<Abillity> getListAbillity(){
 		return this.listAbbillity;
 	}
+	
+	@Override
+	public Rectangle getNormalCollisionShape(){
+		return (Rectangle) super.getNormalCollisionShape();
+	}
 
 }

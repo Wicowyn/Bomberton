@@ -12,4 +12,9 @@ public class Fire extends Item {
 		this.collisionType=CTSCollision.Fire;
 	}
 	
+	@Override
+	public Rectangle getNormalCollisionShape(){
+		return (Rectangle) super.getNormalCollisionShape();
+	}
+	
 }

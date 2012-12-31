@@ -32,5 +32,33 @@ public abstract class PopBomb extends Abillity {
 	public void setPower(int power) {
 		this.power= power<1 ? 1 : power;
 	}
+	
+	protected void popBomb(){
+		Bomb bomb=new Bomb(this.owner.getEngine());
+		bomb.setPosition(this.owner.getPosition());
+		bomb.setOwner(this.owner);
+		
+		for(Abillity abillity : bomb.getAbillities()){
+			if(abillity instanceof Bang){
+				Bang bang=(Bang) abillity;
+				bang.setPower(this.power);
+				bang.startDetonation();
+				bang.addListener(new ListenBang());
+			}
+		}
+		
+		this.owner.getEngine().addEntityToBuff(bomb);
+		this.currentBomb++;
+	}
+	
+	private class ListenBang implements ActionBang{
+
+		@Override
+		public void bang(Entity entity) {
+			PopBomb.this.currentBomb--;
+			
+		}
+		
+	}
 
 }

@@ -3,7 +3,7 @@ package engine;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
 
-public class KeyboardMove extends Move {
+public class KeyboardMove extends Move{
 	private Input input=null;
 	private int keyUp=Input.KEY_UP;
 	private int keyRight=Input.KEY_RIGHT;
@@ -18,11 +18,12 @@ public class KeyboardMove extends Move {
 	
 	@Override
 	public void update(int delta) {
-		if(this.input.isKeyDown(this.keyUp)) this.owner.setDirection(-90);
-		else if(this.input.isKeyDown(this.keyRight)) this.owner.setDirection(0);
-		else if(this.input.isKeyDown(this.keyDown)) this.owner.setDirection(90);
-		else if(this.input.isKeyDown(this.keyLeft)) this.owner.setDirection(180);
-		else return;
+		if((this.input.isKeyDown(this.keyUp) == this.input.isKeyDown(this.keyDown)) && (this.input.isKeyDown(this.keyRight) == this.input.isKeyDown(this.keyLeft))) return;
+		
+		if(this.input.isKeyPressed(this.keyDown)) this.owner.setDirection(90);
+		else if(this.input.isKeyPressed(this.keyLeft)) this.owner.setDirection(180);
+		else if(this.input.isKeyPressed(this.keyUp)) this.owner.setDirection(-90);
+		else if(this.input.isKeyPressed(this.keyRight)) this.owner.setDirection(0);
 		
 		Vector2f position=this.owner.getPosition();
 		float hip=this.speed*delta;
@@ -48,5 +49,4 @@ public class KeyboardMove extends Move {
 	public void setKeyLeft(int key){
 		this.keyLeft=key;
 	}
-
 }

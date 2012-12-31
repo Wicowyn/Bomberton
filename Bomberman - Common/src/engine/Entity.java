@@ -164,6 +164,9 @@ public class Entity implements Collidable {
 
 	public void setDirection(float direction){
 		this.direction=direction;
+		
+		while(this.direction<0) this.direction+=360;
+		while(this.direction>=360) this.direction-=360;
 	}
 
 	public Vector2f getPosition(){

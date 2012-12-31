@@ -10,5 +10,10 @@ public class Bomberman extends Entity {
 		super(engine, Bomberman.shape);
 		this.collisionType=CTSCollision.Bomberman;	
 	}
+	
+	@Override
+	public Rectangle getNormalCollisionShape(){
+		return (Rectangle) this.collisionShape;
+	}
 
 }

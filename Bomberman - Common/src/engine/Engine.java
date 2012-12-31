@@ -126,7 +126,7 @@ public class Engine {
 			addEntity(entity);			
 		}
 		
-		this.collisionManager.addHandler(new BombermanBlockCH());
+		this.collisionManager.addHandler(new BombermanBlockCH(this.collisionManager));
 		this.collisionManager.addHandler(new BombermanBonusCH());
 		this.collisionManager.addHandler(new BombermanFireCH());
 		this.collisionManager.addHandler(new BombFireCH());

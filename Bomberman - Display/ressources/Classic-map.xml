@@ -22,6 +22,7 @@
     <!-- <SolidBlock x="4" y="2" dir="0" /> -->
     <BreakableBlock x="4" y="3" dir="0" />
     <SolidBlock x="4" y="4" dir="0" />
+    <SolidBlock x="7" y="4" dir="0" />
     
     <Bomb x="5" y="0" dir="0" />
     <Bonus x="7" y="0" dir="0" bomb="1" speed="2" power="3" />

@@ -15,21 +15,7 @@ public class KeyboardPopBomb extends PopBomb {
 	@Override
 	public void update(int delta) {
 		if(this.input.isKeyPressed(this.keyPop) && this.currentBomb<this.maxBomb){
-			Bomb bomb=new Bomb(this.owner.getEngine());
-			bomb.setPosition(this.owner.getPosition());
-			bomb.setOwner(this.owner);
-			
-			for(Abillity abillity : bomb.getAbillities()){
-				if(abillity instanceof Bang){
-					Bang bang=(Bang) abillity;
-					bang.setPower(this.power);
-					bang.startDetonation();
-					bang.setInitializer(this);
-				}
-			}
-			
-			this.owner.getEngine().addEntityToBuff(bomb);
-			this.currentBomb++;
+			popBomb();
 		}
 
 	}

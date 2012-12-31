@@ -11,4 +11,9 @@ public abstract class Block extends Entity {
 		this.collisionType=CTSCollision.Block;
 	}
 
+	@Override
+	public Rectangle getNormalCollisionShape(){
+		return (Rectangle) super.getNormalCollisionShape();
+	}
+
 }
