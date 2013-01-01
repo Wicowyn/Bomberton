@@ -13,6 +13,8 @@ import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import components.LayoutMenu;
+
 public class MenuState extends BasicGameState{
 	private MouseOverArea quit;
 	private MouseOverArea play;
