@@ -62,57 +62,95 @@ public class BombermanBlockCH implements CollisionHandler {
 		Rectangle rectBlock=block.getNormalCollisionShape();
 		Vector2f posBomberman=bomberman.getPosition();
 		Vector2f posBlock=block.getPosition();
-		//Vector2f posTemp=posBlock.copy();
+		Vector2f posTemp=posBlock.copy();
 		
 		switch((int) bomberman.getDirection()){
 		case 90:
 			if(rectBomberman.getMinX()+posBomberman.x > rectBlock.getMaxX()+posBlock.x-rectBlock.getWidth()*this.tolerance/100){
-				//posTemp.x+=rectBlock.getWidth();
-				//bomberman.setPosition(posTemp);
+				posTemp.x+=rectBlock.getWidth();
+				posTemp.y-=rectBomberman.getHeight()-1;
+				bomberman.setPosition(posTemp);
 				
-				//if(!this.manager.collideWith(bomberman, CTSCollision.Block)){
+				if(!this.manager.collideWith(bomberman, CTSCollision.Block)){
 					posBomberman.x+=initialPos.y-posBomberman.y;
 					if(posBomberman.x>posBlock.x+(rectBlock.getWidth())) posBomberman.x=posBlock.x+(rectBlock.getWidth());
-				//}
+				}
 			}
 			else if(rectBomberman.getMaxX()+posBomberman.x < rectBlock.getMinX()+posBlock.x+rectBlock.getWidth()*this.tolerance/100){
-				//posTemp.x-=rectBomberman.getWidth();
-				//bomberman.setPosition(posTemp);
+				posTemp.x-=rectBomberman.getWidth();
+				posTemp.y-=rectBomberman.getHeight()-1;
+				bomberman.setPosition(posTemp);
 				
-				//if(!this.manager.collideWith(bomberman, CTSCollision.Block)){
+				if(!this.manager.collideWith(bomberman, CTSCollision.Block)){
 					posBomberman.x-=initialPos.y-posBomberman.y;
 					if(posBomberman.x+rectBomberman.getWidth()<posBlock.x) posBomberman.x=posBlock.x-rectBomberman.getWidth();
-				//}
+				}
 			}
 			break;
 		case 270:
 			if(rectBomberman.getMinX()+posBomberman.x > rectBlock.getMaxX()+posBlock.x-rectBlock.getWidth()*this.tolerance/100){
-				posBomberman.x+=posBomberman.y-initialPos.y;
-				if(posBomberman.x>posBlock.x+(rectBlock.getWidth())) posBomberman.x=posBlock.x+(rectBlock.getWidth());
+				posTemp.x+=rectBlock.getWidth();
+				posTemp.y+=rectBlock.getHeight()-1;
+				bomberman.setPosition(posTemp);
+				
+				if(!this.manager.collideWith(bomberman, CTSCollision.Block)){
+					posBomberman.x+=posBomberman.y-initialPos.y;
+					if(posBomberman.x>posBlock.x+(rectBlock.getWidth())) posBomberman.x=posBlock.x+(rectBlock.getWidth());
+				}
 			}
 			else if(rectBomberman.getMaxX()+posBomberman.x < rectBlock.getMinX()+posBlock.x+rectBlock.getWidth()*this.tolerance/100){
-				posBomberman.x-=posBomberman.y-initialPos.y;
-				if(posBomberman.x+rectBomberman.getWidth()<posBlock.x) posBomberman.x=posBlock.x-rectBomberman.getWidth();
+				posTemp.x-=rectBomberman.getWidth();
+				posTemp.y+=rectBlock.getHeight()-1;
+				bomberman.setPosition(posTemp);
+				
+				if(!this.manager.collideWith(bomberman, CTSCollision.Block)){
+					posBomberman.x-=posBomberman.y-initialPos.y;
+					if(posBomberman.x+rectBomberman.getWidth()<posBlock.x) posBomberman.x=posBlock.x-rectBomberman.getWidth();
+				}
 			}
 			break;
 		case 0:
 			if(rectBomberman.getMaxY()+posBomberman.y < rectBlock.getMinY()+posBlock.y+rectBlock.getHeight()*this.tolerance/100){
-				posBomberman.y-=initialPos.x-posBomberman.x;
-				if(posBomberman.y+rectBomberman.getHeight()<posBlock.y) posBomberman.y=posBlock.y-rectBomberman.getHeight();
+				posTemp.x-=rectBomberman.getWidth()-1;
+				posTemp.y-=rectBomberman.getHeight();
+				bomberman.setPosition(posTemp);
+				
+				if(!this.manager.collideWith(bomberman, CTSCollision.Block)){
+					posBomberman.y-=initialPos.x-posBomberman.x;
+					if(posBomberman.y+rectBomberman.getHeight()<posBlock.y) posBomberman.y=posBlock.y-rectBomberman.getHeight();
+				}
 			}
 			else if(rectBomberman.getMinY()+posBomberman.y > rectBlock.getMaxY()+posBlock.y-rectBlock.getHeight()*this.tolerance/100){
-				posBomberman.y+=initialPos.x-posBomberman.x;
-				if(posBomberman.y>posBlock.y+rectBlock.getHeight()) posBomberman.y=posBlock.y+rectBlock.getHeight();
+				posTemp.x-=rectBomberman.getWidth()-1;
+				posTemp.y+=rectBlock.getHeight();
+				bomberman.setPosition(posTemp);
+				
+				if(!this.manager.collideWith(bomberman, CTSCollision.Block)){
+					posBomberman.y+=initialPos.x-posBomberman.x;
+					if(posBomberman.y>posBlock.y+rectBlock.getHeight()) posBomberman.y=posBlock.y+rectBlock.getHeight();
+				}
 			}
 			break;
 		case 180:
 			if(rectBomberman.getMaxY()+posBomberman.y < rectBlock.getMinY()+posBlock.y+rectBlock.getHeight()*this.tolerance/100){
-				posBomberman.y-=posBomberman.x-initialPos.x;
-				if(posBomberman.y+rectBomberman.getHeight()<posBlock.y) posBomberman.y=posBlock.y-rectBomberman.getHeight();
+				posTemp.x-=rectBomberman.getWidth()-1;
+				posTemp.y-=rectBomberman.getHeight();
+				bomberman.setPosition(posTemp);
+				
+				if(!this.manager.collideWith(bomberman, CTSCollision.Block)){
+					posBomberman.y-=posBomberman.x-initialPos.x;
+					if(posBomberman.y+rectBomberman.getHeight()<posBlock.y) posBomberman.y=posBlock.y-rectBomberman.getHeight();
+				}
 			}
 			else if(rectBomberman.getMinY()+posBomberman.y > rectBlock.getMaxY()+posBlock.y-rectBlock.getHeight()*this.tolerance/100){
-				posBomberman.y+=posBomberman.x-initialPos.x;
-				if(posBomberman.y>posBlock.y+rectBlock.getHeight()) posBomberman.y=posBlock.y+rectBlock.getHeight();
+				posTemp.x-=rectBomberman.getWidth()-1;
+				posTemp.y+=rectBlock.getHeight();
+				bomberman.setPosition(posTemp);
+				
+				if(!this.manager.collideWith(bomberman, CTSCollision.Block)){
+					posBomberman.y+=posBomberman.x-initialPos.x;
+					if(posBomberman.y>posBlock.y+rectBlock.getHeight()) posBomberman.y=posBlock.y+rectBlock.getHeight();
+				}
 			}
 			break;
 		}

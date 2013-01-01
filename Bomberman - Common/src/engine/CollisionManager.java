@@ -61,7 +61,7 @@ public class CollisionManager {
 	
 	public boolean collideWith(Collidable collidable, int type){
 		List<Integer> list=this.collisionsTypes.get(type);
-		if(list==null || !list.contains(type)) return false;
+		if(list==null || !list.contains(collidable.getCollisionType())) return false;
 		
 		List<Collidable> colliders=this.collidables.get(type);
 		if(colliders==null) return false;
