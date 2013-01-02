@@ -180,7 +180,7 @@ public class Engine {
 		for(EngineListener listener : this.listeners) listener.entityRemoved(entity);
 	}
 	
-	private class GameFileFilter implements FilenameFilter{
+	private static class GameFileFilter implements FilenameFilter{
 
 		@Override
 		public boolean accept(File dir, String name) {

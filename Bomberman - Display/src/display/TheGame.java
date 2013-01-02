@@ -7,6 +7,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import state.GamingState;
 import state.MenuState;
 import state.PageName;
+import state.SelectGameState;
 
 public class TheGame extends StateBasedGame{
 
@@ -21,6 +22,8 @@ public class TheGame extends StateBasedGame{
 		addState(state);
 		GamingState gaming=new GamingState();
 		addState(gaming);
+		SelectGameState selectGame=new SelectGameState();
+		addState(selectGame);
 		
 	}
 	public void keyPressed(int key, char c){

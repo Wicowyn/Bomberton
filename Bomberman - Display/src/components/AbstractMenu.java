@@ -63,6 +63,10 @@ public abstract class AbstractMenu extends AbstractComponent{
 		this.components.remove(component);
 	}
 	
+	public AbstractComponent getComponent(int position){
+		return this.components.get(position);
+	}
+	
 	public void addListener(LayoutMenuActionListener listener){
 		this.listen.add(listener);
 	}
