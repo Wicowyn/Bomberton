@@ -24,7 +24,7 @@ import engine.ResourceManager;
 
 
 
-public class GamingState extends BasicGameState {
+public class GamingState extends BasicGameState implements SelectGame {
 	private static String renderSuffix="-render.xml";
 	private static String mapSuffix="-map.xml";
 	private static String resourcePath="ressources/";
@@ -114,8 +114,13 @@ public class GamingState extends BasicGameState {
 		@Override
 		public void entityRemoved(Entity entity) {
 			
-			
 		}
+		
+	}
+
+	@Override
+	public void selectGame(String game) {
+		this.currentGame=game;
 		
 	}
 

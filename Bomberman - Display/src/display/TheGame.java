@@ -24,6 +24,7 @@ public class TheGame extends StateBasedGame{
 		addState(gaming);
 		SelectGameState selectGame=new SelectGameState();
 		addState(selectGame);
+		selectGame.addListener(gaming);
 		
 	}
 	public void keyPressed(int key, char c){

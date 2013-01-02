@@ -21,6 +21,7 @@ import components.LayoutMenu;
 public class MenuState extends BasicGameState{
 	private StateBasedGame baseGame;
 	private Map<MouseOverArea, Integer> mapMenuPage=new HashMap<MouseOverArea, Integer>();
+	private ObserveLayout listenMenu=new ObserveLayout();
 	private Input input;
 	private Image menu;
 	private LayoutMenu menu2;
@@ -58,7 +59,6 @@ public class MenuState extends BasicGameState{
 		quit.setNormalColor(new Color(0.7f,0.7f,0.7f,1f));
 		quit.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
 		menu2.addElement(quit);
-		menu2.addListener(new ObserveLayout());
 		//this.mapMenuPage.put(quit, value)
 		
 		perso = new SpriteSheet("image/KarabounChicken.gif", 80,80); //80 = taille de l'image
@@ -66,7 +66,17 @@ public class MenuState extends BasicGameState{
 		courir = new Animation(perso, 0,0,0,3,true, 100, false);
 	}
 	
-
+	@Override
+	public void enter(GameContainer container, StateBasedGame game) throws SlickException{
+		super.enter(container, game);
+		this.menu2.addListener(this.listenMenu);
+	}
+	
+	@Override
+	public void leave(GameContainer container, StateBasedGame game) throws SlickException{
+		super.enter(container, game);
+		this.menu2.removeListener(this.listenMenu);
+	}
 	
 	@Override
 	public void render(GameContainer container, StateBasedGame arg1, Graphics g)

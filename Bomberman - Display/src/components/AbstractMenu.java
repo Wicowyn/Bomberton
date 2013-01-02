@@ -63,6 +63,10 @@ public abstract class AbstractMenu extends AbstractComponent{
 		this.components.remove(component);
 	}
 	
+	public void removeAll(){
+		this.components.clear();
+	}
+	
 	public AbstractComponent getComponent(int position){
 		return this.components.get(position);
 	}
@@ -85,6 +89,7 @@ public abstract class AbstractMenu extends AbstractComponent{
 	
 	@Override
 	public void keyReleased(int key, char c){
+		super.keyReleased(key, c);
 		if(key == this.keyEnter) enterKey();
 		if(key==this.keyUp && this.positionCursor>0) upKey();
 		else if(key==this.keyDown && this.positionCursor<this.components.size()-1) downKey();
