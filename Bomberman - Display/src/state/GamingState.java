@@ -13,13 +13,13 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import engine.BasicRender;
 import engine.Bomberman;
 import engine.Engine;
 import engine.EngineListener;
 import engine.Entity;
 import engine.KeyboardMove;
 import engine.KeyboardPopBomb;
+import engine.RealRender;
 import engine.ResourceManager;
 
 
@@ -30,7 +30,7 @@ public class GamingState extends BasicGameState implements SelectGame {
 	private static String resourcePath="ressources/";
 	private String currentGame;
 	private Engine engine=new Engine();
-	private ResourceManager res=new ResourceManager();
+	private ResourceManager ressources=new ResourceManager();
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1)
@@ -43,10 +43,10 @@ public class GamingState extends BasicGameState implements SelectGame {
 	@Override
 	public void enter(GameContainer container, StateBasedGame game){
 		try {
+			this.ressources.load(GamingState.resourcePath+this.currentGame+GamingState.renderSuffix);
+			
 			this.engine.unLoad();
 			this.engine.loadLevel(GamingState.resourcePath+this.currentGame+GamingState.mapSuffix);
-			
-			this.res.load(GamingState.resourcePath+this.currentGame+GamingState.renderSuffix);
 		} catch (JDOMException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -108,7 +108,14 @@ public class GamingState extends BasicGameState implements SelectGame {
 
 		@Override
 		public void entityAdded(Entity entity) {
-			entity.addAbillity(new BasicRender(entity));
+			RealRender render=new RealRender(entity);
+			ResourceManager res=GamingState.this.ressources;
+			render.setAnimation(-45, 45, res.getAnimation(entity.getClass().getSimpleName()+"_MOVE_RIGHT"));
+			render.setAnimation(45, 135, res.getAnimation(entity.getClass().getSimpleName()+"_MOVE_DOWN"));
+			render.setAnimation(135, 225, res.getAnimation(entity.getClass().getSimpleName()+"_MOVE_LEFT"));
+			render.setAnimation(225, 315, res.getAnimation(entity.getClass().getSimpleName()+"_MOVE_UP"));
+			
+			entity.addAbillity(render);
 		}
 
 		@Override

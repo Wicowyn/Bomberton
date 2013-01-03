@@ -26,13 +26,12 @@ public class RealRender extends Render {
 	@Override
 	public void render(GameContainer gc, StateBasedGame sb, Graphics gr) {
 		if(this.currentAnim!=null){
-			Vector2f position=this.owner.getPosition().scale(0.1f);
-			
-			if(position.equals(this.lastPos)){
-				this.currentAnim.draw(position.x+100-this.currentAnim.getWidth(), position.y+100-this.currentAnim.getHeight());
+			Vector2f position=this.owner.getPosition().scale(0.04f);
+			if(!position.equals(this.lastPos)){
+				this.currentAnim.draw(position.x+40-this.currentAnim.getWidth(), position.y+40-this.currentAnim.getHeight());
 			}
 			else{
-				this.currentAnim.getImage(0).draw(position.x+100-this.currentAnim.getWidth(), position.y+100-this.currentAnim.getHeight());
+				this.currentAnim.getImage(0).draw(position.x+40-this.currentAnim.getWidth(), position.y+40-this.currentAnim.getHeight());
 			}
 			
 			this.lastPos=position;
@@ -54,8 +53,8 @@ public class RealRender extends Render {
 		private float second;
 		
 		public IntervalAngl(float first, float second){
-			this.first=first%360;
-			this.second=second%360;
+			this.first=first;
+			this.second=second;
 		}
 		
 		public boolean isInclued(float number){

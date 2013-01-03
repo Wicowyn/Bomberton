@@ -110,7 +110,7 @@ public class ResourceManager {
 			}
 		}
 		
-		loadAnimation(elem.getAttributeValue("id"), elem.getAttributeValue("idSpriteSheet"), (AnimationData[]) listData.toArray());
+		loadAnimation(elem.getAttributeValue("id"), elem.getAttributeValue("idSpriteSheet"), listData.toArray(new AnimationData[0]));
 	}
 	
 	protected void loadSoundE(Element elem){
@@ -146,12 +146,13 @@ public class ResourceManager {
 			this.log.error("could not load animation because the spriteSheet: "+idSpriteSheet+" is missing");
 			return;
 		}
-		
-		Animation anim=new Animation(sheet, 100);
+
+		Animation anim=new Animation(true);
 		for(AnimationData data : datas){
-			anim.addFrame(data.duration, data.x, data.y);
+			anim.addFrame(sheet.getSubImage(data.x,  data.y), data.duration);
 		}
-		
+
+		System.out.println(id+" - "+anim);
 		this.mapAnimation.put(id, anim);
 	}
 	
@@ -169,17 +170,21 @@ public class ResourceManager {
 	}
 	
 	public Image getImage(String id){
-		return this.mapImage.get(id).copy();
+		Image old=this.mapImage.get(id);
+		
+		return old==null ? null : this.mapImage.get(id).copy();
 	}
 	
 	public SpriteSheet getSpriteSheet(String id){
 		SpriteSheet old=this.mapSpriteSheet.get(id);
 		
-		return new SpriteSheet(old.copy(), old.getWidth(), old.getHeight());
+		return old==null ? null : new SpriteSheet(old.copy(), old.getWidth()/old.getHorizontalCount(), old.getHeight()/old.getVerticalCount());
 	}
 	
 	public Animation getAnimation(String id){
-		return this.mapAnimation.get(id).copy();
+		Animation old=this.mapAnimation.get(id);
+		
+		return old==null ? null : old.copy();
 	}
 	
 	public Sound getSound(String id){

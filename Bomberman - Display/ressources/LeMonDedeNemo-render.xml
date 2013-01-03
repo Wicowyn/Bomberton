@@ -1,4 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
+        <SpriteSheet id="BombermanBlack" th="80" tw="80">image/PlayerBlack.gif</SpriteSheet>
+    <Animation id="Bomberman_MOVE_DOWN" idSpriteSheet="BombermanBlack">
+        <Frame duration="100" x="0" y="0" />
+        <Frame duration="100" x="1" y="0" />
+        <Frame duration="100" x="2" y="0" />
+        <Frame duration="100" x="3" y="0" />
+    </Animation>
+    <Animation id="Bomberman_MOVE_UP" idSpriteSheet="BombermanBlack">
+        <Frame duration="100" x="0" y="1" />
+        <Frame duration="100" x="1" y="1" />
+        <Frame duration="100" x="2" y="1" />
+        <Frame duration="100" x="3" y="1" />
+    </Animation>
+    <Animation id="Bomberman_MOVE_LEFT" idSpriteSheet="BombermanBlack">
+        <Frame duration="100" x="0" y="2" />
+        <Frame duration="100" x="1" y="2" />
+        <Frame duration="100" x="2" y="2" />
+        <Frame duration="100" x="3" y="2" />
+    </Animation>
+    <Animation id="Bomberman_MOVE_RIGHT" idSpriteSheet="BombermanBlack">
+        <Frame duration="100" x="0" y="3" />
+        <Frame duration="100" x="1" y="3" />
+        <Frame duration="100" x="2" y="3" />
+        <Frame duration="100" x="3" y="3" />
+    </Animation>
     
+    <SpriteSheet id="Bomb" th="40" tw="40">image/Bomb.gif</SpriteSheet>
+    <Animation id="Bomb_MOVE DOWN" idSpriteSheet="Bomb">
+        <Frame duration="250" x="0" y="2" />
+        <Frame duration="250" x="1" y="2" />
+        <Frame duration="250" x="2" y="2" />
+        <Frame duration="250" x="3" y="2" />
+    </Animation>
+    <Animation id="Bomb_MOVE UP" idSpriteSheet="Bomb">
+        <Frame duration="250" x="0" y="2" />
+        <Frame duration="250" x="1" y="2" />
+        <Frame duration="250" x="2" y="2" />
+        <Frame duration="250" x="3" y="2" />
+    </Animation>
+    <Animation id="Bomb_MOVE LEFT" idSpriteSheet="Bomb">
+        <Frame duration="250" x="0" y="2" />
+        <Frame duration="250" x="1" y="2" />
+        <Frame duration="250" x="2" y="2" />
+        <Frame duration="250" x="3" y="2" />
+    </Animation>
+    <Animation id="Bomb_MOVE RIGHT" idSpriteSheet="Bomb">
+        <Frame duration="250" x="0" y="2" />
+        <Frame duration="250" x="1" y="2" />
+        <Frame duration="250" x="2" y="2" />
+        <Frame duration="250" x="3" y="2" />
+    </Animation>
+    
+    <SpriteSheet id="Block" th="40" tw="40">image/Block.gif</SpriteSheet>
+    <Animation id="SolidBlock_MOVE_DOWN" idSpriteSheet="Block">
+        <Frame duration="1000" x="7" y="0" />
+    </Animation>
+    <Animation id="SolidBlock_MOVE_UP" idSpriteSheet="Block">
+        <Frame duration="1000" x="7" y="0" />
+    </Animation>
+    <Animation id="SolidBlock_MOVE_LEFT" idSpriteSheet="Block">
+        <Frame duration="1000" x="7" y="0" />
+    </Animation>
+    <Animation id="SolidBlock_MOVE_RIGHT" idSpriteSheet="Block">
+        <Frame duration="1000" x="7" y="0" />
+    </Animation>
+    
+    <Animation id="BreakableBlock_MOVE_DOWN" idSpriteSheet="Block">
+        <Frame duration="1000" x="2" y="0" />
+    </Animation>
+    <Animation id="BreakableBlock_MOVE_UP" idSpriteSheet="Block">
+        <Frame duration="1000" x="2" y="0" />
+    </Animation>
+    <Animation id="BreakableBlock_MOVE_LEFT" idSpriteSheet="Block">
+        <Frame duration="1000" x="2" y="0" />
+    </Animation>
+    <Animation id="BreakableBlock_MOVE_RIGHT" idSpriteSheet="Block">
+        <Frame duration="1000" x="2" y="0" />
+    </Animation>
 </root>
