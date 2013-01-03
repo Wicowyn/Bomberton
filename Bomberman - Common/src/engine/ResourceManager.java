@@ -152,7 +152,6 @@ public class ResourceManager {
 			anim.addFrame(sheet.getSubImage(data.x,  data.y), data.duration);
 		}
 
-		System.out.println(id+" - "+anim);
 		this.mapAnimation.put(id, anim);
 	}
 	

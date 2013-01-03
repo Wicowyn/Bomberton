@@ -27,29 +27,29 @@
     </Animation>
     
     <SpriteSheet id="Bomb" th="40" tw="40">image/Bomb.gif</SpriteSheet>
-    <Animation id="Bomb_MOVE DOWN" idSpriteSheet="Bomb">
-        <Frame duration="250" x="0" y="2" />
-        <Frame duration="250" x="1" y="2" />
-        <Frame duration="250" x="2" y="2" />
-        <Frame duration="250" x="3" y="2" />
+    <Animation id="Bomb_MOVE_DOWN" idSpriteSheet="Bomb">
+        <Frame duration="50" x="0" y="2" />
+        <Frame duration="50" x="1" y="2" />
+        <Frame duration="50" x="2" y="2" />
+        <Frame duration="50" x="3" y="2" />
     </Animation>
-    <Animation id="Bomb_MOVE UP" idSpriteSheet="Bomb">
-        <Frame duration="250" x="0" y="2" />
-        <Frame duration="250" x="1" y="2" />
-        <Frame duration="250" x="2" y="2" />
-        <Frame duration="250" x="3" y="2" />
+    <Animation id="Bomb_MOVE_UP" idSpriteSheet="Bomb">
+        <Frame duration="50" x="0" y="2" />
+        <Frame duration="50" x="1" y="2" />
+        <Frame duration="50" x="2" y="2" />
+        <Frame duration="50" x="3" y="2" />
     </Animation>
-    <Animation id="Bomb_MOVE LEFT" idSpriteSheet="Bomb">
-        <Frame duration="250" x="0" y="2" />
-        <Frame duration="250" x="1" y="2" />
-        <Frame duration="250" x="2" y="2" />
-        <Frame duration="250" x="3" y="2" />
+    <Animation id="Bomb_MOVE_LEFT" idSpriteSheet="Bomb">
+        <Frame duration="50" x="0" y="2" />
+        <Frame duration="50" x="1" y="2" />
+        <Frame duration="50" x="2" y="2" />
+        <Frame duration="50" x="3" y="2" />
     </Animation>
-    <Animation id="Bomb_MOVE RIGHT" idSpriteSheet="Bomb">
-        <Frame duration="250" x="0" y="2" />
-        <Frame duration="250" x="1" y="2" />
-        <Frame duration="250" x="2" y="2" />
-        <Frame duration="250" x="3" y="2" />
+    <Animation id="Bomb_MOVE_RIGHT" idSpriteSheet="Bomb">
+        <Frame duration="50" x="0" y="2" />
+        <Frame duration="50" x="1" y="2" />
+        <Frame duration="50" x="2" y="2" />
+        <Frame duration="50" x="3" y="2" />
     </Animation>
     
     <SpriteSheet id="Block" th="40" tw="40">image/Block.gif</SpriteSheet>
