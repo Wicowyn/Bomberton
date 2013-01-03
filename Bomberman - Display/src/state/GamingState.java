@@ -35,7 +35,7 @@ public class GamingState extends BasicGameState implements SelectGame {
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1)
 			throws SlickException {
-			setGame(getPossibleGame().get(0));
+			setGame(getPossibleGame().get(1));
 			
 			engine.addListener(new ListenEngine());
 	}

@@ -11,5 +11,6 @@ public abstract class Render extends Abillity {
 		
 	}
 	
+	
 	public abstract void render(GameContainer gc, StateBasedGame sb, Graphics gr);
 }

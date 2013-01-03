@@ -20,7 +20,7 @@ public class BasicRender extends Render {
 	
 	public void render(GameContainer gc, StateBasedGame sb, Graphics gr){
 		gr.setColor(Color.blue);
-		gr.draw(this.owner.getCollisionShape().transform(Transform.createScaleTransform(0.1f, 0.1f)));
+		gr.draw(this.owner.getCollisionShape().transform(Transform.createScaleTransform(0.04f, 0.04f)));
 		//if(this.owner instanceof Bomberman) System.out.println(this.owner.getCollisionShape().getCenterX()+" - "+this.owner.getCollisionShape().getCenterY());
 	}
 
