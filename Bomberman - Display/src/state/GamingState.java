@@ -110,10 +110,16 @@ public class GamingState extends BasicGameState implements SelectGame {
 		public void entityAdded(Entity entity) {
 			RealRender render=new RealRender(entity);
 			ResourceManager res=GamingState.this.ressources;
-			render.setAnimation(-45, 45, res.getAnimation(entity.getClass().getSimpleName()+"_MOVE_RIGHT"));
-			render.setAnimation(45, 135, res.getAnimation(entity.getClass().getSimpleName()+"_MOVE_DOWN"));
-			render.setAnimation(135, 225, res.getAnimation(entity.getClass().getSimpleName()+"_MOVE_LEFT"));
-			render.setAnimation(225, 315, res.getAnimation(entity.getClass().getSimpleName()+"_MOVE_UP"));
+			
+			render.setMoveRender(-45, 45, res.getAnimation(entity.getClass().getSimpleName()+"_MOVE_RIGHT"));
+			render.setMoveRender(45, 135, res.getAnimation(entity.getClass().getSimpleName()+"_MOVE_DOWN"));
+			render.setMoveRender(135, 225, res.getAnimation(entity.getClass().getSimpleName()+"_MOVE_LEFT"));
+			render.setMoveRender(225, 315, res.getAnimation(entity.getClass().getSimpleName()+"_MOVE_UP"));
+			
+			render.setStaticRender(-45, 45, res.getRenderable(entity.getClass().getSimpleName()+"_STATIC_RIGHT"));
+			render.setStaticRender(45, 135, res.getRenderable(entity.getClass().getSimpleName()+"_STATIC_DOWN"));
+			render.setStaticRender(135, 225, res.getRenderable(entity.getClass().getSimpleName()+"_STATIC_LEFT"));
+			render.setStaticRender(225, 315, res.getRenderable(entity.getClass().getSimpleName()+"_STATIC_UP"));
 			
 			entity.addAbillity(render);
 		}

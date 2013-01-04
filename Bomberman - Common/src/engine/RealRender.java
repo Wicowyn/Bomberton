@@ -3,15 +3,16 @@ package engine;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Renderable;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class RealRender extends Render {
-	private Map<IntervalAngl, Animation> mapAnimation=new HashMap<IntervalAngl, Animation>();
-	private Animation currentAnim;
+	private Map<IntervalAngl, Renderable> mapMoveRender=new HashMap<IntervalAngl, Renderable>();
+	private Map<IntervalAngl, Renderable> mapStaticRender=new HashMap<IntervalAngl, Renderable>();
+	private Renderable currentRender;
 	private Vector2f lastPos;
 	
 	public RealRender(Entity owner) {
@@ -19,33 +20,44 @@ public class RealRender extends Render {
 		this.lastPos=this.owner.getPosition().scale(0.1f);
 	}
 	
-	public void setAnimation(float anglFirst, float anglSecond, Animation animation){
-		this.mapAnimation.put(new IntervalAngl(anglFirst, anglSecond), animation);
+	public void setMoveRender(float anglFirst, float anglSecond, Renderable renderable){
+		this.mapMoveRender.put(new IntervalAngl(anglFirst, anglSecond), renderable);
+	}
+	
+	public void setStaticRender(float anglFirst, float anglSecond, Renderable renderable){
+		this.mapStaticRender.put(new IntervalAngl(anglFirst, anglSecond), renderable);
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sb, Graphics gr) {
-		if(this.currentAnim!=null){
-			Vector2f position=this.owner.getPosition().scale(0.04f);
-			if(!position.equals(this.lastPos)){
-				this.currentAnim.draw(position.x+40-this.currentAnim.getWidth(), position.y+40-this.currentAnim.getHeight());
-			}
-			else{
-				this.currentAnim.getImage(0).draw(position.x+40-this.currentAnim.getWidth(), position.y+40-this.currentAnim.getHeight());
-			}
-			
-			this.lastPos=position;
+		if(this.currentRender!=null){
+			Vector2f pos=this.owner.getPosition().scale(0.04f);
+			this.currentRender.draw(pos.x, pos.y/*+40*/);
 		}
 	}
 
 	@Override
 	public void update(int delta) {
-		for(IntervalAngl intAngl : this.mapAnimation.keySet()){
-			if(intAngl.isInclued(this.owner.getDirection())){
-				this.currentAnim=this.mapAnimation.get(intAngl);
-				break;
+		Vector2f position=this.owner.getPosition();
+		
+		if(this.lastPos.equals(position)){
+			for(IntervalAngl intAngl : this.mapStaticRender.keySet()){
+				if(intAngl.isInclued(this.owner.getDirection())){
+					this.currentRender=this.mapStaticRender.get(intAngl);
+					break;
+				}
 			}
 		}
+		else{
+			for(IntervalAngl intAngl : this.mapMoveRender.keySet()){
+				if(intAngl.isInclued(this.owner.getDirection())){
+					this.currentRender=this.mapMoveRender.get(intAngl);
+					break;
+				}
+			}
+		}
+		
+		this.lastPos=position;
 	}
 	
 	public class IntervalAngl{

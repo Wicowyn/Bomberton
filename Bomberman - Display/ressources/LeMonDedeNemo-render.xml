@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-        <SpriteSheet id="BombermanBlack" th="80" tw="80">image/PlayerBlack.gif</SpriteSheet>
+    <SpriteSheet id="BombermanBlack" th="80" tw="80">image/PlayerBlack.gif</SpriteSheet>
     <Animation id="Bomberman_MOVE_DOWN" idSpriteSheet="BombermanBlack">
         <Frame duration="100" x="0" y="0" />
         <Frame duration="100" x="1" y="0" />
@@ -25,57 +25,84 @@
         <Frame duration="100" x="2" y="3" />
         <Frame duration="100" x="3" y="3" />
     </Animation>
+    <Animation id="Bomberman_STATIC_DOWN" idSpriteSheet="BombermanBlack">
+        <!-- <Frame duration="1000" x="1" y="0" /> -->
+        <Frame duration="150" x="0" y="4" />
+        <Frame duration="150" x="1" y="4" />
+        <Frame duration="150" x="2" y="4" />
+        <Frame duration="150" x="3" y="4" />
+    </Animation>
+    <Image id="Bomberman_STATIC_UP" src="spritesheet" idSpriteSheet="BombermanBlack" x="1" y="1" />
+    <Image id="Bomberman_STATIC_LEFT" src="spritesheet" idSpriteSheet="BombermanBlack" x="1" y="2" />
+    <Image id="Bomberman_STATIC_RIGHT" src="spritesheet" idSpriteSheet="BombermanBlack" x="1" y="3" />
     
     <SpriteSheet id="Bomb" th="40" tw="40">image/Bomb.gif</SpriteSheet>
     <Animation id="Bomb_MOVE_DOWN" idSpriteSheet="Bomb">
-        <Frame duration="50" x="0" y="2" />
-        <Frame duration="50" x="1" y="2" />
-        <Frame duration="50" x="2" y="2" />
-        <Frame duration="50" x="3" y="2" />
+        <Frame duration="150" x="0" y="2" />
+        <Frame duration="150" x="1" y="2" />
+        <Frame duration="150" x="2" y="2" />
+        <Frame duration="150" x="3" y="2" />
     </Animation>
     <Animation id="Bomb_MOVE_UP" idSpriteSheet="Bomb">
-        <Frame duration="50" x="0" y="2" />
-        <Frame duration="50" x="1" y="2" />
-        <Frame duration="50" x="2" y="2" />
-        <Frame duration="50" x="3" y="2" />
+        <Frame duration="150" x="0" y="2" />
+        <Frame duration="150" x="1" y="2" />
+        <Frame duration="150" x="2" y="2" />
+        <Frame duration="150" x="3" y="2" />
     </Animation>
     <Animation id="Bomb_MOVE_LEFT" idSpriteSheet="Bomb">
-        <Frame duration="50" x="0" y="2" />
-        <Frame duration="50" x="1" y="2" />
-        <Frame duration="50" x="2" y="2" />
-        <Frame duration="50" x="3" y="2" />
+        <Frame duration="150" x="0" y="2" />
+        <Frame duration="150" x="1" y="2" />
+        <Frame duration="150" x="2" y="2" />
+        <Frame duration="150" x="3" y="2" />
     </Animation>
     <Animation id="Bomb_MOVE_RIGHT" idSpriteSheet="Bomb">
-        <Frame duration="50" x="0" y="2" />
-        <Frame duration="50" x="1" y="2" />
-        <Frame duration="50" x="2" y="2" />
-        <Frame duration="50" x="3" y="2" />
+        <Frame duration="150" x="0" y="2" />
+        <Frame duration="150" x="1" y="2" />
+        <Frame duration="150" x="2" y="2" />
+        <Frame duration="150" x="3" y="2" />
+    </Animation>
+    <Animation id="Bomb_MOVE_DOWN" idSpriteSheet="Bomb">
+        <Frame duration="150" x="0" y="2" />
+        <Frame duration="150" x="1" y="2" />
+        <Frame duration="150" x="2" y="2" />
+        <Frame duration="150" x="3" y="2" />
+    </Animation>
+    <Animation id="Bomb_STATIC_UP" idSpriteSheet="Bomb">
+        <Frame duration="150" x="0" y="2" />
+        <Frame duration="150" x="1" y="2" />
+        <Frame duration="150" x="2" y="2" />
+        <Frame duration="150" x="3" y="2" />
+    </Animation>
+    <Animation id="Bomb_STATIC_LEFT" idSpriteSheet="Bomb">
+        <Frame duration="150" x="0" y="2" />
+        <Frame duration="150" x="1" y="2" />
+        <Frame duration="150" x="2" y="2" />
+        <Frame duration="150" x="3" y="2" />
+    </Animation>
+    <Animation id="Bomb_STATIC_RIGHT" idSpriteSheet="Bomb">
+        <Frame duration="150" x="0" y="2" />
+        <Frame duration="150" x="1" y="2" />
+        <Frame duration="150" x="2" y="2" />
+        <Frame duration="150" x="3" y="2" />
     </Animation>
     
-    <SpriteSheet id="Block" th="40" tw="40">image/Block.gif</SpriteSheet>
-    <Animation id="SolidBlock_MOVE_DOWN" idSpriteSheet="Block">
-        <Frame duration="1000" x="7" y="0" />
-    </Animation>
-    <Animation id="SolidBlock_MOVE_UP" idSpriteSheet="Block">
-        <Frame duration="1000" x="7" y="0" />
-    </Animation>
-    <Animation id="SolidBlock_MOVE_LEFT" idSpriteSheet="Block">
-        <Frame duration="1000" x="7" y="0" />
-    </Animation>
-    <Animation id="SolidBlock_MOVE_RIGHT" idSpriteSheet="Block">
-        <Frame duration="1000" x="7" y="0" />
-    </Animation>
+    <Image id="SolidBlock_MOVE_DOWN" src="file">image/solidBlock.png</Image>
+    <Image id="SolidBlock_MOVE_UP" src="file">image/solidBlock.png</Image>
+    <Image id="SolidBlock_MOVE_LEFT" src="file">image/solidBlock.png</Image>
+    <Image id="SolidBlock_MOVE_RIGHT" src="file">image/solidBlock.png</Image>
     
-    <Animation id="BreakableBlock_MOVE_DOWN" idSpriteSheet="Block">
-        <Frame duration="1000" x="2" y="0" />
-    </Animation>
-    <Animation id="BreakableBlock_MOVE_UP" idSpriteSheet="Block">
-        <Frame duration="1000" x="2" y="0" />
-    </Animation>
-    <Animation id="BreakableBlock_MOVE_LEFT" idSpriteSheet="Block">
-        <Frame duration="1000" x="2" y="0" />
-    </Animation>
-    <Animation id="BreakableBlock_MOVE_RIGHT" idSpriteSheet="Block">
-        <Frame duration="1000" x="2" y="0" />
-    </Animation>
+    <Image id="SolidBlock_STATIC_DOWN" src="file">image/solidBlock.png</Image>
+    <Image id="SolidBlock_STATIC_UP" src="file">image/solidBlock.png</Image>
+    <Image id="SolidBlock_STATIC_LEFT" src="file">image/solidBlock.png</Image>
+    <Image id="SolidBlock_STATIC_RIGHT" src="file">image/solidBlock.png</Image>
+    
+    <Image id="BreakableBlock_MOVE_DOWN" src="file">image/breakableBlock.png</Image>
+    <Image id="BreakableBlock_MOVE_UP" src="file">image/breakableBlock.png</Image>
+    <Image id="BreakableBlock_MOVE_LEFT" src="file">image/breakableBlock.png</Image>
+    <Image id="BreakableBlock_MOVE_RIGHT" src="file">image/breakableBlock.png</Image>
+    
+    <Image id="BreakableBlock_STATIC_DOWN" src="file">image/breakableBlock.png</Image>
+    <Image id="BreakableBlock_STATIC_UP" src="file">image/breakableBlock.png</Image>
+    <Image id="BreakableBlock_STATIC_LEFT" src="file">image/breakableBlock.png</Image>
+    <Image id="BreakableBlock_STATIC_RIGHT" src="file">image/breakableBlock.png</Image>
 </root>

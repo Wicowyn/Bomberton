@@ -16,6 +16,7 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Renderable;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
@@ -71,7 +72,25 @@ public class ResourceManager {
 	}
 	
 	protected void loadImageE(Element elem){
-		loadImage(elem.getAttributeValue("id"), elem.getText());
+		String id=elem.getAttributeValue("id");
+		
+		switch(elem.getAttributeValue("src")){
+		case "file":
+			loadImage(id, elem.getText());
+			break;
+		case "spritesheet":
+			try {
+				loadImage(id,
+						elem.getAttributeValue("idSpriteSheet"),
+						elem.getAttribute("x").getIntValue(),
+						elem.getAttribute("y").getIntValue());
+			} catch (DataConversionException e) {
+				this.log.error("could not load image: "+id+" because wrong format of attribute 'x' or 'y'");
+			}
+			break;
+		default:
+			this.log.error("could not load image: "+id+", unknown value: "+elem.getAttributeValue("src")+" of attribute 'src'");
+		}
 	}
 	
 	protected void loadSpriteSheetE(Element elem){
@@ -131,6 +150,16 @@ public class ResourceManager {
 		
 	}
 	
+	public void loadImage(String id, String idSpriteSheet, int x, int y){
+		SpriteSheet sheet=getSpriteSheet(idSpriteSheet);
+		if(sheet==null){
+			this.log.error("could not load image: "+id+" because the spriteSheet: "+idSpriteSheet+" is missing");
+			return;
+		}
+		
+		this.mapImage.put(id, sheet.getSubImage(x, y));
+	}
+	
 	public void loadSpriteSheet(String id, String filePath, int tw, int th){
 		try {
 			SpriteSheet sheet=new SpriteSheet(new Image(filePath), tw, th);
@@ -143,7 +172,7 @@ public class ResourceManager {
 	public void loadAnimation(String id, String idSpriteSheet, AnimationData... datas){
 		SpriteSheet sheet=getSpriteSheet(idSpriteSheet);
 		if(sheet==null){
-			this.log.error("could not load animation because the spriteSheet: "+idSpriteSheet+" is missing");
+			this.log.error("could not load animation: "+id+" because the spriteSheet: "+idSpriteSheet+" is missing");
 			return;
 		}
 
@@ -184,6 +213,12 @@ public class ResourceManager {
 		Animation old=this.mapAnimation.get(id);
 		
 		return old==null ? null : old.copy();
+	}
+	
+	public Renderable getRenderable(String id){
+		Renderable render=getAnimation(id);
+		
+		return render==null ? getImage(id) : render;
 	}
 	
 	public Sound getSound(String id){
