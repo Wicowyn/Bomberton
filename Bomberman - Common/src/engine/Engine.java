@@ -14,6 +14,10 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.newdawn.slick.geom.Vector2f;
 
+import engine.bonus.BombBonus;
+import engine.bonus.PowerBonus;
+import engine.bonus.SpeedBonus;
+
 public class Engine {
 	private List<EngineListener> listeners=new ArrayList<EngineListener>();
 	private CollisionManager collisionManager=new CollisionManager();
@@ -110,6 +114,15 @@ public class Engine {
 				bonus.setSpeed(elem.getAttribute("speed").getIntValue());
 				
 				entity=bonus;
+				break;
+			case "SpeedBonus":
+				entity=new SpeedBonus(this);
+				break;
+			case "PowerBonus":
+				entity=new PowerBonus(this);
+				break;
+			case "BombBonus":
+				entity=new BombBonus(this);
 				break;
 			default:
 				this.log.warn("loadLevel: unknown type object -> "+elem.getName());

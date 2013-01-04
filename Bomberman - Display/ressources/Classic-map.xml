@@ -26,7 +26,10 @@
     
     <Bomb x="5" y="0" dir="0" />
     <Bonus x="7" y="0" dir="0" bomb="1" speed="2" power="3" />
-      
+    <SpeedBonus x="7" y="2" dir="0" />
+    <PowerBonus x="7" y="4" dir="0" />
+    <BombBonus x="7" y="6" dir="0" />
+    
     <Bomberman x="1" y="1" dir="0" />
     
 </root>
