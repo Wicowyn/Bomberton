@@ -54,4 +54,9 @@ public class BonusFireCH implements CollisionHandler {
 		for(ActionKill listener : this.listeners) listener.kill(killer, killed);
 	}
 
+	@Override
+	public void update() {
+		
+	}
+
 }

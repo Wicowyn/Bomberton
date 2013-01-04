@@ -2,9 +2,11 @@ package engine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 public class CollisionManager {
 	private HashMap<Integer, List<Collidable>> collidables=new HashMap<Integer, List<Collidable>>();
@@ -59,7 +61,7 @@ public class CollisionManager {
 		list.add(type2);
 	}
 	
-	public boolean collideWith(Collidable collidable, int type){
+	public boolean isCollideWith(Collidable collidable, int type){
 		List<Integer> list=this.collisionsTypes.get(type);
 		if(list==null || !list.contains(collidable.getCollisionType())) return false;
 		
@@ -73,7 +75,28 @@ public class CollisionManager {
 		return false;
 	}
 	
+	public List<Collidable> collideWith(Collidable collidable, int type){
+		List<Collidable> listRes=new ArrayList<Collidable>();
+		
+		List<Integer> list=this.collisionsTypes.get(type);
+		if(list==null || !list.contains(collidable.getCollisionType())) return listRes;
+		
+		List<Collidable> colliders=this.collidables.get(type);
+		if(colliders==null) return listRes;
+		
+		for(Collidable collider : colliders){
+			if(collidable.isCollidingWith(collider)) listRes.add(collider);
+		}
+		
+		return listRes;
+	}
+	
 	public void performCollision(){
+		for(Iterator<Entry<String, CollisionHandler>> itM=this.collisionHandlers.entrySet().iterator(); itM.hasNext();){
+			Entry<String, CollisionHandler> entry=itM.next();
+			entry.getValue().update();
+		}
+		
 		List<CollisionData> toProcess=new ArrayList<CollisionData>();
 		List<String> alreadyProcessed=new ArrayList<String>();
 		
@@ -108,10 +131,7 @@ public class CollisionManager {
 		}
 		
 		for(CollisionData collision : toProcess){
-			/*if(collision.handler==null){
-				this.log.warn("collision of "+collision.collider1.getCollisionType()+" with "+collision.collider2.getCollisionType()+" not handle");
-			}
-			else */collision.handler.performCollision(collision.collider1, collision.collider2);
+			collision.handler.performCollision(collision.collider1, collision.collider2);
 		}
 	}
 	

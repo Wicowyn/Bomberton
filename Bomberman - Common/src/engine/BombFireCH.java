@@ -24,4 +24,9 @@ public class BombFireCH implements CollisionHandler {
 
 	}
 
+	@Override
+	public void update() {
+		
+	}
+
 }

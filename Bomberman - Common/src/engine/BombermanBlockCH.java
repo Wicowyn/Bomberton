@@ -71,7 +71,7 @@ public class BombermanBlockCH implements CollisionHandler {
 				posTemp.y-=rectBomberman.getHeight()-1;
 				bomberman.setPosition(posTemp);
 				
-				if(!this.manager.collideWith(bomberman, CTSCollision.Block)){
+				if(!this.manager.isCollideWith(bomberman, CTSCollision.Block)){
 					posBomberman.x+=initialPos.y-posBomberman.y;
 					if(posBomberman.x>posBlock.x+(rectBlock.getWidth())) posBomberman.x=posBlock.x+(rectBlock.getWidth());
 				}
@@ -81,7 +81,7 @@ public class BombermanBlockCH implements CollisionHandler {
 				posTemp.y-=rectBomberman.getHeight()-1;
 				bomberman.setPosition(posTemp);
 				
-				if(!this.manager.collideWith(bomberman, CTSCollision.Block)){
+				if(!this.manager.isCollideWith(bomberman, CTSCollision.Block)){
 					posBomberman.x-=initialPos.y-posBomberman.y;
 					if(posBomberman.x+rectBomberman.getWidth()<posBlock.x) posBomberman.x=posBlock.x-rectBomberman.getWidth();
 				}
@@ -93,7 +93,7 @@ public class BombermanBlockCH implements CollisionHandler {
 				posTemp.y+=rectBlock.getHeight()-1;
 				bomberman.setPosition(posTemp);
 				
-				if(!this.manager.collideWith(bomberman, CTSCollision.Block)){
+				if(!this.manager.isCollideWith(bomberman, CTSCollision.Block)){
 					posBomberman.x+=posBomberman.y-initialPos.y;
 					if(posBomberman.x>posBlock.x+(rectBlock.getWidth())) posBomberman.x=posBlock.x+(rectBlock.getWidth());
 				}
@@ -103,7 +103,7 @@ public class BombermanBlockCH implements CollisionHandler {
 				posTemp.y+=rectBlock.getHeight()-1;
 				bomberman.setPosition(posTemp);
 				
-				if(!this.manager.collideWith(bomberman, CTSCollision.Block)){
+				if(!this.manager.isCollideWith(bomberman, CTSCollision.Block)){
 					posBomberman.x-=posBomberman.y-initialPos.y;
 					if(posBomberman.x+rectBomberman.getWidth()<posBlock.x) posBomberman.x=posBlock.x-rectBomberman.getWidth();
 				}
@@ -115,7 +115,7 @@ public class BombermanBlockCH implements CollisionHandler {
 				posTemp.y-=rectBomberman.getHeight();
 				bomberman.setPosition(posTemp);
 				
-				if(!this.manager.collideWith(bomberman, CTSCollision.Block)){
+				if(!this.manager.isCollideWith(bomberman, CTSCollision.Block)){
 					posBomberman.y-=initialPos.x-posBomberman.x;
 					if(posBomberman.y+rectBomberman.getHeight()<posBlock.y) posBomberman.y=posBlock.y-rectBomberman.getHeight();
 				}
@@ -125,7 +125,7 @@ public class BombermanBlockCH implements CollisionHandler {
 				posTemp.y+=rectBlock.getHeight();
 				bomberman.setPosition(posTemp);
 				
-				if(!this.manager.collideWith(bomberman, CTSCollision.Block)){
+				if(!this.manager.isCollideWith(bomberman, CTSCollision.Block)){
 					posBomberman.y+=initialPos.x-posBomberman.x;
 					if(posBomberman.y>posBlock.y+rectBlock.getHeight()) posBomberman.y=posBlock.y+rectBlock.getHeight();
 				}
@@ -137,7 +137,7 @@ public class BombermanBlockCH implements CollisionHandler {
 				posTemp.y-=rectBomberman.getHeight();
 				bomberman.setPosition(posTemp);
 				
-				if(!this.manager.collideWith(bomberman, CTSCollision.Block)){
+				if(!this.manager.isCollideWith(bomberman, CTSCollision.Block)){
 					posBomberman.y-=posBomberman.x-initialPos.x;
 					if(posBomberman.y+rectBomberman.getHeight()<posBlock.y) posBomberman.y=posBlock.y-rectBomberman.getHeight();
 				}
@@ -147,7 +147,7 @@ public class BombermanBlockCH implements CollisionHandler {
 				posTemp.y+=rectBlock.getHeight();
 				bomberman.setPosition(posTemp);
 				
-				if(!this.manager.collideWith(bomberman, CTSCollision.Block)){
+				if(!this.manager.isCollideWith(bomberman, CTSCollision.Block)){
 					posBomberman.y+=posBomberman.x-initialPos.x;
 					if(posBomberman.y>posBlock.y+rectBlock.getHeight()) posBomberman.y=posBlock.y+rectBlock.getHeight();
 				}
@@ -156,6 +156,11 @@ public class BombermanBlockCH implements CollisionHandler {
 		}
 		
 		bomberman.setPosition(posBomberman);
+	}
+
+	@Override
+	public void update() {
+		
 	}
 	
 }

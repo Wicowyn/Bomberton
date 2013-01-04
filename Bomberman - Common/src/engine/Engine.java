@@ -145,6 +145,9 @@ public class Engine {
 		this.collisionManager.addHandler(new BombFireCH());
 		this.collisionManager.addHandler(new BonusFireCH());
 		this.collisionManager.addHandler(new BlockFireCH());
+		BombermanBombCH han=new BombermanBombCH(this.collisionManager);
+		addListener(han);
+		this.collisionManager.addHandler(han);
 		
 		this.loaded=true;
 	}

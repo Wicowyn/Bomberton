@@ -56,4 +56,9 @@ public class BombermanFireCH implements CollisionHandler {
 		for(ActionKill listener : this.listeners) listener.kill(killer, killed);
 	}
 
+	@Override
+	public void update() {
+		
+	}
+
 }

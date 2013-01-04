@@ -52,4 +52,9 @@ public class BombermanBonusCH implements CollisionHandler {
 		bonus.getEngine().removeEntityToBuff(bonus);
 	}
 
+	@Override
+	public void update() {
+		
+	}
+
 }

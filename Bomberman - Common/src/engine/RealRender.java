@@ -14,6 +14,7 @@ public class RealRender extends Render {
 	private Map<IntervalAngl, Renderable> mapStaticRender=new HashMap<IntervalAngl, Renderable>();
 	private Renderable currentRender;
 	private Vector2f lastPos;
+	private int diffX, diffY;
 	
 	public RealRender(Entity owner) {
 		super(owner);
@@ -27,12 +28,19 @@ public class RealRender extends Render {
 	public void setStaticRender(float anglFirst, float anglSecond, Renderable renderable){
 		this.mapStaticRender.put(new IntervalAngl(anglFirst, anglSecond), renderable);
 	}
+	
+	public void addDiffX(int diffX){
+		this.diffX+=diffX;
+	}
+	public void addDiffY(int diffY){
+		this.diffY+=diffY;
+	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sb, Graphics gr) {
 		if(this.currentRender!=null){
 			Vector2f pos=this.owner.getPosition().scale(0.04f);
-			this.currentRender.draw(pos.x, pos.y/*+40*/);
+			this.currentRender.draw(pos.x+this.diffX, pos.y+this.diffY);
 		}
 	}
 
