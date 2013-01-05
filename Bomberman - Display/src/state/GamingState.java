@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jdom2.JDOMException;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -89,6 +90,7 @@ public class GamingState extends BasicGameState implements SelectGame {
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2)
 			throws SlickException {
+		arg2.setBackground(Color.red);
 		for(Entity entity : this.engine.getEntities()) entity.render(arg0, arg1, arg2);
 	}
 

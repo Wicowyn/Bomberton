@@ -1,40 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-    <SpriteSheet id="BombermanBlack" th="80" tw="80">image/PlayerBlack.gif</SpriteSheet>
-    <Animation id="Bomberman_MOVE_DOWN" idSpriteSheet="BombermanBlack">
-        <Frame duration="100" x="0" y="0" />
-        <Frame duration="100" x="1" y="0" />
-        <Frame duration="100" x="2" y="0" />
-        <Frame duration="100" x="3" y="0" />
+    <SpriteSheet id="Bomberman" th="40" tw="40">image/Bomberman.png</SpriteSheet>
+    <Animation id="Bomberman_MOVE_DOWN" idSpriteSheet="Bomberman">
+        <Frame duration="50" x="0" y="2" />
+        <Frame duration="50" x="1" y="2" />
+        <Frame duration="50" x="2" y="2" />
+        <Frame duration="50" x="3" y="2" />
+        <Frame duration="50" x="4" y="2" />
+        <Frame duration="50" x="5" y="2" />
+        <Frame duration="50" x="6" y="2" />
+        <Frame duration="50" x="7" y="2" />
+        <Frame duration="50" x="8" y="2" />
+        <Frame duration="50" x="9" y="2" />
+        <Frame duration="50" x="10" y="2" />
+        <Frame duration="50" x="11" y="2" />
+        <Frame duration="50" x="12" y="2" />
     </Animation>
-    <Animation id="Bomberman_MOVE_UP" idSpriteSheet="BombermanBlack">
-        <Frame duration="100" x="0" y="1" />
-        <Frame duration="100" x="1" y="1" />
-        <Frame duration="100" x="2" y="1" />
-        <Frame duration="100" x="3" y="1" />
+    <Animation id="Bomberman_MOVE_UP" idSpriteSheet="Bomberman">
+        <Frame duration="50" x="0" y="0" />
+        <Frame duration="50" x="1" y="0" />
+        <Frame duration="50" x="2" y="0" />
+        <Frame duration="50" x="3" y="0" />
+        <Frame duration="50" x="4" y="0" />
+        <Frame duration="50" x="5" y="0" />
+        <Frame duration="50" x="6" y="0" />
+        <Frame duration="50" x="7" y="0" />
+        <Frame duration="50" x="8" y="0" />
+        <Frame duration="50" x="9" y="0" />
+        <Frame duration="50" x="10" y="0" />
+        <Frame duration="50" x="11" y="0" />
+        <Frame duration="50" x="12" y="0" />
     </Animation>
-    <Animation id="Bomberman_MOVE_LEFT" idSpriteSheet="BombermanBlack">
-        <Frame duration="100" x="0" y="2" />
-        <Frame duration="100" x="1" y="2" />
-        <Frame duration="100" x="2" y="2" />
-        <Frame duration="100" x="3" y="2" />
+    <Animation id="Bomberman_MOVE_LEFT" idSpriteSheet="Bomberman">
+        <Frame duration="50" x="0" y="3" />
+        <Frame duration="50" x="1" y="3" />
+        <Frame duration="50" x="2" y="3" />
+        <Frame duration="50" x="3" y="3" />
+        <Frame duration="50" x="4" y="3" />
+        <Frame duration="50" x="5" y="3" />
+        <Frame duration="50" x="6" y="3" />
+        <Frame duration="50" x="7" y="3" />
+        <Frame duration="50" x="8" y="3" />
+        <Frame duration="50" x="9" y="3" />
+        <Frame duration="50" x="10" y="3" />
+        <Frame duration="50" x="11" y="3" />
+        <Frame duration="50" x="12" y="3" />
     </Animation>
-    <Animation id="Bomberman_MOVE_RIGHT" idSpriteSheet="BombermanBlack">
-        <Frame duration="100" x="0" y="3" />
-        <Frame duration="100" x="1" y="3" />
-        <Frame duration="100" x="2" y="3" />
-        <Frame duration="100" x="3" y="3" />
+    <Animation id="Bomberman_MOVE_RIGHT" idSpriteSheet="Bomberman">
+        <Frame duration="50" x="0" y="1" />
+        <Frame duration="50" x="1" y="1" />
+        <Frame duration="50" x="2" y="1" />
+        <Frame duration="50" x="3" y="1" />
+        <Frame duration="50" x="4" y="1" />
+        <Frame duration="50" x="5" y="1" />
+        <Frame duration="50" x="6" y="1" />
+        <Frame duration="50" x="7" y="1" />
+        <Frame duration="50" x="8" y="1" />
+        <Frame duration="50" x="9" y="1" />
+        <Frame duration="50" x="10" y="1" />
+        <Frame duration="50" x="11" y="1" />
+        <Frame duration="50" x="12" y="1" />
     </Animation>
-    <Animation id="Bomberman_STATIC_DOWN" idSpriteSheet="BombermanBlack">
-        <!-- <Frame duration="1000" x="1" y="0" /> -->
-        <Frame duration="150" x="0" y="4" />
-        <Frame duration="150" x="1" y="4" />
-        <Frame duration="150" x="2" y="4" />
-        <Frame duration="150" x="3" y="4" />
-    </Animation>
-    <Image id="Bomberman_STATIC_UP" src="spritesheet" idSpriteSheet="BombermanBlack" x="1" y="1" />
-    <Image id="Bomberman_STATIC_LEFT" src="spritesheet" idSpriteSheet="BombermanBlack" x="1" y="2" />
-    <Image id="Bomberman_STATIC_RIGHT" src="spritesheet" idSpriteSheet="BombermanBlack" x="1" y="3" />
+    <Image id="Bomberman_STATIC_DOWN" src="spritesheet" idSpriteSheet="Bomberman" x="0" y="2" />
+    <Image id="Bomberman_STATIC_UP" src="spritesheet" idSpriteSheet="Bomberman" x="0" y="0" />
+    <Image id="Bomberman_STATIC_LEFT" src="spritesheet" idSpriteSheet="Bomberman" x="0" y="3" />
+    <Image id="Bomberman_STATIC_RIGHT" src="spritesheet" idSpriteSheet="Bomberman" x="0" y="1" />
     
     <SpriteSheet id="Bomb" th="40" tw="40">image/Bomb.gif</SpriteSheet>
     <Animation id="Bomb_MOVE_DOWN" idSpriteSheet="Bomb">
