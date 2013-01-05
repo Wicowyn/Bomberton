@@ -47,7 +47,10 @@ public class BombermanBonusCH implements CollisionHandler {
 			}
 		}
 		
-		for(Abillity abillity : bonus.getListAbillity()) bomberman.addAbillity(abillity);
+		for(Abillity abillity : bonus.getListAbillity()){
+			abillity.setOwner(bomberman);
+			bomberman.addAbillity(abillity);
+		}
 		
 		bonus.getEngine().removeEntityToBuff(bonus);
 	}

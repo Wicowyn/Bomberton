@@ -15,6 +15,7 @@ import org.jdom2.input.SAXBuilder;
 import org.newdawn.slick.geom.Vector2f;
 
 import engine.bonus.BombBonus;
+import engine.bonus.KickBonus;
 import engine.bonus.PowerBonus;
 import engine.bonus.SpeedBonus;
 
@@ -124,6 +125,9 @@ public class Engine {
 			case "BombBonus":
 				entity=new BombBonus(this);
 				break;
+			case "KickBonus":
+				entity=new KickBonus(this);
+				break;
 			default:
 				this.log.warn("loadLevel: unknown type object -> "+elem.getName());
 				continue;
@@ -145,6 +149,7 @@ public class Engine {
 		this.collisionManager.addHandler(new BombFireCH());
 		this.collisionManager.addHandler(new BonusFireCH());
 		this.collisionManager.addHandler(new BlockFireCH());
+		this.collisionManager.addHandler(new BombBlockCH());
 		BombermanBombCH han=new BombermanBombCH(this.collisionManager);
 		addListener(han);
 		this.collisionManager.addHandler(han);

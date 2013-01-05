@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.newdawn.slick.geom.Vector2f;
 
-public class Bang extends CollisionAbillity {
+public class Bang extends Abillity implements CollisionAbillity {
 	private List<ActionBang> listeners=new ArrayList<ActionBang>();
 	private int time=1500;
 	private int currentTime=0;

@@ -10,7 +10,7 @@ public class Bonus extends Entity {
 	private int bomb;
 	private int power;
 	private int speed;
-	private List<Abillity> listAbbillity=new ArrayList<Abillity>();
+	protected List<Abillity> listAbbillity=new ArrayList<Abillity>();
 	
 	
 	public Bonus(Engine engine) {

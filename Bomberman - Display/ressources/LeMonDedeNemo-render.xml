@@ -135,4 +135,64 @@
     <Image id="BreakableBlock_STATIC_UP" src="file">image/breakableBlock.png</Image>
     <Image id="BreakableBlock_STATIC_LEFT" src="file">image/breakableBlock.png</Image>
     <Image id="BreakableBlock_STATIC_RIGHT" src="file">image/breakableBlock.png</Image>
+    
+    <Image id="Bonus_MOVE_DOWN" src="file">image/bonus.png</Image>
+    <Image id="Bonus_MOVE_UP" src="file">image/bonus.png</Image>
+    <Image id="Bonus_MOVE_LEFT" src="file">image/bonus.png</Image>
+    <Image id="Bonus_MOVE_RIGHT" src="file">image/bonus.png</Image>
+    
+    <Image id="Bonus_STATIC_DOWN" src="file">image/bonus.png</Image>
+    <Image id="Bonus_STATIC_UP" src="file">image/bonus.png</Image>
+    <Image id="Bonus_STATIC_LEFT" src="file">image/bonus.png</Image>
+    <Image id="Bonus_STATIC_RIGHT" src="file">image/bonus.png</Image>
+    
+    <Image id="PowerBonus_MOVE_DOWN" src="file">image/powerBonus.png</Image>
+    <Image id="PowerBonus_MOVE_UP" src="file">image/powerBonus.png</Image>
+    <Image id="PowerBonus_MOVE_LEFT" src="file">image/powerBonus.png</Image>
+    <Image id="PowerBonus_MOVE_RIGHT" src="file">image/powerBonus.png</Image>
+    
+    <Image id="PowerBonus_STATIC_DOWN" src="file">image/powerBonus.png</Image>
+    <Image id="PowerBonus_STATIC_UP" src="file">image/powerBonus.png</Image>
+    <Image id="PowerBonus_STATIC_LEFT" src="file">image/powerBonus.png</Image>
+    <Image id="PowerBonus_STATIC_RIGHT" src="file">image/powerBonus.png</Image>
+    
+  	<Image id="BombBonus_MOVE_DOWN" src="file">image/bombBonus.png</Image>
+    <Image id="BombBonus_MOVE_UP" src="file">image/bombBonus.png</Image>
+    <Image id="BombBonus_MOVE_LEFT" src="file">image/bombBonus.png</Image>
+    <Image id="BombBonus_MOVE_RIGHT" src="file">image/bombBonus.png</Image>
+    
+    <Image id="BombBonus_STATIC_DOWN" src="file">image/bombBonus.png</Image>
+    <Image id="BombBonus_STATIC_UP" src="file">image/bombBonus.png</Image>
+    <Image id="BombBonus_STATIC_LEFT" src="file">image/bombBonus.png</Image>
+    <Image id="BombBonus_STATIC_RIGHT" src="file">image/bombBonus.png</Image>
+    
+    <Image id="SpeedBonus_MOVE_DOWN" src="file">image/speedBonus.png</Image>
+    <Image id="SpeedBonus_MOVE_UP" src="file">image/speedBonus.png</Image>
+    <Image id="SpeedBonus_MOVE_LEFT" src="file">image/speedBonus.png</Image>
+    <Image id="SpeedBonus_MOVE_RIGHT" src="file">image/speedBonus.png</Image>
+    
+    <Image id="SpeedBonus_STATIC_DOWN" src="file">image/speedBonus.png</Image>
+    <Image id="SpeedBonus_STATIC_UP" src="file">image/speedBonus.png</Image>
+    <Image id="SpeedBonus_STATIC_LEFT" src="file">image/speedBonus.png</Image>
+    <Image id="SpeedBonus_STATIC_RIGHT" src="file">image/speedBonus.png</Image>
+    
+    <Image id="Fire_MOVE_DOWN" src="file">image/flammeH.gif</Image>
+    <Image id="Fire_MOVE_UP" src="file">image/flammeH.gif</Image>
+    <Image id="Fire_MOVE_LEFT" src="file">image/flammeV.gif</Image>
+    <Image id="Fire_MOVE_RIGHT" src="file">image/flammeV.gif</Image>
+    
+    <Image id="Fire_STATIC_DOWN" src="file">image/flammeH.gif</Image>
+    <Image id="Fire_STATIC_UP" src="file">image/flammeH.gif</Image>
+    <Image id="Fire_STATIC_LEFT" src="file">image/flammeV.gif</Image>
+    <Image id="Fire_STATIC_RIGHT" src="file">image/flammeV.gif</Image>
+    
+    <Image id="KickBonus_MOVE_DOWN" src="file">image/kickBonus.png</Image>
+    <Image id="KickBonus_MOVE_UP" src="file">image/kickBonus.png</Image>
+    <Image id="KickBonus_MOVE_LEFT" src="file">image/kickBonus.png</Image>
+    <Image id="KickBonus_MOVE_RIGHT" src="file">image/kickBonus.png</Image>
+    
+    <Image id="KickBonus_STATIC_DOWN" src="file">image/kickBonus.png</Image>
+    <Image id="KickBonus_STATIC_UP" src="file">image/kickBonus.png</Image>
+    <Image id="KickBonus_STATIC_LEFT" src="file">image/kickBonus.png</Image>
+    <Image id="KickBonus_STATIC_RIGHT" src="file">image/kickBonus.png</Image>
 </root>
