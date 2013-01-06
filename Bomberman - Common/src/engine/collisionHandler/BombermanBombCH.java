@@ -1,4 +1,4 @@
-package engine;
+package engine.collisionHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +9,16 @@ import java.util.Map.Entry;
 
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
+
+import engine.CTSCollision;
+import engine.Collidable;
+import engine.CollisionAbillity;
+import engine.CollisionHandler;
+import engine.CollisionManager;
+import engine.EngineListener;
+import engine.Entity;
+import engine.entity.Bomb;
+import engine.entity.Bomberman;
 
 public class BombermanBombCH implements CollisionHandler, EngineListener {
 	private Map<Collidable, List<Collidable>> mapBegin=new HashMap<Collidable, List<Collidable>>();

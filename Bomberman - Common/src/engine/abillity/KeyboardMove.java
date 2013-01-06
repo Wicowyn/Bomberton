@@ -1,7 +1,9 @@
-package engine;
+package engine.abillity;
 
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
+
+import engine.Entity;
 
 public class KeyboardMove extends Move{
 	private Input input=null;

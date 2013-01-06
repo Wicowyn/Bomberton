@@ -1,4 +1,9 @@
-package engine;
+package engine.collisionHandler;
+
+import engine.CTSCollision;
+import engine.Collidable;
+import engine.CollisionAbillity;
+import engine.CollisionHandler;
 
 public class BombFireCH implements CollisionHandler {
 

@@ -1,6 +1,10 @@
-package engine;
+package engine.entity;
 
 import org.newdawn.slick.geom.Rectangle;
+
+import engine.CTSCollision;
+import engine.Engine;
+import engine.collisionHandler.Item;
 
 public class Fire extends Item {
 	private static Rectangle shape=new Rectangle(0, 200, 1000, 600);

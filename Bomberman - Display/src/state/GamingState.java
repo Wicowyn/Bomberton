@@ -10,18 +10,19 @@ import org.jdom2.JDOMException;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import engine.Bomberman;
 import engine.Engine;
 import engine.EngineListener;
 import engine.Entity;
-import engine.KeyboardMove;
-import engine.KeyboardPopBomb;
-import engine.RealRender;
 import engine.ResourceManager;
+import engine.abillity.KeyboardMove;
+import engine.abillity.KeyboardPopBomb;
+import engine.abillity.RealRender;
+import engine.entity.Bomberman;
 
 
 
@@ -56,6 +57,34 @@ public class GamingState extends BasicGameState implements SelectGame {
 			e.printStackTrace();
 		}
 		
+		List<Bomberman> list=this.engine.getBombermans();
+		if(list.size()>0){
+			KeyboardMove move=new KeyboardMove(list.get(0), container.getInput());
+			list.get(0).addAbillity(move);
+			move.setKeyDown(Input.KEY_S);
+			move.setKeyUp(Input.KEY_Z);
+			move.setKeyLeft(Input.KEY_Q);
+			move.setKeyRight(Input.KEY_D);
+			
+			KeyboardPopBomb popBomb=new KeyboardPopBomb(list.get(0), container.getInput());
+			list.get(0).addAbillity(popBomb);
+			popBomb.setPower(5);
+			popBomb.setKeyPop(Input.KEY_SPACE);
+		}
+		if(list.size()>1){
+			KeyboardMove move=new KeyboardMove(list.get(1), container.getInput());
+			list.get(1).addAbillity(move);
+			move.setKeyDown(Input.KEY_DOWN);
+			move.setKeyUp(Input.KEY_UP);
+			move.setKeyLeft(Input.KEY_LEFT);
+			move.setKeyRight(Input.KEY_RIGHT);
+			
+			KeyboardPopBomb popBomb=new KeyboardPopBomb(list.get(1), container.getInput());
+			list.get(1).addAbillity(popBomb);
+			popBomb.setPower(5);
+			popBomb.setKeyPop(Input.KEY_NUMPAD0);
+		}
+		/*
 		for(Bomberman bomberman : this.engine.getBombermans()){
 			KeyboardMove move=new KeyboardMove(bomberman, container.getInput());
 			bomberman.addAbillity(move);
@@ -63,6 +92,7 @@ public class GamingState extends BasicGameState implements SelectGame {
 			bomberman.addAbillity(popBomb);
 			popBomb.setPower(5);
 		}
+		*/
 
 	}
 	
@@ -90,7 +120,7 @@ public class GamingState extends BasicGameState implements SelectGame {
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2)
 			throws SlickException {
-		arg2.setBackground(Color.red);
+		arg2.setBackground(Color.gray);
 		for(Entity entity : this.engine.getEntities()) entity.render(arg0, arg1, arg2);
 	}
 

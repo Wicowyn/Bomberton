@@ -1,4 +1,4 @@
-package engine;
+package engine.abillity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,6 +8,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Renderable;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
+
+import engine.Entity;
 
 public class RealRender extends Render {
 	private Map<IntervalAngl, Renderable> mapMoveRender=new HashMap<IntervalAngl, Renderable>();

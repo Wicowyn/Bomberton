@@ -18,6 +18,20 @@ import engine.bonus.BombBonus;
 import engine.bonus.KickBonus;
 import engine.bonus.PowerBonus;
 import engine.bonus.SpeedBonus;
+import engine.collisionHandler.BlockFireCH;
+import engine.collisionHandler.BombBlockCH;
+import engine.collisionHandler.BombFireCH;
+import engine.collisionHandler.BombermanBlockCH;
+import engine.collisionHandler.BombermanBombCH;
+import engine.collisionHandler.BombermanBonusCH;
+import engine.collisionHandler.BombermanFireCH;
+import engine.collisionHandler.BonusFireCH;
+import engine.entity.Bomb;
+import engine.entity.Bomberman;
+import engine.entity.Bonus;
+import engine.entity.BreakableBlock;
+import engine.entity.Fire;
+import engine.entity.SolidBlock;
 
 public class Engine {
 	private List<EngineListener> listeners=new ArrayList<EngineListener>();
@@ -52,11 +66,11 @@ public class Engine {
 		return this.entities;
 	}
 	
-	protected void addEntityToBuff(Entity entity){
+	public void addEntityToBuff(Entity entity){
 		this.entitiesAdd.add(entity);
 	}
 	
-	protected void removeEntityToBuff(Entity entity){
+	public void removeEntityToBuff(Entity entity){
 		this.entitiesRemove.add(entity);
 	}
 	

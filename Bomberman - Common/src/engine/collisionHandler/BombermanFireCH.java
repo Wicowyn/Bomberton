@@ -1,7 +1,16 @@
-package engine;
+package engine.collisionHandler;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import engine.ActionKill;
+import engine.CTSCollision;
+import engine.Collidable;
+import engine.CollisionAbillity;
+import engine.CollisionHandler;
+import engine.Entity;
+import engine.entity.Bomberman;
+import engine.entity.Fire;
 
 public class BombermanFireCH implements CollisionHandler {
 	private List<ActionKill> listeners=new ArrayList<ActionKill>();

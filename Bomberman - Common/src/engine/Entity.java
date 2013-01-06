@@ -14,6 +14,8 @@ import org.newdawn.slick.geom.Transform;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
+import engine.abillity.Render;
+
 
 public class Entity implements Collidable {
 	private Logger log=LogManager.getLogger(getClass());
@@ -107,11 +109,11 @@ public class Entity implements Collidable {
 		this.log.debug("remove "+abillity.getClass().getSimpleName()+" from "+getClass().getSimpleName());
 	}
 	
-	protected void addAbillityToBuff(Abillity abillity){
+	public void addAbillityToBuff(Abillity abillity){
 		this.abillitiesAdd.add(abillity);
 	}
 	
-	protected void removeAbillityToBuff(Abillity abillity){
+	public void removeAbillityToBuff(Abillity abillity){
 		this.abillitiesRemove.add(abillity);
 	}
 	

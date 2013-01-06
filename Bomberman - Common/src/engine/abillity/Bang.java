@@ -1,9 +1,17 @@
-package engine;
+package engine.abillity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.newdawn.slick.geom.Vector2f;
+
+import engine.Abillity;
+import engine.ActionBang;
+import engine.CTSCollision;
+import engine.Collidable;
+import engine.CollisionAbillity;
+import engine.Entity;
+import engine.entity.Fire;
 
 public class Bang extends Abillity implements CollisionAbillity {
 	private List<ActionBang> listeners=new ArrayList<ActionBang>();

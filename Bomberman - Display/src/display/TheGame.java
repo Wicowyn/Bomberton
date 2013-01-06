@@ -6,7 +6,6 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import state.GamingState;
 import state.MenuState;
-import state.PageName;
 import state.SelectGameState;
 
 public class TheGame extends StateBasedGame{
@@ -26,23 +25,6 @@ public class TheGame extends StateBasedGame{
 		addState(selectGame);
 		selectGame.addListener(gaming);
 		
-	}
-	public void keyPressed(int key, char c){
-		super.keyPressed(key, c);
-		 switch(c){
-		 	case 'z':
-		 		enterState(PageName.Gaming);
-		 	break;
-		 	case 'd':
-		 	
-		 	break;
-		 	case 's':
-		 	break;
-		 	case 'q':
-		 	break;
-		 
-		 
-		 }
 	}
 
 }

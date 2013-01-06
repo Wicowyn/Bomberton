@@ -1,7 +1,7 @@
 package engine.bonus;
 
-import engine.Bonus;
 import engine.Engine;
+import engine.entity.Bonus;
 
 public class SpeedBonus extends Bonus {
 

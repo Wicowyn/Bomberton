@@ -91,7 +91,7 @@
         <Frame duration="150" x="2" y="2" />
         <Frame duration="150" x="3" y="2" />
     </Animation>
-    <Animation id="Bomb_MOVE_DOWN" idSpriteSheet="Bomb">
+    <Animation id="Bomb_STATIC_DOWN" idSpriteSheet="Bomb">
         <Frame duration="150" x="0" y="2" />
         <Frame duration="150" x="1" y="2" />
         <Frame duration="150" x="2" y="2" />

@@ -1,4 +1,11 @@
-package engine;
+package engine.abillity;
+
+import engine.Abillity;
+import engine.CTSCollision;
+import engine.Collidable;
+import engine.CollisionAbillity;
+import engine.Entity;
+import engine.entity.Bomb;
 
 
 public class KickBomb extends Abillity implements CollisionAbillity {

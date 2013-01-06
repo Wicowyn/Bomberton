@@ -1,4 +1,14 @@
-package engine;
+package engine.collisionHandler;
+
+import engine.Abillity;
+import engine.CTSCollision;
+import engine.Collidable;
+import engine.CollisionAbillity;
+import engine.CollisionHandler;
+import engine.abillity.Move;
+import engine.abillity.PopBomb;
+import engine.entity.Bomberman;
+import engine.entity.Bonus;
 
 public class BombermanBonusCH implements CollisionHandler {
 

@@ -1,8 +1,8 @@
 package engine.bonus;
 
-import engine.Bonus;
 import engine.Engine;
-import engine.KickBomb;
+import engine.abillity.KickBomb;
+import engine.entity.Bonus;
 
 
 public class KickBonus extends Bonus {

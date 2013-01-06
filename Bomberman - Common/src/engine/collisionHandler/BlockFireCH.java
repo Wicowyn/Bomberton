@@ -1,17 +1,27 @@
-package engine;
+package engine.collisionHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BonusFireCH implements CollisionHandler {
+import engine.ActionKill;
+import engine.CTSCollision;
+import engine.Collidable;
+import engine.CollisionAbillity;
+import engine.CollisionHandler;
+import engine.Entity;
+import engine.entity.Block;
+import engine.entity.BreakableBlock;
+import engine.entity.Fire;
+
+public class BlockFireCH implements CollisionHandler {
 	private List<ActionKill> listeners=new ArrayList<ActionKill>();
 	
-	public BonusFireCH() {
+	public BlockFireCH() {
 	}
 
 	@Override
 	public int getCollider1Type() {
-		return CTSCollision.Bonus;
+		return CTSCollision.Block;
 	}
 
 	@Override
@@ -26,20 +36,24 @@ public class BonusFireCH implements CollisionHandler {
 		for(CollisionAbillity collisionAbillity : collidable2.getCollisionAbillity(collidable1.getCollisionType())) collisionAbillity.performCollision(collidable1);
 		if(!collidable1.isCollidingWith(collidable2)) return;
 		
-		Bonus bonus;
+		Block block;
 		Fire fire;
 		
-		if(collidable1 instanceof Bonus){
-			bonus=(Bonus) collidable1;
+		if(collidable1 instanceof Block){
+			block=(Block) collidable1;
 			fire=(Fire) collidable2;
 		}
 		else{
-			bonus=(Bonus) collidable2;
+			block=(Block) collidable2;
 			fire=(Fire) collidable1;
 		}
 		
-		fire.getEngine().removeEntityToBuff(bonus);
-		notifyKill(fire, bonus);
+		fire.getEngine().removeEntityToBuff(fire);
+		
+		if(block instanceof BreakableBlock){
+			block.getEngine().removeEntityToBuff(block);
+			notifyKill(fire, block);
+		}
 	}
 	
 	public void addListener(ActionKill listener){

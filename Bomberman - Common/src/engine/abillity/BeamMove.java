@@ -1,6 +1,11 @@
-package engine;
+package engine.abillity;
 
 import org.newdawn.slick.geom.Vector2f;
+
+import engine.CTSCollision;
+import engine.Collidable;
+import engine.CollisionAbillity;
+import engine.Entity;
 
 public class BeamMove extends Move implements CollisionAbillity{
 

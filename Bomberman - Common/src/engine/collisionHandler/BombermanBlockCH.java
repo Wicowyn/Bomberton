@@ -1,7 +1,15 @@
-package engine;
+package engine.collisionHandler;
 
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
+
+import engine.CTSCollision;
+import engine.Collidable;
+import engine.CollisionAbillity;
+import engine.CollisionHandler;
+import engine.CollisionManager;
+import engine.entity.Block;
+import engine.entity.Bomberman;
 
 public class BombermanBlockCH implements CollisionHandler {
 	private int tolerance=30;

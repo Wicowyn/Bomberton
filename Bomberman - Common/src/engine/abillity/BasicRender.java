@@ -1,10 +1,12 @@
-package engine;
+package engine.abillity;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Transform;
 import org.newdawn.slick.state.StateBasedGame;
+
+import engine.Entity;
 
 public class BasicRender extends Render {
 

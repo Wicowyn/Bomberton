@@ -1,6 +1,10 @@
-package engine;
+package engine.abillity;
 
 import org.newdawn.slick.geom.Vector2f;
+
+import engine.Abillity;
+import engine.Entity;
+import engine.entity.Fire;
 
 public class BeamFire extends Abillity {
 	private int power;

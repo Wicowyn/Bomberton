@@ -1,4 +1,9 @@
-package engine;
+package engine.abillity;
+
+import engine.Abillity;
+import engine.ActionBang;
+import engine.Entity;
+import engine.entity.Bomb;
 
 public abstract class PopBomb extends Abillity {
 	protected int maxBomb=1;
@@ -36,6 +41,7 @@ public abstract class PopBomb extends Abillity {
 	protected void popBomb(){
 		Bomb bomb=new Bomb(this.owner.getEngine());
 		bomb.setPosition(this.owner.getPosition());
+		bomb.setDirection(this.owner.getDirection());
 		bomb.setOwner(this.owner);
 		
 		for(Abillity abillity : bomb.getAbillities()){

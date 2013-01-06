@@ -1,9 +1,14 @@
-package engine;
+package engine.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.newdawn.slick.geom.Rectangle;
+
+import engine.Abillity;
+import engine.CTSCollision;
+import engine.Engine;
+import engine.Entity;
 
 public class Bonus extends Entity {
 	private static Rectangle shape=new Rectangle(0, 0, 1000, 1000);

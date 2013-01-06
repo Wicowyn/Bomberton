@@ -1,4 +1,6 @@
-package engine;
+package engine.entity;
+
+import engine.Engine;
 
 
 public class SolidBlock extends Block {
