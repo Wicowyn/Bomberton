@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
+    
+    <FutureBonus nbSpeed="20" nbPower="10" nbBomb="15" nbKick="10" />
 	 <!-- x Max 23 y Max 15 -->
 	<SolidBlock x="0" y="0" dir="0" />
 	<SolidBlock x="1" y="0" dir="0" />

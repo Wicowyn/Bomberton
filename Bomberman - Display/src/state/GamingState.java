@@ -65,6 +65,7 @@ public class GamingState extends BasicGameState implements SelectGame {
 			move.setKeyUp(Input.KEY_Z);
 			move.setKeyLeft(Input.KEY_Q);
 			move.setKeyRight(Input.KEY_D);
+			move.setSpeed(3f);
 			
 			KeyboardPopBomb popBomb=new KeyboardPopBomb(list.get(0), container.getInput());
 			list.get(0).addAbillity(popBomb);
@@ -78,6 +79,7 @@ public class GamingState extends BasicGameState implements SelectGame {
 			move.setKeyUp(Input.KEY_UP);
 			move.setKeyLeft(Input.KEY_LEFT);
 			move.setKeyRight(Input.KEY_RIGHT);
+			move.setSpeed(3f);
 			
 			KeyboardPopBomb popBomb=new KeyboardPopBomb(list.get(1), container.getInput());
 			list.get(1).addAbillity(popBomb);

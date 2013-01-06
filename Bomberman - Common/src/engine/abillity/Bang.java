@@ -54,7 +54,7 @@ public class Bang extends Abillity implements CollisionAbillity {
 			beamFire.setPower(this.power-1);
 			fire.addAbillity(beamFire);
 			
-			Kamikaze kamikaze=new Kamikaze(fire, 1500);
+			Kamikaze kamikaze=new Kamikaze(fire, 750);
 			fire.addAbillity(kamikaze);
 			
 			Vector2f position=this.owner.getPosition();

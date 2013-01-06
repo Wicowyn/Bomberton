@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jdom2.DataConversionException;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -42,6 +43,8 @@ public class Engine {
 	private List<Bomberman> bombermans=new ArrayList<Bomberman>();
 	private Logger log=LogManager.getLogger(getClass());
 	private boolean loaded=false;
+	private List<Bonus> futureBonus=new ArrayList<Bonus>();
+	private int nbBBlock=0;
 	
 	public Engine(){
 		
@@ -79,6 +82,7 @@ public class Engine {
 		if(entity instanceof Bomberman) this.bombermans.add((Bomberman) entity);
 		
 		this.collisionManager.addCollidable(entity);
+		if(entity instanceof BreakableBlock) this.nbBBlock++;
 		notifyEntityAdded(entity);
 		this.log.debug("add Entity: "+entity.getClass().getSimpleName()+", ID: "+entity.getID()+", position: "+entity.getPosition()+", direction: "+entity.getDirection());
 	}
@@ -88,6 +92,22 @@ public class Engine {
 		if(entity instanceof Bomberman) this.bombermans.remove((Bomberman) entity);
 		
 		this.collisionManager.removeCollidable(entity);
+		if(entity instanceof BreakableBlock){
+			if(this.nbBBlock>0 && this.futureBonus.size()>0){
+				int pourcent=this.futureBonus.size()*100/this.nbBBlock;
+				
+				if(Math.random()*100 <= pourcent){
+					Bonus bonus=this.futureBonus.get((int) (Math.random()*this.futureBonus.size()));
+					this.futureBonus.remove(bonus);
+					System.out.println(this.futureBonus.size());
+					bonus.setPosition(entity.getPosition());
+					addEntity(bonus);
+				}
+			}			
+			
+			this.nbBBlock--;
+		}
+		
 		notifyEntityRemoved(entity);
 		this.log.debug("remove Entity: "+entity.getClass().getSimpleName()+", ID: "+entity.getID()+", position: "+entity.getPosition()+", direction: "+entity.getDirection());
 	}
@@ -142,6 +162,9 @@ public class Engine {
 			case "KickBonus":
 				entity=new KickBonus(this);
 				break;
+			case "FutureBonus":
+				futureBonus(elem);
+				continue;
 			default:
 				this.log.warn("loadLevel: unknown type object -> "+elem.getName());
 				continue;
@@ -169,6 +192,24 @@ public class Engine {
 		this.collisionManager.addHandler(han);
 		
 		this.loaded=true;
+	}
+	
+	private void futureBonus(Element elem){
+		try {
+			int nbSpeed=elem.getAttribute("nbSpeed").getIntValue();
+			int nbBomb=elem.getAttribute("nbBomb").getIntValue();
+			int nbPower=elem.getAttribute("nbPower").getIntValue();
+			int nbKick=elem.getAttribute("nbKick").getIntValue();
+			
+			for(int i=0; i<nbSpeed; i++) this.futureBonus.add(new SpeedBonus(this));
+			for(int i=0; i<nbBomb; i++) this.futureBonus.add(new BombBonus(this));
+			for(int i=0; i<nbPower; i++) this.futureBonus.add(new PowerBonus(this));
+			for(int i=0; i<nbKick; i++) this.futureBonus.add(new KickBonus(this));
+			
+		} catch (DataConversionException e) {
+			this.log.error("wrong format of attribute nbSpeed, nbBomb, nbPower ou nbKick");
+		}
+		
 	}
 
 	public List<String> getListGame(){ //TODO à améliorer
