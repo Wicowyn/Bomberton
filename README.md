@@ -8,3 +8,5 @@ Dépendance de library:
   -slick
   -lwjgl (fournit avec slick)
   -jdom 2.0
+
+et pour la lecture des fichier ucls (pour l'uml) je ne peu que vous conseiller "ObjectAid UML Explorer"
