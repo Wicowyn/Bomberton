@@ -112,8 +112,12 @@ public class Engine {
 		this.log.debug("remove Entity: "+entity.getClass().getSimpleName()+", ID: "+entity.getID()+", position: "+entity.getPosition()+", direction: "+entity.getDirection());
 	}
 	
-	public List<Bomberman> getBombermans(){
-		return this.bombermans;
+	public List<? extends Entity> getListOf(Class<?> classType){
+		List<Entity> list=new ArrayList<Entity>();
+		
+		for(Entity entity : this.entities) if(entity.getClass().equals(classType)) list.add(entity);
+		
+		return list;
 	}
 	
 	public void loadLevel(String filePath) throws JDOMException, IOException{

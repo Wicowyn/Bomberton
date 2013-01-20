@@ -57,7 +57,7 @@ public class GamingState extends BasicGameState implements SelectGame {
 			e.printStackTrace();
 		}
 		
-		List<Bomberman> list=this.engine.getBombermans();
+		List<? extends Entity> list=this.engine.getListOf(Bomberman.class);
 		if(list.size()>0){
 			KeyboardMove move=new KeyboardMove(list.get(0), container.getInput());
 			list.get(0).addAbillity(move);
