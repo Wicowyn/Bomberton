@@ -40,7 +40,6 @@ public class Engine {
 	private List<Entity> entities=new ArrayList<Entity>();
 	private List<Entity> entitiesAdd=new ArrayList<Entity>();
 	private List<Entity> entitiesRemove=new ArrayList<Entity>();
-	private List<Bomberman> bombermans=new ArrayList<Bomberman>();
 	private Logger log=LogManager.getLogger(getClass());
 	private boolean loaded=false;
 	private List<Bonus> futureBonus=new ArrayList<Bonus>();
@@ -79,7 +78,6 @@ public class Engine {
 	
 	public void addEntity(Entity entity){
 		this.entities.add(entity);
-		if(entity instanceof Bomberman) this.bombermans.add((Bomberman) entity);
 		
 		this.collisionManager.addCollidable(entity);
 		if(entity instanceof BreakableBlock) this.nbBBlock++;
@@ -89,7 +87,6 @@ public class Engine {
 	
 	public void removeEntity(Entity entity){
 		this.entities.remove(entity);
-		if(entity instanceof Bomberman) this.bombermans.remove((Bomberman) entity);
 		
 		this.collisionManager.removeCollidable(entity);
 		if(entity instanceof BreakableBlock){
@@ -234,7 +231,6 @@ public class Engine {
 		this.entities.clear();
 		this.entitiesAdd.clear();
 		this.entitiesRemove.clear();
-		this.bombermans.clear();
 		this.collisionManager.clear();
 		
 		this.loaded=false;
