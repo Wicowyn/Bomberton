@@ -15,10 +15,11 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import tools.ResourceManager;
+
 import engine.Engine;
 import engine.EngineListener;
 import engine.Entity;
-import engine.ResourceManager;
 import engine.abillity.KeyboardMove;
 import engine.abillity.KeyboardPopBomb;
 import engine.abillity.RealRender;
