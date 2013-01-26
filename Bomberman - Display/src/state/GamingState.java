@@ -16,7 +16,6 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import tools.ResourceManager;
-
 import engine.Engine;
 import engine.EngineListener;
 import engine.Entity;

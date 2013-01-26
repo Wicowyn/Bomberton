@@ -4,6 +4,7 @@ import org.newdawn.slick.SlickException;
 import display.TheGame;
 
 
+
 public class Main {
 
 	/**
@@ -11,6 +12,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		System.out.println("Hello world!");
+
 		AppGameContainer app;
 		try {
 			app = new AppGameContainer(new TheGame("Bomberman"));
@@ -18,12 +20,8 @@ public class Main {
 			app.setTargetFrameRate(30);
 			app.setShowFPS(true);
 			app.start();
-			System.out.println(app.getInput());	
-				
-			
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		
 	}
 }

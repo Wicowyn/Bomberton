@@ -3,7 +3,6 @@ package state;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -95,13 +94,13 @@ public class MenuState extends BasicGameState{
 			
 			if(this.input.isKeyDown(Input.KEY_Z)) arg1.enterState(PageName.Gaming);
 		
-			if(this.input.isKeyDown(Keyboard.KEY_ESCAPE)){
+			if(this.input.isKeyDown(Input.KEY_ESCAPE)){
 				container.exit();
 			}
-			if(this.input.isKeyDown(Keyboard.KEY_D)){
+			if(this.input.isKeyDown(Input.KEY_D)){
 				courir.setCurrentFrame(3);
 			}
-			if(this.input.isKeyDown(Keyboard.KEY_Q)){
+			if(this.input.isKeyDown(Input.KEY_Q)){
 				courir.setCurrentFrame(2);
 			}
 		
