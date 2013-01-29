@@ -240,12 +240,12 @@ public class Engine {
 		return this.loaded;
 	}
 	
-	public void addListener(EngineListener listener){
-		this.listeners.add(listener);
+	public boolean addListener(EngineListener listener){
+		return this.listeners.add(listener);
 	}
 	
-	public void removeListener(EngineListener listener){
-		this.listeners.remove(listener);
+	public boolean removeListener(EngineListener listener){
+		return this.listeners.remove(listener);
 	}
 	
 	protected void notifyEntityAdded(Entity entity){

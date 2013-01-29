@@ -24,6 +24,7 @@ public class Entity implements Collidable {
 	private float scale;
 	private float direction;
 	private Vector2f position;
+	private List<EntityListener> listeners=new ArrayList<EntityListener>();
 	private List<Abillity> abillities=new ArrayList<Abillity>();
 	private List<Abillity> abillitiesAdd=new ArrayList<Abillity>();
 	private List<Abillity> abillitiesRemove=new ArrayList<Abillity>();
@@ -91,8 +92,9 @@ public class Entity implements Collidable {
 			list.add(collisionAbillity);
 		}
 		
-		this.log.debug("add "+abillity.getClass().getSimpleName()+" to "+getClass().getSimpleName());
 		this.abillities.add(abillity);
+		notifyAbillityAdded(abillity);
+		this.log.debug("add "+abillity.getClass().getSimpleName()+" to "+getClass().getSimpleName());
 	}
 	
 	public void removeAbillity(Abillity abillity){
@@ -106,6 +108,7 @@ public class Entity implements Collidable {
 			list.remove(collisionAbillity);
 		}
 		
+		notifyAbillityRemoved(abillity);
 		this.log.debug("remove "+abillity.getClass().getSimpleName()+" from "+getClass().getSimpleName());
 	}
 	
@@ -185,6 +188,22 @@ public class Entity implements Collidable {
 	
 	public void setOwner(Entity owner){
 		this.owner=owner;
+	}
+	
+	public boolean addListener(EntityListener listener){
+		return this.listeners.add(listener);
+	}
+	
+	public boolean removeListener(EntityListener listener){
+		return this.listeners.remove(listener);
+	}
+	
+	protected void notifyAbillityAdded(Abillity abillity){
+		for(EntityListener listener : this.listeners) listener.abillityAdded(abillity);
+	}
+	
+	protected void notifyAbillityRemoved(Abillity abillity){
+		for(EntityListener listener : this.listeners) listener.abillityRemoved(abillity);
 	}
 
 	@Override
