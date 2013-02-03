@@ -16,14 +16,16 @@
     along with Bomberton.  If not, see <http://www.gnu.org/licenses/>.
 *///////////////////////////////////////////////////////////////////////
 
-package engine.entity;
+package engine.entity.bonus;
 
 import engine.Engine;
+import engine.entity.Bonus;
 
+public class BombBonus extends Bonus {
 
-public class SolidBlock extends Block {
-
-	public SolidBlock(Engine engine) {
+	public BombBonus(Engine engine) {
 		super(engine);
+		setBomb(1);
 	}
+
 }

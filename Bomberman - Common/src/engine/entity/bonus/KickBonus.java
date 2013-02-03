@@ -16,14 +16,20 @@
     along with Bomberton.  If not, see <http://www.gnu.org/licenses/>.
 *///////////////////////////////////////////////////////////////////////
 
-package engine.entity;
+package engine.entity.bonus;
 
 import engine.Engine;
+import engine.abillity.KickBomb;
+import engine.entity.Bonus;
 
 
-public class SolidBlock extends Block {
+public class KickBonus extends Bonus {
 
-	public SolidBlock(Engine engine) {
+	public KickBonus(Engine engine) {
 		super(engine);
+		
+		KickBomb kick=new KickBomb(null);
+		this.listAbbillity.add(kick);
 	}
+
 }

@@ -1,3 +1,21 @@
+/*//////////////////////////////////////////////////////////////////////
+	This file is part of Bomberton, an Bomberman-like.
+	Copyright (C) 2012-2013  Nicolas Barranger <wicowyn@gmail.com>
+
+    Bomberton is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Bomberton is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Bomberton.  If not, see <http://www.gnu.org/licenses/>.
+*///////////////////////////////////////////////////////////////////////
+
 package engine;
 
 import java.io.File;
@@ -15,10 +33,6 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.newdawn.slick.geom.Vector2f;
 
-import engine.bonus.BombBonus;
-import engine.bonus.KickBonus;
-import engine.bonus.PowerBonus;
-import engine.bonus.SpeedBonus;
 import engine.collisionHandler.BlockFireCH;
 import engine.collisionHandler.BombBlockCH;
 import engine.collisionHandler.BombFireCH;
@@ -33,6 +47,10 @@ import engine.entity.Bonus;
 import engine.entity.BreakableBlock;
 import engine.entity.Fire;
 import engine.entity.SolidBlock;
+import engine.entity.bonus.BombBonus;
+import engine.entity.bonus.KickBonus;
+import engine.entity.bonus.PowerBonus;
+import engine.entity.bonus.SpeedBonus;
 
 public class Engine {
 	private List<EngineListener> listeners=new ArrayList<EngineListener>();
