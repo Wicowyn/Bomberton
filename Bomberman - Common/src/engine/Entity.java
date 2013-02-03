@@ -19,39 +19,42 @@
 package engine;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Transform;
 import org.newdawn.slick.geom.Vector2f;
-import org.newdawn.slick.state.StateBasedGame;
 
-import engine.abillity.Render;
+import collision.Collidable;
+import collision.CollidableListener;
+import collision.TouchHandle;
+import collision.TouchMarker;
 
 
-public class Entity implements Collidable {
+public final class Entity implements Collidable{
 	private Logger log=LogManager.getLogger(getClass());
 	private static int lastID;
 	private int ID;
 	private float scale;
 	private float direction;
 	private Vector2f position;
-	private List<EntityListener> listeners=new ArrayList<EntityListener>();
+	private boolean inUpdate=false;
+	private boolean modifNCS=true; //NCS NormalCollisionShape, usefull for optimisation
+	private List<EntityListener> entityListeners=new ArrayList<EntityListener>();
+	private List<CollidableListener> collidableListeners=new ArrayList<CollidableListener>();
 	private List<Abillity> abillities=new ArrayList<Abillity>();
-	private List<Abillity> abillitiesAdd=new ArrayList<Abillity>();
-	private List<Abillity> abillitiesRemove=new ArrayList<Abillity>();
-	private Map<Integer, List<CollisionAbillity>> collisionAbillities=new HashMap<Integer, List<CollisionAbillity>>();
-	private Render renderAbillity=null;
+	private Set<Abillity> abillitiesAdd=new HashSet<Abillity>();
+	private Set<Abillity> abillitiesRemove=new HashSet<Abillity>();
+	private List<TouchHandle> touchHandles=new ArrayList<TouchHandle>();
+	private List<TouchMarker> touchMarkers=new ArrayList<TouchMarker>();
 	private Entity owner=null;
-	protected Shape collisionShape;
-	protected int collisionType;
-	protected Engine engine;
+	private Shape normalCollisionShape=null;
+	private Shape collisionShape=null;
+	private Engine engine=null;
 	
 	{
 		this.ID=Entity.lastID++;
@@ -59,7 +62,7 @@ public class Entity implements Collidable {
 	
 	
 	public Entity(Engine engine, Shape collisionShape){
-		this.collisionShape=collisionShape;
+		this.normalCollisionShape=collisionShape;
 		this.engine=engine;
 	}
 	
@@ -68,13 +71,20 @@ public class Entity implements Collidable {
 	}
 	
 	public void clear(){
+		for(Abillity abillity : this.abillities) notifyAbillityRemoved(abillity);
 		this.abillities.clear();
-		this.collisionAbillities.clear();
-		this.renderAbillity=null;
+		
+		for(TouchHandle handle : this.touchHandles) notifyTouchHandleRemoved(handle);
+		this.touchHandles.clear();
+		
+		for(TouchMarker marker : this.touchMarkers) notifyTouchMarkerRemoved(marker);
+		this.touchMarkers.clear();
 	}
 	
 	public void update(int delta){
+		inUpdate=true;
 		for(Abillity abillity : this.abillities) abillity.update(delta);
+		inUpdate=false;
 		checkAbillityBuff();
 	}
 	
@@ -86,56 +96,82 @@ public class Entity implements Collidable {
 		this.abillitiesRemove.clear();
 	}
 	
-	public void render(GameContainer gc, StateBasedGame sb, Graphics gr){
-		if(this.renderAbillity!=null){
-			this.renderAbillity.render(gc, sb, gr);
-		}
-	}
-	
 	public void addAbillity(Abillity abillity){
-		abillity.setOwner(this);
-		
-		if(abillity instanceof Render){
-			this.renderAbillity=(Render) abillity;
-		}
-		else if(abillity instanceof CollisionAbillity){
-			CollisionAbillity collisionAbillity=(CollisionAbillity) abillity;
-			List<CollisionAbillity> list=this.collisionAbillities.get(collisionAbillity.getColliderType());
-			
-			if(list==null){
-				list=new ArrayList<CollisionAbillity>();
-				this.collisionAbillities.put(collisionAbillity.getColliderType(), list);
-			}
-			
-			list.add(collisionAbillity);
+		if(this.inUpdate){
+			this.abillitiesAdd.add(abillity);
+			return;
 		}
 		
+		abillity.setOwner(this);		
 		this.abillities.add(abillity);
+		
 		notifyAbillityAdded(abillity);
-		this.log.debug("add "+abillity.getClass().getSimpleName()+" to "+getClass().getSimpleName());
+		this.log.debug("abillity: "+abillity.getClass().getSimpleName()+" add to "+getID());
 	}
 	
-	public void removeAbillity(Abillity abillity){
-		this.abillities.remove(abillity);
-		
-		if(abillity==this.renderAbillity) this.renderAbillity=null;
-		if(abillity instanceof CollisionAbillity){
-			CollisionAbillity collisionAbillity=(CollisionAbillity) abillity;
-			List<CollisionAbillity> list=this.collisionAbillities.get(collisionAbillity.getColliderType());
-			
-			list.remove(collisionAbillity);
+	public boolean removeAbillity(Abillity abillity){
+		if(this.inUpdate){
+			if(!this.abillities.contains(abillity)) return false;
+			return this.abillitiesRemove.add(abillity);
 		}
 		
-		notifyAbillityRemoved(abillity);
-		this.log.debug("remove "+abillity.getClass().getSimpleName()+" from "+getClass().getSimpleName());
+		if(this.abillities.remove(abillity)){
+			notifyAbillityRemoved(abillity);
+			this.log.debug("abillity: "+abillity.getClass().getSimpleName()+" remove from "+getID());
+			return true;
+		}
+		
+		return false;
 	}
 	
-	public void addAbillityToBuff(Abillity abillity){
-		this.abillitiesAdd.add(abillity);
+	@Override
+	public void addTouchHandle(TouchHandle handle){
+		this.touchHandles.add(handle);
+		notifyTouchHandleAdded(handle);
+		this.log.debug("touchHandle: "+handle.getClass().getSimpleName()+" add to "+getID());
 	}
 	
-	public void removeAbillityToBuff(Abillity abillity){
-		this.abillitiesRemove.add(abillity);
+	@Override
+	public boolean removeTouchHandle(TouchHandle handle){
+		if(this.touchHandles.remove(handle)){
+			notifyTouchHandleRemoved(handle);
+			this.log.debug("touchHandle: "+handle.getClass().getSimpleName()+" remove from "+getID());
+			return true;
+		}
+		
+		return false;
+	}
+	
+	@Override
+	public void addTouchMarker(TouchMarker marker){
+		this.touchMarkers.add(marker);
+		notifyTouchMarkerAdded(marker);
+		this.log.debug("touchMarker: "+marker.getClass().getSimpleName()+" add to "+getID());
+	}
+	
+	@Override
+	public boolean removeTouchMarker(TouchMarker marker){
+		if(this.touchMarkers.remove(marker)){
+			notifyTouchMarkerRemoved(marker);
+			this.log.debug("touchMarker: "+marker.getClass().getSimpleName()+" remove from "+getID());
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public List<Abillity> getAllAbillity(){
+		return new ArrayList<Abillity>(this.abillities);
+	}
+	
+	@Override
+	public List<TouchHandle> getAllTouchHandle() {
+		return new ArrayList<TouchHandle>(this.touchHandles);
+	}
+
+	@Override
+	public List<TouchMarker> getAllTouchMarker() {
+		return new ArrayList<TouchMarker>(this.touchMarkers);
 	}
 	
 	public Abillity getAbillity(int ID){
@@ -144,21 +180,6 @@ public class Entity implements Collidable {
 		}
 		
 		return null;
-	}
-	
-	public List<Abillity> getAbillities(){
-		return this.abillities;
-	}
-	
-	public List<CollisionAbillity> getCollisionAbillity(int colliderType){
-		List<CollisionAbillity> list=this.collisionAbillities.get(colliderType);
-		
-		if(list==null){ //histoire de ne jamais avoir à tester le retour pour l'utilisateur;
-			list=new ArrayList<CollisionAbillity>();
-			this.collisionAbillities.put(colliderType, list);
-		}
-		
-		return list;
 	}
 	
 	public static Entity getRootOwner(Entity entity){
@@ -187,6 +208,7 @@ public class Entity implements Collidable {
 
 	public void setDirection(float direction){
 		this.direction=direction;
+		this.modifNCS=true;
 		
 		while(this.direction<0) this.direction+=360;
 		while(this.direction>=360) this.direction-=360;
@@ -198,6 +220,7 @@ public class Entity implements Collidable {
 
 	public void setPosition(Vector2f position){
 		this.position=position;
+		this.modifNCS=true;
 	}
 	
 	public Entity getOwner(){
@@ -208,37 +231,62 @@ public class Entity implements Collidable {
 		this.owner=owner;
 	}
 	
-	public boolean addListener(EntityListener listener){
-		return this.listeners.add(listener);
+	public boolean addEntityListener(EntityListener listener){
+		return this.entityListeners.add(listener);
 	}
 	
-	public boolean removeListener(EntityListener listener){
-		return this.listeners.remove(listener);
+	public boolean removeEntityListener(EntityListener listener){
+		return this.entityListeners.remove(listener);
 	}
 	
 	protected void notifyAbillityAdded(Abillity abillity){
-		for(EntityListener listener : this.listeners) listener.abillityAdded(abillity);
+		for(EntityListener listener : this.entityListeners) listener.abillityAdded(abillity);
 	}
 	
 	protected void notifyAbillityRemoved(Abillity abillity){
-		for(EntityListener listener : this.listeners) listener.abillityRemoved(abillity);
+		for(EntityListener listener : this.entityListeners) listener.abillityRemoved(abillity);
 	}
 
 	@Override
+	public void addCollidableListener(CollidableListener listener) {
+		this.collidableListeners.add(listener);		
+	}
+
+	@Override
+	public boolean removeCollidableListener(CollidableListener listener) {
+		return this.collidableListeners.remove(listener);
+	}
+
+	protected void notifyTouchHandleAdded(TouchHandle handle){
+		for(CollidableListener listener : this.collidableListeners) listener.touchHandleAdded(handle);
+	}
+	
+	protected void notifyTouchHandleRemoved(TouchHandle handle){
+		for(CollidableListener listener : this.collidableListeners) listener.touchHandleRemoved(handle);
+	}
+
+	protected void notifyTouchMarkerAdded(TouchMarker marker){
+		for(CollidableListener listener : this.collidableListeners) listener.touchMarkerAdded(marker);
+	}
+	
+	protected void notifyTouchMarkerRemoved(TouchMarker marker){
+		for(CollidableListener listener : this.collidableListeners) listener.touchMarkerRemoved(marker);
+	}
+	
+	@Override
 	public Shape getNormalCollisionShape(){
-		return this.collisionShape;
+		return this.normalCollisionShape;
 	}
 
 	@Override
 	public Shape getCollisionShape(){
-		Shape shape=this.collisionShape.transform(Transform.createRotateTransform(
-				(float) Math.toRadians(getDirection()), 499.5f, 499.5f));
-		return shape.transform(Transform.createTranslateTransform(this.position.x, this.position.y));
-	}
-
-	@Override
-	public int getCollisionType(){
-		return this.collisionType;
+		if(this.modifNCS){
+			this.collisionShape=this.collisionShape.transform(Transform.createRotateTransform(
+					(float) Math.toRadians(getDirection()), 499.5f, 499.5f));
+			this.collisionShape=this.collisionShape.transform(Transform.createTranslateTransform(this.position.x, this.position.y));
+			this.modifNCS=false;
+		}
+		return this.collisionShape;
 	}
 
 	@Override
