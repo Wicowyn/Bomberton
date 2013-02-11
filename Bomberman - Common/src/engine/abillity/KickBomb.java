@@ -18,30 +18,19 @@
 
 package engine.abillity;
 
+import collision.Entity;
 import collision.TouchHandle;
 import collision.TouchMarker;
 import engine.Abillity;
 import engine.CTSCollision;
-import engine.Collidable;
-import engine.CollisionAbillity;
-import engine.Entity;
-import engine.entity.Bomb;
 
 
 public class KickBomb extends Abillity implements TouchHandle {
+	private int priority;
 
 	public KickBomb(Entity owner) {
 		super(owner);
 		
-	}
-
-	@Override
-	public int getColliderType() {
-		return CTSCollision.Bomb;
-	}
-
-	@Override
-	public void performCollision(Collidable collidable) {
 	}
 
 	@Override
@@ -50,42 +39,38 @@ public class KickBomb extends Abillity implements TouchHandle {
 	}
 
 	@Override
-	public int compareTo(TouchHandle o) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int compareTo(TouchHandle arg0) {
+		return getPriority()>arg0.getPriority() ? 1 : getPriority()<arg0.getPriority() ? -1 : 0;
 	}
 
 	@Override
 	public void setPriority(int priority) {
-		// TODO Auto-generated method stub
-		
+		this.priority=priority;		
 	}
 
 	@Override
 	public int getPriority() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.priority;
 	}
 
 	@Override
 	public int getType() {
-		// TODO Auto-generated method stub
-		return 0;
+		return CTSCollision.Bomb;
 	}
 
 	@Override
 	public void perform(TouchMarker marker) {
-		Bomb bomb=(Bomb) collidable;
-		
-		for(Abillity abillity : bomb.getAbillities()){
-			if(abillity instanceof BeamMove) bomb.removeAbillityToBuff(abillity);
-		}
-		
+		Entity bomb=marker.getOwner();
+				
 		BeamMove move=new BeamMove(bomb);
 		move.setSpeed(5);
 		bomb.setDirection(this.owner.getDirection());
-		bomb.addAbillityToBuff(move);
+		bomb.addAbillity(move);
 		
 	}
 
+	@Override
+	public Entity getOwner() {
+		return this.owner;
+	}
 }

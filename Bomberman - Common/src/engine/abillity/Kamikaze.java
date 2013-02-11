@@ -18,8 +18,8 @@
 
 package engine.abillity;
 
+import collision.Entity;
 import engine.Abillity;
-import engine.Entity;
 
 public class Kamikaze extends Abillity {
 	private int time=0;

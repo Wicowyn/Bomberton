@@ -20,7 +20,8 @@ package engine.abillity;
 
 import org.newdawn.slick.Input;
 
-import engine.Entity;
+import collision.Entity;
+
 
 public class KeyboardPopBomb extends PopBomb {
 	private Input input=null;

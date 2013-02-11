@@ -1,6 +1,6 @@
 /*//////////////////////////////////////////////////////////////////////
 	This file is part of Bomberton, an Bomberman-like.
-	Copyright (C) 2012-2013  Nicolas Barranger <wicowyn@gmail.com>
+	Copyright (C) 2013  Nicolas Barranger <wicowyn@gmail.com>
 
     Bomberton is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,14 +16,35 @@
     along with Bomberton.  If not, see <http://www.gnu.org/licenses/>.
 *///////////////////////////////////////////////////////////////////////
 
-package engine.entity;
+package engine.marker;
 
-import engine.Engine;
+import collision.Entity;
 
-
-public class BreakableBlock extends Block {
+public class DamageMarker implements TouchDamageMarker {
+	private Entity owner;
+	private int damage;
 	
-	public BreakableBlock(Engine engine) {
-		super(engine);
+	public DamageMarker(Entity owner) {
+		this.owner=owner;
 	}
+	
+	public void setDamage(int damage){
+		this.damage=damage;
+	}
+		
+	@Override
+	public int getType() {
+		return 0;
+	}
+
+	@Override
+	public Entity getOwner() {
+		return this.owner;
+	}
+
+	@Override
+	public int getDamage() {
+		return this.damage;
+	}
+
 }

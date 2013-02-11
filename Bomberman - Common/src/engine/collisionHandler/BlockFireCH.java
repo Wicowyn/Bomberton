@@ -21,12 +21,13 @@ package engine.collisionHandler;
 import java.util.ArrayList;
 import java.util.List;
 
+import collision.Entity;
+
 import engine.ActionKill;
 import engine.CTSCollision;
 import engine.Collidable;
 import engine.CollisionAbillity;
 import engine.CollisionHandler;
-import engine.Entity;
 import engine.entity.Block;
 import engine.entity.BreakableBlock;
 import engine.entity.Fire;

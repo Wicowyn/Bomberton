@@ -19,11 +19,13 @@
 package collision;
 
 
+
 public interface TouchHandle extends Comparable<TouchHandle> {
 	public void setPriority(int priority);
 	public int getPriority();
 	
 	public int getType();
+	public Entity getOwner();
 	
 	public void perform(TouchMarker marker);
 }

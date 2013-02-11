@@ -18,6 +18,9 @@
 
 package collision;
 
+
+
 public interface TouchMarker {
 	public int getType();
+	public Entity getOwner();
 }

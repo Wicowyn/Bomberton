@@ -20,8 +20,9 @@ package engine.abillity;
 
 import org.newdawn.slick.geom.Vector2f;
 
+import collision.Entity;
+
 import engine.Abillity;
-import engine.Entity;
 import engine.EntityFactory;
 import engine.EntityName;
 

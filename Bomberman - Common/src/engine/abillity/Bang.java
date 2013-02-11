@@ -23,20 +23,22 @@ import java.util.List;
 
 import org.newdawn.slick.geom.Vector2f;
 
+import collision.Entity;
+import collision.TouchHandle;
+import collision.TouchMarker;
 import engine.Abillity;
 import engine.ActionBang;
 import engine.CTSCollision;
-import engine.Collidable;
-import engine.CollisionAbillity;
-import engine.Entity;
-import engine.entity.Fire;
+import engine.EntityFactory;
+import engine.EntityName;
 
-public class Bang extends Abillity implements CollisionAbillity {
+public class Bang extends Abillity implements TouchHandle {
 	private List<ActionBang> listeners=new ArrayList<ActionBang>();
 	private int time=1500;
 	private int currentTime=0;
 	private boolean detonnation=false;
 	private int power=1;
+	private int priority;
 	
 	public Bang(Entity owner) {
 		super(owner);
@@ -64,7 +66,7 @@ public class Bang extends Abillity implements CollisionAbillity {
 		notifyBang(this.owner);
 		//TODO say initializer.owner kill owner;
 		for(int diffDir=0; diffDir<360; diffDir+=90){
-			Fire fire=new Fire(this.owner.getEngine());
+			Entity fire=EntityFactory.createEntity(EntityName.Fire, this.owner.getEngine());
 			fire.setOwner(this.owner);
 			fire.setDirection(this.owner.getDirection()+diffDir);
 			
@@ -105,16 +107,35 @@ public class Bang extends Abillity implements CollisionAbillity {
 	protected void notifyBang(Entity entity){
 		for(ActionBang listener : this.listeners) listener.bang(this.owner);
 	}
-
+	
 	@Override
-	public int getColliderType() {
-		return CTSCollision.Fire;
+	public int compareTo(TouchHandle arg0) {
+		return getPriority()>arg0.getPriority() ? 1 : getPriority()<arg0.getPriority() ? -1 : 0;
 	}
 
 	@Override
-	public void performCollision(Collidable collidable) {		
-		Fire fire=(Fire) collidable;
-		this.owner.setOwner(fire);
+	public void setPriority(int priority) {
+		this.priority=priority;		
+	}
+
+	@Override
+	public int getPriority() {
+		return this.priority;
+	}
+
+	@Override
+	public int getType() {
+		return CTSCollision.Damage;
+	}
+
+	@Override
+	public Entity getOwner() {
+		return this.owner;
+	}
+
+	@Override
+	public void perform(TouchMarker marker) {
+		this.owner.setOwner(marker.getOwner());
 		bang();
 	}
 }

@@ -16,7 +16,7 @@
     along with Bomberton.  If not, see <http://www.gnu.org/licenses/>.
 *///////////////////////////////////////////////////////////////////////
 
-package engine;
+package collision;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -29,13 +29,12 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Transform;
 import org.newdawn.slick.geom.Vector2f;
 
-import collision.Collidable;
-import collision.CollidableListener;
-import collision.TouchHandle;
-import collision.TouchMarker;
+import engine.Abillity;
+import engine.Engine;
+import engine.EntityListener;
 
 
-public final class Entity implements Collidable{
+public final class Entity{
 	private Logger log=LogManager.getLogger(getClass());
 	private static int lastID;
 	private int ID;
@@ -124,14 +123,12 @@ public final class Entity implements Collidable{
 		return false;
 	}
 	
-	@Override
 	public void addTouchHandle(TouchHandle handle){
 		this.touchHandles.add(handle);
 		notifyTouchHandleAdded(handle);
 		this.log.debug("touchHandle: "+handle.getClass().getSimpleName()+" add to "+getID());
 	}
 	
-	@Override
 	public boolean removeTouchHandle(TouchHandle handle){
 		if(this.touchHandles.remove(handle)){
 			notifyTouchHandleRemoved(handle);
@@ -142,14 +139,12 @@ public final class Entity implements Collidable{
 		return false;
 	}
 	
-	@Override
 	public void addTouchMarker(TouchMarker marker){
 		this.touchMarkers.add(marker);
 		notifyTouchMarkerAdded(marker);
 		this.log.debug("touchMarker: "+marker.getClass().getSimpleName()+" add to "+getID());
 	}
 	
-	@Override
 	public boolean removeTouchMarker(TouchMarker marker){
 		if(this.touchMarkers.remove(marker)){
 			notifyTouchMarkerRemoved(marker);
@@ -164,12 +159,10 @@ public final class Entity implements Collidable{
 		return new ArrayList<Abillity>(this.abillities);
 	}
 	
-	@Override
 	public List<TouchHandle> getAllTouchHandle() {
 		return new ArrayList<TouchHandle>(this.touchHandles);
 	}
 
-	@Override
 	public List<TouchMarker> getAllTouchMarker() {
 		return new ArrayList<TouchMarker>(this.touchMarkers);
 	}
@@ -247,12 +240,10 @@ public final class Entity implements Collidable{
 		for(EntityListener listener : this.entityListeners) listener.abillityRemoved(abillity);
 	}
 
-	@Override
 	public void addCollidableListener(CollidableListener listener) {
 		this.collidableListeners.add(listener);		
 	}
 
-	@Override
 	public boolean removeCollidableListener(CollidableListener listener) {
 		return this.collidableListeners.remove(listener);
 	}
@@ -273,12 +264,10 @@ public final class Entity implements Collidable{
 		for(CollidableListener listener : this.collidableListeners) listener.touchMarkerRemoved(marker);
 	}
 	
-	@Override
 	public Shape getNormalCollisionShape(){
 		return this.normalCollisionShape;
 	}
-
-	@Override
+	
 	public Shape getCollisionShape(){
 		if(this.modifNCS){
 			this.collisionShape=this.collisionShape.transform(Transform.createRotateTransform(
@@ -289,8 +278,7 @@ public final class Entity implements Collidable{
 		return this.collisionShape;
 	}
 
-	@Override
-	public boolean isCollidingWith(Collidable collidable){
+	public boolean isCollidingWith(Entity collidable){
 		return getCollisionShape().intersects(collidable.getCollisionShape());
 	}
 	

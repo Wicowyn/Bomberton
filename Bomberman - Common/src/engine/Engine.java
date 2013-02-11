@@ -33,6 +33,8 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.newdawn.slick.geom.Vector2f;
 
+import collision.Entity;
+
 import engine.collisionHandler.BlockFireCH;
 import engine.collisionHandler.BombBlockCH;
 import engine.collisionHandler.BombFireCH;

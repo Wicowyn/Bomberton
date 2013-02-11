@@ -1,6 +1,6 @@
 /*//////////////////////////////////////////////////////////////////////
 	This file is part of Bomberton, an Bomberman-like.
-	Copyright (C) 2012-2013  Nicolas Barranger <wicowyn@gmail.com>
+	Copyright (C) 2013  Nicolas Barranger <wicowyn@gmail.com>
 
     Bomberton is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,14 +16,26 @@
     along with Bomberton.  If not, see <http://www.gnu.org/licenses/>.
 *///////////////////////////////////////////////////////////////////////
 
-package engine.entity;
+package engine.marker;
 
-import engine.Engine;
+import collision.Entity;
+import collision.TouchMarker;
+import engine.CTSCollision;
 
-
-public class SolidBlock extends Block {
-
-	public SolidBlock(Engine engine) {
-		super(engine);
+public class BlockMarker implements TouchMarker {
+	private Entity owner;
+	
+	public BlockMarker(Entity owner){
+		this.owner=owner;
 	}
+	@Override
+	public int getType(){
+		return CTSCollision.Block;
+	}
+
+	@Override
+	public Entity getOwner() {
+		return this.owner;
+	}
+
 }

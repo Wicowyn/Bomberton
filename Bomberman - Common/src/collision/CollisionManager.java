@@ -27,27 +27,28 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+
 public class CollisionManager{
-	private List<ListenCollidable> listens=new ArrayList<ListenCollidable>();
-	private Map<Integer, Set<Collidable>> colliHandle=new HashMap<Integer, Set<Collidable>>();
-	private Map<Integer, Set<Collidable>> colliMarker=new HashMap<Integer, Set<Collidable>>();
+	private List<ListenEntity> listens=new ArrayList<ListenEntity>();
+	private Map<Integer, Set<Entity>> colliHandle=new HashMap<Integer, Set<Entity>>();
+	private Map<Integer, Set<Entity>> colliMarker=new HashMap<Integer, Set<Entity>>();
 	
 	
-	public void addCollidable(Collidable collidable){
-		ListenCollidable listen=new ListenCollidable(collidable);
+	public void addEntity(Entity Entity){
+		ListenEntity listen=new ListenEntity(Entity);
 		this.listens.add(listen);
 		
-		for(TouchHandle handle : collidable.getAllTouchHandle()) listen.touchHandleAdded(handle);
-		for(TouchMarker marker : collidable.getAllTouchMarker()) listen.touchMarkerAdded(marker);
+		for(TouchHandle handle : Entity.getAllTouchHandle()) listen.touchHandleAdded(handle);
+		for(TouchMarker marker : Entity.getAllTouchMarker()) listen.touchMarkerAdded(marker);
 	}
 	
-	public boolean removeCollidable(Collidable collidable){		
-		for(Iterator<ListenCollidable> it=this.listens.iterator(); it.hasNext();){
-			ListenCollidable listen=it.next();
+	public boolean removeEntity(Entity Entity){		
+		for(Iterator<ListenEntity> it=this.listens.iterator(); it.hasNext();){
+			ListenEntity listen=it.next();
 			
-			if(listen.collidable==collidable){
-				for(TouchHandle handle : collidable.getAllTouchHandle()) listen.touchHandleRemoved(handle);
-				for(TouchMarker marker : collidable.getAllTouchMarker()) listen.touchMarkerRemoved(marker);
+			if(listen.Entity==Entity){
+				for(TouchHandle handle : Entity.getAllTouchHandle()) listen.touchHandleRemoved(handle);
+				for(TouchMarker marker : Entity.getAllTouchMarker()) listen.touchMarkerRemoved(marker);
 				
 				it.remove();
 				return true;
@@ -60,14 +61,14 @@ public class CollisionManager{
 	public void performCollision(){
 		List<DataCollide> toCollides=new ArrayList<DataCollide>();
 		
-		for(Iterator<Map.Entry<Integer, Set<Collidable>>> itH=this.colliHandle.entrySet().iterator(); itH.hasNext();){
-			Map.Entry<Integer, Set<Collidable>> entry=itH.next();
-			Set<Collidable> setM=this.colliMarker.get(entry.getKey());
+		for(Iterator<Map.Entry<Integer, Set<Entity>>> itH=this.colliHandle.entrySet().iterator(); itH.hasNext();){
+			Map.Entry<Integer, Set<Entity>> entry=itH.next();
+			Set<Entity> setM=this.colliMarker.get(entry.getKey());
 			
 			if(setM==null) continue;
 			
-			for(Collidable colliH : entry.getValue()){
-				for(Collidable  colliM : setM){
+			for(Entity colliH : entry.getValue()){
+				for(Entity  colliM : setM){
 					if(colliH.isCollidingWith(colliM) && colliH!=colliM){
 						//TODO à optimiser, potiellement 2 même collision peuvent être prise en compte. Mais ne pose pas de problème.
 						for(TouchHandle handle : colliH.getAllTouchHandle()){
@@ -107,54 +108,53 @@ public class CollisionManager{
 	}
 	
 	
-	private class ListenCollidable implements CollidableListener{
-		public Collidable collidable;
+	private class ListenEntity implements CollidableListener{
+		public Entity Entity;
 		
 		
-		public ListenCollidable(Collidable collidable){
-			this.collidable=collidable;
-			this.collidable.addCollidableListener(this);
+		public ListenEntity(Entity Entity){
+			this.Entity=Entity;
+			this.Entity.addCollidableListener(this);
 		}
 		
 		@Override
 		public void touchHandleAdded(TouchHandle handle) {
-			Set<Collidable> set=CollisionManager.this.colliHandle.get(handle.getType());
+			Set<Entity> set=CollisionManager.this.colliHandle.get(handle.getType());
 			
 			if(set==null){
-				set=new HashSet<Collidable>();
+				set=new HashSet<Entity>();
 				CollisionManager.this.colliHandle.put(handle.getType(), set);
 			}
 			
-			set.add(this.collidable);
+			set.add(this.Entity);
 		}
 
 		@Override
 		public void touchHandleRemoved(TouchHandle handle) {
-			Set<Collidable> set=CollisionManager.this.colliHandle.get(handle.getType());
+			Set<Entity> set=CollisionManager.this.colliHandle.get(handle.getType());
 			
-			set.remove(this.collidable);
+			set.remove(this.Entity);
 			if(set.isEmpty()) CollisionManager.this.colliHandle.remove(handle.getType());
 		}
 
 		@Override
 		public void touchMarkerAdded(TouchMarker marker) {
-			Set<Collidable> set=CollisionManager.this.colliMarker.get(marker.getType());
+			Set<Entity> set=CollisionManager.this.colliMarker.get(marker.getType());
 			
 			if(set==null){
-				set=new HashSet<Collidable>();
+				set=new HashSet<Entity>();
 				CollisionManager.this.colliMarker.put(marker.getType(), set);
 			}
 			
-			set.add(this.collidable);
+			set.add(this.Entity);
 		}
 
 		@Override
 		public void touchMarkerRemoved(TouchMarker marker) {
-			Set<Collidable> set=CollisionManager.this.colliMarker.get(marker.getType());
+			Set<Entity> set=CollisionManager.this.colliMarker.get(marker.getType());
 			
-			set.remove(this.collidable);
+			set.remove(this.Entity);
 			if(set.isEmpty()) CollisionManager.this.colliMarker.remove(marker.getType());
-		}
-		
+		}		
 	}
 }

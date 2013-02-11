@@ -24,7 +24,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Transform;
 import org.newdawn.slick.state.StateBasedGame;
 
-import engine.Entity;
+import collision.Entity;
+
 
 public class BasicRender extends Render {
 

@@ -20,10 +20,10 @@ package engine.abillity;
 
 import org.newdawn.slick.geom.Vector2f;
 
+import collision.Entity;
 import collision.TouchHandle;
 import collision.TouchMarker;
 import engine.CTSCollision;
-import engine.Entity;
 
 public class BeamMove extends Move implements TouchHandle{
 	private int priority;
@@ -69,6 +69,11 @@ public class BeamMove extends Move implements TouchHandle{
 	public void perform(TouchMarker marker) {
 		this.owner.removeAbillity(this);
 		
+	}
+
+	@Override
+	public Entity getOwner() {
+		return this.owner;
 	}
 
 }

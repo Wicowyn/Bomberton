@@ -18,6 +18,8 @@
 
 package engine;
 
+import collision.Entity;
+
 public interface ActionBang {
 	public void bang(Entity entity);
 }

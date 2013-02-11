@@ -27,7 +27,8 @@ import org.newdawn.slick.Renderable;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
-import engine.Entity;
+import collision.Entity;
+
 
 public class RealRender extends Render {
 	private Map<IntervalAngl, Renderable> mapMoveRender=new HashMap<IntervalAngl, Renderable>();

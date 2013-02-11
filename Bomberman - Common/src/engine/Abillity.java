@@ -18,6 +18,8 @@
 
 package engine;
 
+import collision.Entity;
+
 public abstract class Abillity {
 	protected int ID;
 	protected Entity owner;

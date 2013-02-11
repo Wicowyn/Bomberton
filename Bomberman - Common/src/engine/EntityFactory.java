@@ -22,6 +22,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.geom.Rectangle;
 
+import collision.Entity;
+import engine.marker.BlockMarker;
+import engine.marker.BombMarker;
+import engine.marker.DamageMarker;
+
 public class EntityFactory {
 	private static Logger log=LogManager.getLogger(EntityFactory.class);
 	private static float heigt;
@@ -78,6 +83,9 @@ public class EntityFactory {
 		Rectangle shape=get(0, 0, 1000, 1000);
 		Entity entity=new Entity(engine, shape);
 		
+		BlockMarker bMarker=new BlockMarker(entity);
+		entity.addTouchMarker(bMarker);
+		
 		return entity;
 	}
 	
@@ -85,12 +93,19 @@ public class EntityFactory {
 		Rectangle shape=get(0, 0, 1000, 1000);
 		Entity entity=new Entity(engine, shape);
 		
+		BlockMarker bMarker=new BlockMarker(entity);
+		entity.addTouchMarker(bMarker);
+		
 		return entity;
 	}
 	
 	protected static Entity getFire(Engine engine){
 		Rectangle shape=get(200, 0, 600, 1000);
 		Entity entity=new Entity(engine, shape);
+		
+		DamageMarker dMarker=new DamageMarker(entity);
+		dMarker.setDamage(100);
+		entity.addTouchMarker(dMarker);
 		
 		return entity;
 	}
@@ -112,6 +127,9 @@ public class EntityFactory {
 	protected static Entity getBomb(Engine engine){
 		Rectangle shape=get(0, 0, 1000, 1000);
 		Entity entity=new Entity(engine, shape);
+		
+		BombMarker bMarker=new BombMarker(entity);
+		entity.addTouchMarker(bMarker);
 		
 		return entity;
 	}

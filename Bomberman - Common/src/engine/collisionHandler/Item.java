@@ -23,9 +23,10 @@ import java.util.List;
 
 import org.newdawn.slick.geom.Shape;
 
+import collision.Entity;
+
 import engine.Abillity;
 import engine.Engine;
-import engine.Entity;
 
 public abstract class Item extends Entity {
 	protected int time;

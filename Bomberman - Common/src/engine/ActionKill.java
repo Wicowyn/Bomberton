@@ -18,6 +18,8 @@
 
 package engine;
 
+import collision.Entity;
+
 public interface ActionKill {
 	public void kill(Entity killer, Entity killed);
 }

@@ -18,8 +18,8 @@
 
 package engine.abillity;
 
+import collision.Entity;
 import engine.Abillity;
-import engine.Entity;
 
 public abstract class Move extends Abillity {
 	protected float speed=2f;

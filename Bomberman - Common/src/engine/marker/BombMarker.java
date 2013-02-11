@@ -1,6 +1,6 @@
 /*//////////////////////////////////////////////////////////////////////
 	This file is part of Bomberton, an Bomberman-like.
-	Copyright (C) 2012-2013  Nicolas Barranger <wicowyn@gmail.com>
+	Copyright (C) 2013  Nicolas Barranger <wicowyn@gmail.com>
 
     Bomberton is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,29 +16,27 @@
     along with Bomberton.  If not, see <http://www.gnu.org/licenses/>.
 *///////////////////////////////////////////////////////////////////////
 
-package engine.entity;
+package engine.marker;
 
-import org.newdawn.slick.geom.Rectangle;
-
+import collision.Entity;
+import collision.TouchMarker;
 import engine.CTSCollision;
-import engine.Engine;
-import engine.Entity;
-import engine.abillity.Bang;
 
-public class Bomb extends Entity{
-	private static Rectangle shape=new Rectangle(0, 0, 1000, 1000);
+public class BombMarker implements TouchMarker {
+	private Entity owner;
 	
-
-	public Bomb(Engine engine) {
-		super(engine, Bomb.shape);
-		Bang bang=new Bang(this);
-		addAbillity(bang);
-		this.collisionType=CTSCollision.Bomb;
+	public BombMarker(Entity owner){
+		this.owner=owner;
 	}
 	
 	@Override
-	public Rectangle getNormalCollisionShape(){
-		return (Rectangle) super.getNormalCollisionShape();
+	public int getType() {
+		return CTSCollision.Bomb;
 	}
-	
+
+	@Override
+	public Entity getOwner() {
+		return this.owner;
+	}
+
 }

@@ -28,13 +28,14 @@ import java.util.Map.Entry;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
+import collision.Entity;
+
 import engine.CTSCollision;
 import engine.Collidable;
 import engine.CollisionAbillity;
 import engine.CollisionHandler;
 import engine.CollisionManager;
 import engine.EngineListener;
-import engine.Entity;
 import engine.entity.Bomb;
 import engine.entity.Bomberman;
 
