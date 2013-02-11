@@ -89,7 +89,7 @@ public class EntityFactory {
 	}
 	
 	protected static Entity getFire(Engine engine){
-		Rectangle shape=get(0, 0, 1000, 1000);
+		Rectangle shape=get(200, 0, 600, 1000);
 		Entity entity=new Entity(engine, shape);
 		
 		return entity;

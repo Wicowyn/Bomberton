@@ -22,7 +22,8 @@ import org.newdawn.slick.geom.Vector2f;
 
 import engine.Abillity;
 import engine.Entity;
-import engine.entity.Fire;
+import engine.EntityFactory;
+import engine.EntityName;
 
 public class BeamFire extends Abillity {
 	private int power;
@@ -33,7 +34,7 @@ public class BeamFire extends Abillity {
 	
 	@Override
 	public void update(int delta) {
-		Fire fire=new Fire(this.owner.getEngine());
+		Entity fire=EntityFactory.createEntity(EntityName.Fire, this.owner.getEngine());
 		fire.setOwner(this.owner);
 		fire.setDirection(this.owner.getDirection());
 		
@@ -53,7 +54,7 @@ public class BeamFire extends Abillity {
 		fire.setPosition(position);
 		
 		this.owner.getEngine().addEntityToBuff(fire);
-		this.owner.removeAbillityToBuff(this);
+		this.owner.removeAbillity(this);
 	}
 	
 	public int getPower() {

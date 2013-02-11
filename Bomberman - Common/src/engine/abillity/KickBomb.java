@@ -18,6 +18,8 @@
 
 package engine.abillity;
 
+import collision.TouchHandle;
+import collision.TouchMarker;
 import engine.Abillity;
 import engine.CTSCollision;
 import engine.Collidable;
@@ -26,7 +28,7 @@ import engine.Entity;
 import engine.entity.Bomb;
 
 
-public class KickBomb extends Abillity implements CollisionAbillity {
+public class KickBomb extends Abillity implements TouchHandle {
 
 	public KickBomb(Entity owner) {
 		super(owner);
@@ -40,6 +42,39 @@ public class KickBomb extends Abillity implements CollisionAbillity {
 
 	@Override
 	public void performCollision(Collidable collidable) {
+	}
+
+	@Override
+	public void update(int delta) {
+		
+	}
+
+	@Override
+	public int compareTo(TouchHandle o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setPriority(int priority) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getPriority() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getType() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void perform(TouchMarker marker) {
 		Bomb bomb=(Bomb) collidable;
 		
 		for(Abillity abillity : bomb.getAbillities()){
@@ -50,10 +85,6 @@ public class KickBomb extends Abillity implements CollisionAbillity {
 		move.setSpeed(5);
 		bomb.setDirection(this.owner.getDirection());
 		bomb.addAbillityToBuff(move);
-	}
-
-	@Override
-	public void update(int delta) {
 		
 	}
 
